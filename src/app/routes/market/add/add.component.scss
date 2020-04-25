@@ -1,0 +1,13 @@
+.label-col {
+  text-align: right;
+
+  label {
+    display: inline-block;
+    line-height: 32px;
+  }
+}
+
+:host::ng-deep.ant-steps {
+  width: 80%;
+  margin-left: 10%;
+}

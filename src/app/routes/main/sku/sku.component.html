@@ -1,0 +1,129 @@
+<nz-row>
+  <nz-col style="width: 80px;text-align: right;display: inline-block;">商品规格：</nz-col>
+  <nz-col>
+    <button nz-button (click)="show_modal()" [disabled]="Status">选择规格</button>
+  </nz-col>
+</nz-row>
+<nz-row style="display: flex;" class="ant-Mtop" *ngFor="let s of specs;let i = index">
+  <nz-col style="line-height: 32px;width: 80px;text-align: right;display: inline-block;">规格{{lists[i]}}：</nz-col>
+  <nz-col style="vertical-align: top;flex: 1;">
+    <div style="display: inline-block;line-height: 32px;">
+      <div class="ant-Mbottom">{{s.name}}
+      </div>
+      <div>
+        <nz-select [nzDisabled]="!!Status" style="min-width: 160px" [(ngModel)]="s.option" (ngModelChange)="get_data()"
+          nzMode="multiple" nzPlaceHolder="选择规格值" nzAllowClear>
+          <nz-option *ngFor="let v of s.values" [nzLabel]="v.spec_value" [nzValue]="v.id"></nz-option>
+        </nz-select>
+        <button [disabled]="Status" *ngIf="!s.flag" class="ant-Mleft" nz-button (click)="add_spec_value(s)">添加</button>
+        <input *ngIf="s.flag" class="ant-Mleft w-100" nz-input type="text" [(ngModel)]="spec_value"
+          (keyup.enter)="edit_spec(s)" (blur)="edit_spec(s)">
+      </div>
+    </div>
+  </nz-col>
+</nz-row>
+<nz-row style="display: flex;" class="ant-Mtop">
+  <nz-col style="line-height: 32px;width: 80px;text-align: right;display: inline-block"></nz-col>
+  <nz-col style="flex: 1">
+    <div class="ant-Mbottom" *ngIf="data.length&&!Status">
+      <label>批量填充：</label>
+      <input style="width:200px" nz-input type="text" [(ngModel)]="Dvalue.name" placeholder="商品名称">
+      <nz-input-number class="ant-Mleft" [(ngModel)]="Dvalue.price" [nzMin]="0" nzStep="0.01" nzPlaceHolder="商品价格">
+      </nz-input-number>
+      <nz-input-number class="ant-Mleft" [(ngModel)]="Dvalue.point" [nzMin]="0" [nzStep]="1" [nzPrecision]="1"
+        nzPlaceHolder="商品积分">
+      </nz-input-number>
+      <nz-input-number class="ant-Mleft" [(ngModel)]="Dvalue.stock" [nzMin]="0" [nzStep]="1" [nzPrecision]="1"
+        nzPlaceHolder="商品库存">
+      </nz-input-number>
+      <button class="ant-Mleft" nz-button (click)="change_allData()">确定</button>
+    </div>
+    <nz-table #table [nzData]="data" nzSize="small" nzFrontPagination="false" nzBordered>
+      <thead>
+        <tr>
+          <th *ngFor="let t of theads">
+            <ng-container *ngIf="t.value==='price'">{{t.name}}（元）</ng-container>
+            <ng-container *ngIf="t.value!=='price'">{{t.name}}</ng-container>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of table.data;index as j">
+          <ng-container *ngFor="let t of theads;index as i">
+            <td [attr.rowspan]="RowSpan[i]?RowSpan[i]:1" *ngIf="(RowSpan[i]&&j%RowSpan[i]===0)||!RowSpan[i]">
+              <ng-container *ngIf='t.n===1'>
+                {{SpecObj[d[t.value]]}}
+              </ng-container>
+              <ng-container *ngIf='t.n===0'>
+                <input [disabled]="!!Status" nz-input *ngIf="t.value==='name'" type="text" [(ngModel)]="d[t.value]">
+                <nz-input-number [nzDisabled]="!!Status" *ngIf="t.value==='price'" [(ngModel)]="d[t.value]" [nzMin]="0"
+                  nzStep="0.01">
+                </nz-input-number>
+                <nz-input-number [nzDisabled]="!!Status" *ngIf="t.value==='point'" [(ngModel)]="d[t.value]" [nzMin]="0"
+                  [nzStep]="1" [nzPrecision]="1">
+                </nz-input-number>
+                <nz-input-number [nzDisabled]="!!Status" *ngIf="t.value==='stock'" [(ngModel)]="d[t.value]" [nzMin]="0"
+                  [nzStep]="1" [nzPrecision]="1">
+                </nz-input-number>
+              </ng-container>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div style="margin-top: 16px;padding-top: 16px;border-top: 1px solid #f0f0f0">
+      <button nz-button nzType="primary" [disabled]="Status||!data.length" (click)='save_data()'>保存</button> <span
+        *ngIf="Status" style="line-height: 32px;color: #f5222d;margin-left: 16px;">(当前商品已上架无法修改！)</span>
+    </div>
+  </nz-col>
+</nz-row>
+<nz-modal [(nzVisible)]="visible" nzTitle="添加规格" [nzFooter]="null" (nzOnCancel)="handle_cancel()">
+  <div class="ant-flex ant-Mbottom">
+    <label>
+      选择规格：
+    </label>
+    <nz-select [(ngModel)]="Specs" nzMode="multiple" nzPlaceHolder="选择规格" (nzScrollToBottom)="loadMore()" nzShowSearch
+      [nzMaxMultipleCount]="5" nzAllowClear nzShowSearch [nzServerSearch]="true" (nzOnSearch)="onSearch($event)">
+      <nz-option *ngFor="let option of SpecsOption" [nzLabel]="option.spec_name" [nzValue]="option.id">
+      </nz-option>
+      <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+        <i nz-icon nzType="loading" class="loading-icon"></i> 加载数据中...
+      </nz-option>
+    </nz-select>
+  </div>
+  <div class="ant-flex ant-Mbottom">
+    <label style="visibility: hidden">
+      选择规格：
+    </label>
+    <div>
+      <button nz-button (click)="make_sure()">确定选择</button>
+      <button nz-button class="ant-Mleft" (click)="make_add()">新增规格</button>
+    </div>
+  </div>
+  <ng-container *ngIf="flag">
+    <div class="ant-flex ant-Mbottom ant-Ptop" style="border-top: 1px solid #f0f0f0">
+      <label>
+        规格名：
+      </label>
+      <input nz-input type="text" [(ngModel)]="spec_name" placeholder="请填写规格名">
+    </div>
+    <div class="ant-flex ant-Mbottom">
+      <label>
+        规格值：
+      </label>
+      <nz-select nzMode="tags" nzPlaceHolder="请填写规格值" [(ngModel)]="listOfTagOptions">
+        <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      </nz-select>
+    </div>
+    <div class="ant-flex">
+      <label style="visibility: hidden">
+        选择规格：
+      </label>
+      <div>
+        <button nz-button (click)="add_spec()" [nzLoading]="btnLoading">确定新增</button>
+        <button nz-button class="ant-Mleft" (click)="make_cancel()">取消</button>
+      </div>
+    </div>
+  </ng-container>
+
+</nz-modal>

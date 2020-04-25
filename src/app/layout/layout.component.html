@@ -1,0 +1,63 @@
+<div class="container">
+  <header>
+    <div [ngClass]="!isCollapsed?'logo': 'logo logo-collapsed'">
+      <a href="/">
+        <img src="assets/logos.png">
+        <div>一起拼手气</div>
+      </a>
+    </div>
+    <div class="account">
+      <div class="ant-Mright-xxxl">
+        <nz-badge nzDot><i nz-icon nzType="bell" nzTheme="outline"></i></nz-badge>
+      </div>
+      <div class="ant-Mleft-xxxl">
+        <i class="user" nz-icon nzType="user" nzTheme="outline"></i>
+        {{ userName }}
+      </div>
+    </div>
+  </header>
+  <nz-layout class="layout">
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
+      <div class="trigger" (click)="isCollapsed = !isCollapsed">
+        <i nz-icon nzTheme="outline" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+      </div>
+      <ng-container *ngIf="!isCollapsed">
+        <ul nz-menu nzTheme="dark" nzMode="inline" style="background-color: transparent"
+          [nzInlineCollapsed]="isCollapsed">
+          <ng-container *ngFor="let menu of menus">
+            <li nz-menu-item [ngClass]="{'ant-menu-item-selected':path.includes(menu.path)}"
+              style="padding-left: 16px;">
+              <a [routerLink]="[menu.url]" routerLinkActive="active"><i nz-icon [nzType]="menu.icon"
+                  nzTheme="outline"></i><span class="nav-text">{{ menu.name }}</span></a>
+            </li>
+          </ng-container>
+        </ul>
+      </ng-container>
+      <ng-container *ngIf="isCollapsed">
+        <ul nz-menu nzTheme="dark" nzMode="inline" style="background-color: transparent"
+          [nzInlineCollapsed]="isCollapsed">
+          <ng-container *ngFor="let menu of menus">
+            <li [nzTooltipTitle]="menu.name" nzTooltipPlacement="right" nz-tooltip nz-menu-item
+              [ngClass]="{'ant-menu-item-selected':path.includes(menu.path)}" style="padding-left: 16px;">
+              <a [routerLink]="[menu.url]" routerLinkActive="active"><i nz-icon [nzType]="menu.icon"
+                  nzTheme="outline"></i><span class="nav-text">{{ menu.name }}</span></a>
+            </li>
+          </ng-container>
+        </ul>
+      </ng-container>
+    </nz-sider>
+    <nz-layout class="right-layout">
+      <div class="right-box">
+        <nz-tabset nzLinkRouter *ngIf="tabs.length">
+          <nz-tab *ngFor="let tab of tabs">
+            <a nz-tab-link [routerLink]="[tab.url]"><i nz-icon [nzType]="tab.icon"
+                nzTheme="outline"></i>{{tab.name}}</a>
+          </nz-tab>
+        </nz-tabset>
+        <div>
+          <router-outlet (activate)="activate($event)"></router-outlet>
+        </div>
+      </div>
+    </nz-layout>
+  </nz-layout>
+</div>

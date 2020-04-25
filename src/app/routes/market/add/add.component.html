@@ -1,0 +1,99 @@
+<div>
+  <nz-steps [nzCurrent]="current">
+    <nz-step nzTitle="选择商品"></nz-step>
+    <nz-step nzTitle="详细信息"></nz-step>
+  </nz-steps>
+  <div class="ant-Mtop-large">
+    <ng-container *ngIf="current===0">
+      <nz-row class="ant-Mbottom">
+        <nz-col nzSpan="6" class="label-col">
+          <label>商品分类：</label>
+        </nz-col>
+        <nz-col nzSpan="16">
+          <nz-select style="min-width: 360px" [(ngModel)]="goods_category_scopes" nzMode="multiple" nzPlaceHolder="商品分类"
+            nzShowSearch (nzOnSearch)="search_category($event)" nzAllowClear>
+            <nz-option *ngFor="let option of CategoryOption" [nzLabel]="option.category_name" [nzValue]="option.id">
+            </nz-option>
+          </nz-select>
+        </nz-col>
+      </nz-row>
+      <nz-row class="ant-Mbottom">
+        <nz-col nzSpan="6" class="label-col">
+          <label>搜索商品：</label>
+        </nz-col>
+        <nz-col nzSpan="16">
+          <nz-select style="min-width: 360px" nzPlaceHolder="搜索商品" [(ngModel)]="goods_spu"
+            (ngModelChange)="check_goods_spu($event)" nzShowSearch (nzOnSearch)="search_spu($event)" nzAllowClear>
+            <nz-option *ngFor="let option of SpuOption"
+              [nzLabel]="option.goods_name+'('+CategoryObj[option.category_id]+')'" [nzValue]="option.id">
+            </nz-option>
+          </nz-select>
+        </nz-col>
+      </nz-row>
+      <nz-row class="ant-Mbottom">
+        <nz-col nzSpan="6" class="label-col">
+          <label>已选择商品：</label>
+        </nz-col>
+        <nz-col nzSpan="16">
+
+        </nz-col>
+      </nz-row>
+    </ng-container>
+    <ng-container *ngIf="current===1">
+      <form nz-form [formGroup]="validateForm">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzRequired>优惠券名称</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="请输入优惠券名称！">
+            <input type="text" nz-input formControlName="name" placeholder="请输入优惠券名称">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzRequired>优惠券类型</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="请输入优惠券类型！">
+            <nz-radio-group formControlName="type">
+              <label nz-radio [nzValue]="1">满减</label>
+              <label nz-radio [nzValue]="2">折扣</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="validateForm.get('type').value==1">
+          <nz-form-label [nzSpan]="6" nzRequired>优惠额度</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="请输入优惠额度！">
+            <nz-input-number formControlName="preferential_price" [nzMin]="0" [nzStep]="0.01"></nz-input-number>
+            <label style="line-height: 32px;margin-left: 8px">元</label>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="validateForm.get('type').value==2">
+          <nz-form-label [nzSpan]="6" nzRequired>优惠折扣</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="请输入优惠折扣！">
+            <nz-input-number formControlName="preferential_price" [nzMin]="0" [nzMax]="10" [nzStep]="0.1">
+            </nz-input-number><label style="line-height: 32px;margin-left: 8px">折</label>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzRequired>最低金额限度</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="请输入最低金额限度！">
+            <nz-input-number formControlName="minmum_consumption_price" [nzMin]="0" [nzStep]="0.01"></nz-input-number>
+            <label style="line-height: 32px;margin-left: 8px">元</label>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzRequired>截止日期</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="请输入截止日期！">
+            <nz-date-picker formControlName="deadline_date"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-container>
+  </div>
+  <div class="ant-Mtop-large">
+    <nz-row>
+      <nz-col nzSpan="16" nzOffset="6">
+        <button nz-button *ngIf="current===0" (click)="next_step()">下一步</button>
+        <button nz-button *ngIf="current===1" (click)="pre_step()">上一步</button>
+        <button nz-button *ngIf="current===1" class="ant-Mleft" (click)="make_sure()">确定</button>
+        <button nz-button class="ant-Mleft" (click)="make_cancel()">取消</button>
+      </nz-col>
+    </nz-row>
+  </div>
+</div>

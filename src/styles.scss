@@ -1,0 +1,311 @@
+$L: left;
+$R: right;
+$T: top;
+$B: bottom;
+$C: center;
+$tiny: 4px;
+$small: 8px;
+$default: 12px;
+$middle: 14px;
+$large: 16px;
+$xl: 18px;
+$xxl: 20px;
+$xxxl: 24px;
+$ant-small: 24px;
+$ant: 32px;
+$ant-large: 40px;
+$bgColor: #f5f7fa;
+
+
+@each $side in ($L, $R, $T, $B) {
+  .ant-M#{$side}-small {
+    margin-#{$side}: $small;
+  }
+
+  .ant-M#{$side},
+  .ant-M#{$side}-default {
+    margin-#{$side}: $default;
+  }
+
+  .ant-M#{$side}-middle {
+    margin-#{$side}: $middle;
+  }
+
+  .ant-M#{$side}-large {
+    margin-#{$side}: $large;
+  }
+
+  .ant-M#{$side}-xl {
+    margin-#{$side}: $xl;
+  }
+
+  .ant-M#{$side}-xxl {
+    margin-#{$side}: $xxl;
+  }
+
+  .ant-M#{$side}-xxxl {
+    margin-#{$side}: $xxxl;
+  }
+
+  .ant-M#{$side}-tiny {
+    margin-#{$side}: $tiny;
+  }
+}
+
+@each $side in ($L, $R, $T, $B) {
+  .ant-P#{$side}-small {
+    padding-#{$side}: $small;
+  }
+
+  .ant-P#{$side},
+  .ant-P#{$side}-default {
+    padding-#{$side}: $default;
+  }
+
+  .ant-P#{$side}-middle {
+    padding-#{$side}: $middle;
+  }
+
+  .ant-P#{$side}-large {
+    padding-#{$side}: $large;
+  }
+
+  .ant-P#{$side}-xl {
+    padding-#{$side}: $xl;
+  }
+
+  .ant-P#{$side}-xxl {
+    padding-#{$side}: $xxl;
+  }
+
+  .ant-P#{$side}-xxxl {
+    padding-#{$side}: $xxxl;
+  }
+
+  .ant-P#{$side}-tiny {
+    padding-#{$side}: $tiny;
+  }
+}
+
+
+.search {
+  border-radius: 5px;
+  border: 1px solid #23C7C9;
+
+  .query {
+    height: 30px;
+    background-color: #23C7C9;
+    line-height: 30px;
+    padding-left: $default;
+    color: #fff;
+    margin-bottom: $large;
+  }
+
+  nz-row,
+  div[nz-row] {
+
+    nz-col,
+    div[nz-col] {
+      display: flex;
+      padding-bottom: $large;
+
+      label {
+        display: inline-block;
+        width: 86px;
+        line-height: $ant;
+        margin-right: 10px;
+        margin-left: $xl;
+        margin-bottom: 0;
+        text-align: right;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      nz-select,
+      nz-range-picker,
+      input {
+        flex: 1;
+      }
+    }
+
+    nz-col:nth-child(4n),
+    div[nz-col]:nth-child(4n),
+    .last-col {
+      padding-right: $xxxl;
+    }
+  }
+}
+
+@each $side in ($L, $R, $C) {
+  .text-align-#{$side} {
+    text-align: $side;
+  }
+}
+
+.ant-table-thead>tr>th {
+  white-space: nowrap;
+}
+
+.ant-table-tbody>tr>td {
+  word-break: break-all;
+}
+
+.w-100 {
+  width: 100px;
+}
+
+.w-120 {
+  width: 120px
+}
+
+.w-130 {
+  width: 130px
+}
+
+.w-180 {
+  width: 180px
+}
+
+// 修改按钮颜色
+.ant-btn-primary {
+  // background-image: linear-gradient(270deg, #c99678 0, #f2c89b);
+  // border: none;
+  // box-shadow: 0 0 10px 0 rgba(201, 150, 120, 0.56);
+  // transition: all 0.3s;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  // background-image: linear-gradient(270deg, #f2c89b 0, #c99678);
+  // border-color: initial;
+  // transition: all 0.3;
+}
+
+// menu的hover颜色
+.ant-menu-horizontal>.ant-menu-item:hover,
+.ant-menu-horizontal>.ant-menu-submenu:hover,
+.ant-menu-horizontal>.ant-menu-item-active,
+.ant-menu-horizontal>.ant-menu-submenu-active,
+.ant-menu-horizontal>.ant-menu-item-open,
+.ant-menu-horizontal>.ant-menu-submenu-open,
+.ant-menu-horizontal>.ant-menu-item-selected,
+.ant-menu-horizontal>.ant-menu-submenu-selected {
+  color: #c0865b;
+  border-bottom: 2px solid #c0865b;
+}
+
+.ant-tabs-tab a {
+  color: #6c727a;
+}
+
+.ant-tabs-tab-active a {
+  color: #02c2b2;
+}
+
+// .ant-tabs-nav .ant-tabs-tab {
+//   color: #2b3037;
+//   text-decoration-color: #2b3037;
+// }
+
+.content-box {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #fff;
+}
+
+.container-box {
+  padding: 16px;
+  background: #fff;
+}
+
+.overflow-box {
+  overflow-y: auto;
+}
+
+.overflow-box::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.overflow-box::-webkit-scrollbar-thumb {
+  background-color: #6e6e6e;
+  // outline: #333 solid 1px;
+}
+
+.overflow-box::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+
+// 分类和分组
+.item-box {
+  background-color: #fff;
+
+  .btns {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    height: 32px;
+    border-top: 1px solid #f0f2f5;
+
+    .line {
+      flex: none;
+      height: 32px;
+      width: 1px;
+      background-color: #f0f2f5;
+    }
+
+    div {
+      flex: 1;
+      line-height: 32px;
+      cursor: pointer;
+    }
+
+    div:hover {
+      background-color: #Dbdde3;
+    }
+  }
+}
+
+.last-box {
+  width: 124px;
+  height: 124px;
+  color: #999;
+  text-align: center;
+  padding-top: 31px;
+  font-size: 36px;
+  background-color: #fafafa;
+  border: 1px dashed #d9d9d9;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.last-box:hover {
+  border-color: #02c2b2
+}
+
+#rule .w-e-text-container {
+  min-height: 500px !important;
+}
+
+.ant-flex {
+  display: flex;
+
+  label {
+    width: 100px;
+    line-height: 32px;
+    text-align: right;
+  }
+
+  input,
+  nz-select {
+    flex: 1
+  }
+}
+
+.ant-tag {
+  margin-right: 12px;
+  line-height: 26px;
+  font-size: 16px;
+}

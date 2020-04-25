@@ -1,0 +1,15 @@
+<ul nz-menu [nzMode]="'horizontal'" class="menus ant-Pright">
+  <li class="menu ant-Mright" *ngIf="!isLogin" nz-menu-item [routerLink]="['/login']"><i nz-icon nzType="login"
+      nzTheme="outline"></i>登录</li>
+  <li class="menu" *ngIf="isLogin" nz-menu-item><i nz-icon nzType="user" nzTheme="outline"></i>{{userName}}</li>
+  <li class="menu" *ngIf="isLogin" nz-menu-item [routerLink]="[path]"><i nz-icon nzType="appstore"
+      nzTheme="outline"></i>控制台</li>
+  <li nz-menu-item nzDisabled class="logo">
+    <a class="img" href="/"><img src="assets/logo.png">
+      <div>一起拼手气</div>
+    </a>
+  </li>
+</ul>
+<div class="banners">
+  <img src="assets/000061.JPG">
+</div>
