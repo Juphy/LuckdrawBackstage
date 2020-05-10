@@ -1,5 +1,5 @@
 <div nz-row>
-  <div nz-col nzSpan="4" *ngFor="let d of data" class="item-box ant-Mright">
+  <div nz-col nzSpan="4" *ngFor="let d of data" class="item-box ant-Mright ant-Mbottom">
     <ng-container *ngIf="d.id">
       <div class="ant-Pleft ant-Pright ant-Ptop ant-Pbottom">
         <input type="text" nz-input [(ngModel)]="d.name" [disabled]="d.type">

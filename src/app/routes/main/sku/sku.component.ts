@@ -48,6 +48,7 @@ export class SkuComponent implements OnInit {
   };
   Status = 0; // 0 下架 1上架
   spu_id;
+  skus = [];
   @Input() id: number = 0;
   constructor(
     private ServerService: ServerService,
@@ -61,6 +62,31 @@ export class SkuComponent implements OnInit {
         res = res['result'];
         this.Status = res['status'];
         this.spu_id = res['id'];
+        this.skus = res.skus;
+        let specs = res['specs'];
+        this.Specs = specs.map(item => item.spec_id);
+        this.ServerService.goods__spec_list({}).subscribe(_res => {
+          if (_res.status === 200) {
+            _res = _res.result;
+            specs.forEach(item => {
+              let spec = _res.find(d => d.id === item.spec_id);
+              let spec_valus = spec.spec_values, specObj = {};
+              spec_valus.forEach(item => {
+                specObj[item.id] = item.spec_value
+              })
+              this.specs = [...this.specs, {
+                id: item.spec_id,
+                name: item.spec_name,
+                option: item.values,
+                specObj,
+                values: [...spec_valus],
+                flag: false
+              }]
+            })
+            console.log(this.specs);
+            this.get_data();
+          }
+        })
       }
     })
   }
@@ -80,11 +106,12 @@ export class SkuComponent implements OnInit {
         rowspan.unshift(item.option.length);
         if (!this.data.length) {
           item.option.forEach(id => {
+            let d = this.skus.shift();
             let obj = {
-              name: '',
-              price: null,
-              point: null,
-              stock: null
+              name: d ? d.name : '',
+              price: d ? Number((d.price / 100).toFixed(2)) : null,
+              point: d ? d.point : null,
+              stock: d ? d.stock : null
             };
             obj[item.id] = id;
             this.data = [...this.data, obj];
@@ -95,7 +122,6 @@ export class SkuComponent implements OnInit {
             this.data.forEach(d => {
               let obj = {};
               obj[item.id] = id;
-              console.log(obj, d);
               data.push(Object.assign({ ...d }, obj));
             })
           })
@@ -132,7 +158,7 @@ export class SkuComponent implements OnInit {
     this.data.forEach((item, index) => {
       for (let key of ['name', 'price', 'point']) {
         if (!item[key]) {
-          this.flag = true;
+          flag = true;
           this.nzMessageService.error(`第${index + 1}行未填写完整！`);
         }
       }
@@ -196,7 +222,6 @@ export class SkuComponent implements OnInit {
   }
 
   make_sure() {
-    console.log(this.Specs);
     let specs = [...this.specs];
     this.specs = [];
     this.Specs.forEach(item => {
@@ -220,7 +245,6 @@ export class SkuComponent implements OnInit {
       }
     });
     this.visible = false;
-    console.log(this.specs);
   }
 
   make_add() {
@@ -259,6 +283,10 @@ export class SkuComponent implements OnInit {
   }
 
   edit_spec(s) {
+    if (this.spec_value === '') {
+      s.flag = false;
+      return;
+    };
     this.ServerService.goods__edit_spec_value({ spec_id: s['id'], spec_value: this.spec_value }).subscribe(res => {
       console.log(res);
       if (res['status'] === 200) {
@@ -277,6 +305,7 @@ export class SkuComponent implements OnInit {
       }
       s.flag = false;
       this.spec_value = '';
+      this.get_data();
     }, err => {
       s.flag = false;
       this.spec_value = '';
