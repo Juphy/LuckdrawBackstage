@@ -1,0 +1,25 @@
+<div class="container-box overflow-box">
+  <nz-table #basicTable [nzData]="data" [nzLoading]="loading">
+    <thead>
+      <tr>
+        <th *ngFor="let t of theads">{{t.name}}</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td *ngFor="let t of theads">
+          <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
+          </ng-container>
+        </td>
+        <td>
+          <button nz-button>删除</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<nz-modal [(nzVisible)]="visible">
+  
+</nz-modal>

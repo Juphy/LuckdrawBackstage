@@ -22,7 +22,8 @@ export const URL = {
   main: "/console/main",
   // 营销管理
   market: "/console/market",
-  second: "/console/second"
+  // 广告管理
+  ads: "/console/ads"
 }
 
 // 次级菜单
@@ -33,18 +34,25 @@ export const URLS = {
   category: "/console/main/category",
   // 分组
   group: "/console/main/group",
+
   // 优惠券
   coupon: "/console/market/coupon",
+
+  // 广告列表
+  ads_list: "/console/ads/ads_list",
+  ads_position: '/console/ads/ads_position'
 }
 
+// 控制图标
 export const ICON = {
   main: 'appstore',
   market: 'user',
-  second: 'edit'
+  ads: 'edit'
 }
 
+// 控制按钮
 export let FN = {
   main: {},
-  test: {},
-  second: {}
+  market: {},
+  ads: {}
 }

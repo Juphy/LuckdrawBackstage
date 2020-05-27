@@ -6,7 +6,7 @@ import { AddComponent } from './add/add.component';
 import { DatePipe } from '@angular/common';
 
 const routes: Routes = [
-  { path: 'coupon', component: CouponComponent }
+  { path: 'coupon', component: CouponComponent },
 ];
 
 @NgModule({
@@ -16,6 +16,7 @@ const routes: Routes = [
   ],
   providers: [DatePipe],
   declarations: [CouponComponent, AddComponent],
+  // AddComponent 添加优惠券
   entryComponents: [AddComponent]
 })
 export class MarketModule { }

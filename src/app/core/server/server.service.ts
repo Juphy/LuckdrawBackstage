@@ -30,7 +30,15 @@ import {
   EditCoupon,
   ChangeCouponStatus,
   DelCoupon,
-  CouponList
+  CouponList,
+  AdsList,
+  EditAdPosition,
+  AdPositionStatus,
+  AdPositionAds,
+  EditAds,
+  DelAds,
+  ChangeSort,
+  UpdateClickNum
 } from "./types";
 
 @Injectable({
@@ -170,4 +178,48 @@ export class ServerService {
     return this.http.post<HttpResponse>('goods/coupon_list', params);
   }
 
+  // 广告列表
+  ads__list(params: AdsList): Observable<any> {
+    return this.http.post<HttpResponse>('ads/list', params);
+  }
+
+  // 广告位置列表
+  ads__ad_position_list(): Observable<any> {
+    return this.http.get<HttpResponse>('ads/ad_position_list');
+  }
+
+  // 编辑广告位置
+  ads__edit_ad_position(params: EditAdPosition): Observable<any> {
+    return this.http.post('ads/edit_ad_position', params);
+  }
+
+  // 修改广告位置状态
+  ads__ad_position_info(params: AdPositionStatus): Observable<any> {
+    return this.http.post('ads/ad_position_info', params);
+  }
+
+  // 广告位置的广告
+  ads__position_ads(params: AdPositionAds): Observable<any> {
+    return this.http.post('ads/ad_position_ads', params);
+  }
+
+  // 添加或编辑广告
+  ads__edit_ads(params: EditAds): Observable<any> {
+    return this.http.post('ads/edit_ads', params);
+  }
+
+  // 删除广告
+  ads__del_ads(params: DelAds): Observable<any> {
+    return this.http.post('ads/edit_ads', params);
+  }
+
+  // 修改广告排序位置
+  ads__change_sort(params: ChangeSort): Observable<any> {
+    return this.http.post('ads/change_sort', params);
+  }
+
+  // 更新广告点击次数
+  ads__update_click_num(params: UpdateClickNum): Observable<any> {
+    return this.http.post('ads/update_click_num', params);
+  }
 }

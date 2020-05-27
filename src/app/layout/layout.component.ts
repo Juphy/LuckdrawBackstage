@@ -33,7 +33,7 @@ export class LayoutComponent implements OnInit {
         obj['path'] = URL[item['name']]
         // 区分次级菜单和特性
         // 需要修改的地方
-        if (['main', 'market'].includes(item.name)) {
+        if (['main', 'market','ads'].includes(item.name)) {
           let ary = [];
           data.forEach(_item => {
             if (item.id === _item.pid) {
@@ -57,12 +57,14 @@ export class LayoutComponent implements OnInit {
         this.menus.push(obj);
       }
     });
+    console.log(this.menus);
   }
 
   ngOnInit() { }
 
   activate(e) {
     this.path = this.location.path();
+    console.log(this.path);
     let data = UserInfo.permission;
     let name;
     for (let key in URL) {

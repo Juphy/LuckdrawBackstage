@@ -59,4 +59,18 @@ export class MessageService {
     return of(this.couponList);
   }
 
+  // 广告列表
+  adList: any;
+  setAdList(obj) {
+    this.adList = obj;
+  }
+
+  clearAdList() {
+    this.adList = null;
+  }
+
+  getAdList(): Observable<any> {
+    return of(this.adList);
+  }
+
 }

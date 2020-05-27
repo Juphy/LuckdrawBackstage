@@ -143,3 +143,55 @@ export interface CouponList {
     page?: number;
     pagesize?: number;
 }
+
+export interface AdsList {
+    page?: number;
+    pagesize?: number;
+    name?: string;
+    position_type?: string;
+}
+
+export interface EditAdPosition {
+    type: number;
+    name: string;
+    category: number;
+    status: number;
+    id?: number;
+}
+
+export interface AdPositionStatus {
+    id: number;
+    status: number;
+}
+
+export interface AdPositionAds {
+    id: number;
+}
+
+export interface EditAds {
+    position_id: number;
+    image: string;
+    name: string;
+    url_name: string;
+    start_date: string;
+    end_date: string;
+    sort: number;
+    position_type: number;
+    id?: number;
+    url_type: number;
+    url_path: string;
+    url_id: string;
+}
+
+export interface DelAds {
+    id: number;
+}
+
+export interface ChangeSort {
+    id: number;
+    sort: number;
+}
+
+export interface UpdateClickNum {
+    id: number;
+}

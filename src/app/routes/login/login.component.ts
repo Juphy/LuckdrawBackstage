@@ -38,7 +38,10 @@ export class LoginComponent implements OnInit {
         { id: 13, pid: 1, name: 'group', display_name: '商品分组', description: "2" },
         { id: 2, pid: 0, name: 'market', display_name: '营销管理', description: "1" },
         { id: 21, pid: 2, name: 'coupon', display_name: '优惠券管理', description: "2" },
-        { id: 3, pid: 0, name: 'second', display_name: '其它菜单', description: "1" }
+        // { id: 22, pid: 2, name: 'ad', display_name: '广告管理', description: "2" },
+        { id: 3, pid: 0, name: 'ads', display_name: '广告管理', description: "1" },
+        { id: 31, pid: 3, name: 'ads_list', display_name: '广告列表', description: "2" },
+        { id: 32, pid: 3, name: 'ads_position', display_name: '广告位置', description: "2" },
       ]
     };
     DATA['TOKEN'] = data['token'];

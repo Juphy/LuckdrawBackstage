@@ -18,7 +18,7 @@ const routes: Routes = [
       // 营销管理
       { path: "market", loadChildren: () => import('./market/market.module').then(m => m.MarketModule) },
 
-      { path: "second", loadChildren: () => import('./second/second.module').then(m => m.SecondModule) },
+      { path: "ads", loadChildren: () => import('./ads/ads.module').then(m => m.AdsModule) },
 
       { path: 'notfound', component: NotfoundComponent },
       { path: '**', redirectTo: 'notfound' }
