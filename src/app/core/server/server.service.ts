@@ -195,7 +195,7 @@ export class ServerService {
 
   // 修改广告位置状态
   ads__ad_position_info(params: AdPositionStatus): Observable<any> {
-    return this.http.post('ads/ad_position_info', params);
+    return this.http.post('ads/change_ad_position_status', params);
   }
 
   // 广告位置的广告
