@@ -1,5 +1,6 @@
 <div class="container-box overflow-box">
-  <nz-table #basicTable [nzData]="data" [nzLoading]="loading">
+  <button nz-button (click)="show_modal()">添加广告位置</button>
+  <nz-table #basicTable [nzData]="data" [nzLoading]="loading" class="ant-Mtop-large">
     <thead>
       <tr>
         <th *ngFor="let t of theads">{{t.name}}</th>
@@ -14,12 +15,53 @@
           </ng-container>
         </td>
         <td>
-          <button nz-button>删除</button>
+          <button nz-button (click)="show_modal(data)">编辑</button>
         </td>
       </tr>
     </tbody>
   </nz-table>
 </div>
-<nz-modal [(nzVisible)]="visible">
-  
+<nz-modal [(nzVisible)]="visible" [nzTitle]="titleTemplate" [nzContent]="contentTemplate" [nzFooter]="footerTemplate"
+  [nzClosable]="true" (nzOnCancel)="visible = false" [nzMaskClosable]="false" nzWidth="600px">
+  <ng-template #titleTemplate>
+    <div style="text-align: center">添加广告位置</div>
+  </ng-template>
+  <ng-template #contentTemplate>
+    <form nz-form [formGroup]="validateForm">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>广告位置名称</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="请输入广告位置名称！">
+          <input type="text" nz-input formControlName="name" placeholder="请输入广告位置名称">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>广告位置类型</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="请选择广告位置类型！">
+          <nz-radio-group formControlName="category">
+            <label nz-radio *ngFor="let a of CategoryOption" [nzValue]="a.value">{{a.name}}</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>广告类型</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="请选择广告类型！">
+          <nz-radio-group formControlName="type">
+            <label nz-radio *ngFor="let a of TypeOption" [nzValue]="a.value">{{a.name}}</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>状态</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="请选择广告状态！">
+          <nz-radio-group formControlName="status">
+            <label nz-radio *ngFor="let a of StatusOption" [nzValue]="a.value">{{a.name}}</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+  <ng-template #footerTemplate>
+    <button nz-button (click)="visible=false" class="ant-Mright-large">取消</button>
+    <button nz-button (click)="make_sure()" nzType="primary">确定</button>
+  </ng-template>
 </nz-modal>

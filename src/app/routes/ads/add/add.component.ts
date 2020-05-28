@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
-
+  validateForm: FormGroup;
   @Input() id: Number = 0;
   constructor(
     private serverService: ServerService,
@@ -20,6 +20,9 @@ export class AddComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.validateForm = this.fb.group({
+      
+    })
   }
 
 }
