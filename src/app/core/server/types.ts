@@ -48,7 +48,7 @@ export interface EditSpu {
     description: string;
     send_type: string;
     brand_id?: number;
-    shop_id?: number;
+    shop_id: number;
 }
 
 export interface DelSpu {
@@ -58,6 +58,7 @@ export interface DelSpu {
 export interface EditGroup {
     id?: number;
     name: string;
+    shop_id: number;
 }
 
 export interface DelGroup {
@@ -71,6 +72,7 @@ export interface ChangeGroupshow {
 
 export interface GroupList {
     show?: number;
+    shop_id?: number;
 }
 
 export interface CategoryList {
@@ -86,6 +88,7 @@ export interface SpuList {
     create_ta?: any;
     page?: number;
     pagesize?: number;
+    shop_id?: number;
 }
 
 export interface SpuInfo {
@@ -125,6 +128,7 @@ export interface EditCoupon {
     type: number;
     minmum_consumption_price: number;
     name: string;
+    shop_id: number;
 }
 
 export interface ChangeCouponStatus {
@@ -176,7 +180,7 @@ export interface EditAds {
     start_date: string;
     end_date: string;
     sort: number;
-    position_type: number;
+    // position_type: number;
     id?: number;
     url_type: number;
     url_path: string;

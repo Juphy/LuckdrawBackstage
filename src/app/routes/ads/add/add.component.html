@@ -1,3 +1,86 @@
 <form nz-form [formGroup]="validateForm">
-  
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告名称</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入广告名称！">
+      <input type="text" nz-input formControlName="name" placeholder="请输入广告名称">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告图片</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <div class="clearfix">
+        <nz-upload nzListType="picture-card" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 1"
+          [nzShowUploadList]="showUploadList" [nzPreview]="handlePreview" [nzBeforeUpload]="beforeUpload">
+          <i nz-icon nzType="plus"></i>
+        </nz-upload>
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+          (nzOnCancel)="previewVisible = false">
+          <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+          </ng-template>
+        </nz-modal>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告位置</nz-form-label>
+    <nz-form-control nzSpan="12" nzErrorTip="请选择广告位置！">
+      <nz-select formControlName="position_id" nzPlaceHolder="请选择广告位置">
+        <nz-option *ngFor="let o of positionOption" [nzLabel]="o.name" [nzValue]="o.id"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <!-- <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告类型</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请选择广告类型！">
+      <nz-select formControlName="position_type" nzPlaceHolder="请选择广告类型">
+        <nz-option *ngFor="let o of adTypeOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item> -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告跳转网站名称</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入跳转网站名称！">
+      <input type="text" nz-input formControlName="url_name" placeholder="请输入跳转网站名称">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告跳转链接</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="广告跳转链接！">
+      <input type="text" nz-input formControlName="url_path" placeholder="广告跳转链接">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告跳转AppId</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入广告跳转AppId！">
+      <input type="text" nz-input formControlName="url_id" placeholder="请输入广告跳转AppId">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告跳转类型</nz-form-label>
+    <nz-form-control nzSpan="12" nzErrorTip="请选择广告跳转类型！">
+      <nz-select formControlName="url_type" nzPlaceHolder="请选择广告跳转类型">
+        <nz-option *ngFor="let o of adUrlOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告生效时间</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请选择日期！">
+      <nz-range-picker formControlName="date"></nz-range-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">排序</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入排序！">
+      <nz-input-number formControlName="sort" [nzMin]="0" [nzMax]="99999999999" [nzStep]="1"></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" style="visibility: hidden;">XXX</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <button nz-button nzType="primary" (click)="make_sure()" class="ant-Mright" [nzLoading]="loading">确定</button>
+      <button nz-button (click)="make_cancel()">取消</button>
+    </nz-form-control>
+  </nz-form-item>
 </form>

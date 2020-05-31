@@ -56,9 +56,16 @@ export const AdStatus = {
   1: '有效'
 }
 
-export const UrlType = [
+export const Url_Type = [
   { name: 'html', value: 1 },
   { name: '小程序', value: 2 },
   { name: 'andriod', value: 3 },
   { name: 'ios', value: 4 }
 ];
+
+export const UrlType = {
+  1: 'html',
+  2: '小程序',
+  3: 'andriod',
+  4: 'ios'
+}

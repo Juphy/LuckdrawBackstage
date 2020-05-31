@@ -11,16 +11,18 @@ import { formatDate } from '@angular/common';
 })
 export class AddComponent implements OnInit {
   current = 0;
-  goods_category_scopes = [];
+  goods_group_scopes = [];
   goods_spu_scopes = [];//
   goods_spu = null;
+  shop_id = null;
 
-  CategoryData = [];
-  CategoryOption = [];
-  CategoryObj = {};
+  GroupData = [];
+  GroupOption = [];
+  GroupObj = {};
   SpuOption = [];
   goods_spus = []; // 已选择的商品
   validateForm: FormGroup;
+  shopOption = [];
   @Input() id: number = 0;
   constructor(
     private serverService: ServerService,
@@ -28,7 +30,22 @@ export class AddComponent implements OnInit {
     private nzModelRef: NzModalRef,
     private fb: FormBuilder
   ) {
-    this.get_category_list();
+    // this.get_group_list();
+    this.get_inside_shop();
+  }
+
+  get_inside_shop() {
+    this.serverService.shop__inside_shop().subscribe(res => {
+      if (res.status === 200) {
+        res = res['result'];
+        this.shopOption = res.map(item => {
+          return {
+            id: item.id,
+            name: item.name
+          }
+        })
+      }
+    })
   }
 
   ngOnInit() {
@@ -41,26 +58,12 @@ export class AddComponent implements OnInit {
     })
   }
 
-  search_category(category_name) {
-    let params = {};
-    if (category_name) {
-      params['category_name'] = category_name;
-    } else {
-      params['category_name'] = ''
-    }
-    this.serverService.goods__category_list({ category_name }).subscribe(res => {
+  get_group_list(shop_id) {
+    this.serverService.goods__group_list({ shop_id }).subscribe(res => {
       if (res['status'] === 200) {
-        this.CategoryOption = [...res['result']];
-      }
-    })
-  }
-
-  get_category_list() {
-    this.serverService.goods__category_list({}).subscribe(res => {
-      if (res['status'] === 200) {
-        this.CategoryOption = [...res['result']];
+        this.GroupOption = [...res['result']];
         res['result'].forEach(item => {
-          this.CategoryObj[item.id] = item.category_name;
+          this.GroupObj[item.id] = item.category_name;
         })
       }
     })
@@ -72,7 +75,7 @@ export class AddComponent implements OnInit {
   }
 
   search_spu(goods_name) {
-    this.serverService.goods__spu_list({ page: 1, pagesize: 10, goods_name }).subscribe(res => {
+    this.serverService.goods__spu_list({ page: 1, pagesize: 10, goods_name, shop_id: this.shop_id }).subscribe(res => {
       if (res['status'] === 200) {
         res = res['result'];
         this.SpuOption = [...res['data']];
@@ -89,7 +92,7 @@ export class AddComponent implements OnInit {
   }
 
   make_sure() {
-    console.log(this.goods_category_scopes, this.goods_spus);
+    console.log(this.goods_group_scopes, this.goods_spus);
     let flag = false;
     for (const i in this.validateForm.controls) {
       let control = this.validateForm.controls[i];
@@ -116,11 +119,12 @@ export class AddComponent implements OnInit {
     let params = {
       name: this.validateForm.get('name').value,
       type,
-      goods_category_scopes: this.goods_category_scopes,
+      goods_group_scopes: this.goods_group_scopes,
       goods_spu_scopes,
       minmum_consumption_price,
       deadline_date,
-      preferential_price
+      preferential_price,
+      shop_id: this.shop_id
     };
     this.serverService.goods__edit_coupon(params).subscribe(res => {
       console.log(res);

@@ -27,6 +27,7 @@ export class BuildComponent implements OnInit, AfterViewInit {
   SendTypeList = [...Send_Type];
   editor;
   loading = false;
+  shopOption = [];
   @Input() id: number = 0; // 产品id
   constructor(private http: HttpClient,
     private server: ServerService,
@@ -36,11 +37,27 @@ export class BuildComponent implements OnInit, AfterViewInit {
     private el: ElementRef) {
     this.get_group_list();
     this.get_category_list();
+    this.get_inside_shop();
+  }
+
+  get_inside_shop() {
+    this.server.shop__inside_shop().subscribe(res => {
+      if (res.status === 200) {
+        res = res['result'];
+        this.shopOption = res.map(item => {
+          return {
+            id: item.id,
+            name: item.name
+          }
+        })
+      }
+    })
   }
 
   ngOnInit() {
     this.validateForm = this.fb.group({
       name: ["", [Validators.required]],
+      shop_id: [null, [Validators.required]],
       category_id: [null, [Validators.required]],
       groups: [null, [Validators.required]],
       description: ["", [Validators.required]],
@@ -53,6 +70,7 @@ export class BuildComponent implements OnInit, AfterViewInit {
       this.server.goods__spu_info({ id: this.id }).subscribe(res => {
         if (res['status'] === 200) {
           res = res['result'];
+          this.validateForm.get('shop_id').setValue(res['shop_id']);
           this.validateForm.get('name').setValue(res['goods_name']);
           this.validateForm.get('category_id').setValue(res['category_id']);
           this.validateForm.get('groups').setValue(JSON.parse(res['groups']));
@@ -172,6 +190,7 @@ export class BuildComponent implements OnInit, AfterViewInit {
     let images = [];
     this.fileList.forEach(item => images.push(item.url));
     let params = {
+      shop_id: this.validateForm.get('shop_id').value,
       name: this.validateForm.get('name').value,
       groups: this.validateForm.get('groups').value,
       category_id: this.validateForm.get('category_id').value,

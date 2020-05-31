@@ -7,12 +7,23 @@
     <ng-container *ngIf="current===0">
       <nz-row class="ant-Mbottom">
         <nz-col nzSpan="6" class="label-col">
-          <label>商品分类：</label>
+          <label>商品店铺：</label>
         </nz-col>
         <nz-col nzSpan="16">
-          <nz-select style="min-width: 360px" [(ngModel)]="goods_category_scopes" nzMode="multiple" nzPlaceHolder="商品分类"
-            nzShowSearch (nzOnSearch)="search_category($event)" nzAllowClear>
-            <nz-option *ngFor="let option of CategoryOption" [nzLabel]="option.category_name" [nzValue]="option.id">
+          <nz-select style="min-width: 360px" [(ngModel)]="shop_id" (ngModelChange)="get_group_list($event)"
+            nzPlaceHolder="选择商品店铺" nzAllowClear="true">
+            <nz-option *ngFor="let o of shopOption" [nzLabel]="o.name" [nzValue]="o.id"></nz-option>
+          </nz-select>
+        </nz-col>
+      </nz-row>
+      <nz-row class="ant-Mbottom">
+        <nz-col nzSpan="6" class="label-col">
+          <label>商品分组：</label>
+        </nz-col>
+        <nz-col nzSpan="16">
+          <nz-select style="min-width: 360px" [(ngModel)]="goods_group_scopes" nzMode="multiple" nzPlaceHolder="商品分组"
+            nzAllowClear>
+            <nz-option *ngFor="let option of GroupOption" [nzLabel]="option.name" [nzValue]="option.id">
             </nz-option>
           </nz-select>
         </nz-col>
@@ -24,8 +35,7 @@
         <nz-col nzSpan="16">
           <nz-select style="min-width: 360px" nzPlaceHolder="搜索商品" [(ngModel)]="goods_spu"
             (ngModelChange)="check_goods_spu($event)" nzShowSearch (nzOnSearch)="search_spu($event)" nzAllowClear>
-            <nz-option *ngFor="let option of SpuOption"
-              [nzLabel]="option.goods_name+'('+CategoryObj[option.category_id]+')'" [nzValue]="option.id">
+            <nz-option *ngFor="let option of SpuOption" [nzLabel]="option.goods_name" [nzValue]="option.id">
             </nz-option>
           </nz-select>
         </nz-col>

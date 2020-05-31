@@ -9,13 +9,31 @@ import { NzMessageService } from 'ng-zorro-antd';
 export class GroupComponent implements OnInit {
   type = true; // true 正常状态  false 编辑状态
   data = [];
+  shopOption = [];
+  shopObj = {};
   constructor(
     private serverService: ServerService,
     private nzMessageService: NzMessageService
-  ) { }
+  ) {
+    this.get_inside_shop();
+  }
 
   ngOnInit() {
     this.get_data();
+  }
+
+  get_inside_shop() {
+    this.serverService.shop__inside_shop().subscribe(res => {
+      if (res.status === 200) {
+        res = res['result'];
+        this.shopOption = res.map(item => {
+          return {
+            id: item.id,
+            name: item.name
+          }
+        })
+      }
+    })
   }
 
   get_data() {
@@ -31,7 +49,7 @@ export class GroupComponent implements OnInit {
   add(data?) {
     if (data) {
       data.loading = true;
-      this.serverService.goods__edit_group({ name: data.name }).subscribe(res => {
+      this.serverService.goods__edit_group({ name: data.name, shop_id: data.shop_id }).subscribe(res => {
         data.loading = false;
         if (res.result) this.get_data();
       }, error => {
@@ -42,6 +60,7 @@ export class GroupComponent implements OnInit {
       let data = [...this.data];
       this.data = [...data, {
         name: '',
+        shop_id: null,
         loading: false
       }]
     }
@@ -65,8 +84,9 @@ export class GroupComponent implements OnInit {
   }
 
   edit(data) {
-    let name = data.name;
+    let name = data.name, shop_id = data.shop_id;
     data['_name'] = name;
+    data['_shop_id'] = shop_id;
     data.type = false;
   }
 
@@ -79,7 +99,8 @@ export class GroupComponent implements OnInit {
     data['loading'] = true;
     this.serverService.goods__edit_group({
       id: data.id,
-      name: data.name
+      name: data.name,
+      shop_id: data.shop_id
     }).subscribe(res => {
       if (res['status'] === 200) this.get_data();
     }, error => {

@@ -2,7 +2,20 @@
   <div nz-col nzSpan="4" *ngFor="let d of data" class="item-box ant-Mright ant-Mbottom">
     <ng-container *ngIf="d.id">
       <div class="ant-Pleft ant-Pright ant-Ptop ant-Pbottom">
-        <input type="text" nz-input [(ngModel)]="d.name" [disabled]="d.type">
+        <div style="display:flex">
+          <label style="display: inline-block;line-height: 32px;width: 54px">
+            名称：
+          </label>
+          <input style="flex: 1" type="text" nz-input [(ngModel)]="d.name" [disabled]="d.type">
+        </div>
+        <div class="ant-Mtop" style="display: flex;">
+          <label style="display: inline-block;line-height: 32px;width: 54px">
+            店铺：
+          </label>
+          <nz-select [(ngModel)]="d.shop_id" [nzDisabled]="d.type" style="flex: 1">
+            <nz-option *ngFor="let o of shopOption" [nzValue]="o.id" [nzLabel]="o.name"></nz-option>
+          </nz-select>
+        </div>
         <div class="ant-Mtop">商品数：<a style="text-decoration: underline;">123456</a></div>
       </div>
       <div class="btns">
@@ -17,14 +30,27 @@
         <div *ngIf="!d.show" (click)="change_group_show(d.id, 1)">显示</div>
         <div *ngIf="d.show" (click)="change_group_show(d.id, 0)">隐藏</div>
         <div class="line"></div>
-        <div *ngIf="d.type" style="color: #f5222d" nz-popconfirm nzPopconfirmTitle="你确定要删除这个分类吗？"
+        <div *ngIf="d.type" style="color: #f5222d" nz-popconfirm nzPopconfirmTitle="你确定要删除这个分组吗？"
           nzPopconfirmPlacement="top" (nzOnConfirm)="confirm(d.id)" (nzOnCancel)="cancel()">删除</div>
         <div *ngIf="!d.type" (click)="make_cancel(d)">取消</div>
       </div>
     </ng-container>
     <ng-container *ngIf="!d.id">
       <div class="ant-Pleft ant-Pright ant-Ptop ant-Pbottom">
-        <input type="text" nz-input [(ngModel)]="d.name">
+        <div style="display:flex">
+          <label style="display: inline-block;line-height: 32px;width: 54px">
+            名称：
+          </label>
+          <input style="flex: 1" type="text" nz-input [(ngModel)]="d.name">
+        </div>
+        <div class="ant-Mtop" style="display: flex;">
+          <label style="display: inline-block;line-height: 32px;width: 54px">
+            店铺：
+          </label>
+          <nz-select [(ngModel)]="d.shop_id" style="flex: 1">
+            <nz-option *ngFor="let o of shopOption" [nzValue]="o.id" [nzLabel]="o.name"></nz-option>
+          </nz-select>
+        </div>
         <div style="visibility: hidden;" class="ant-Mtop">商品数：<a style="text-decoration: underline;">9999</a></div>
       </div>
       <div>

@@ -222,4 +222,9 @@ export class ServerService {
   ads__update_click_num(params: UpdateClickNum): Observable<any> {
     return this.http.post('ads/update_click_num', params);
   }
+
+  // 内部店铺
+  shop__inside_shop(): Observable<any> {
+    return this.http.get('shop/inside_shop')
+  }
 }

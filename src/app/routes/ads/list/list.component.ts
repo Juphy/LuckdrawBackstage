@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ServerService, MessageService } from '@core';
-import { AddComponent } from '@routes/market/add/add.component';
+import { AddComponent } from '../add/add.component';
 
 @Component({
   selector: 'app-list',
