@@ -10,7 +10,7 @@ import { AddComponent } from '../add/add.component';
 })
 export class ListComponent implements OnInit {
   searchItems = [
-    { name: '优惠券名称', value: 'name', type: 'text', class: "input", span: 6 }
+    { name: '广告名称', value: 'name', type: 'text', class: "input", span: 6 }
   ];
   loading = false;
   searchData = {
@@ -22,8 +22,13 @@ export class ListComponent implements OnInit {
   total = 0;
   pagesizeAry = [16, 32, 48];
   theads = [
-    { name: '名称', value: 'name' }
+    { name: '广告名称', value: 'name' },
+    { name: '广告图片', value: 'image' },
+    { name: '广告位置', value: 'position_id' },
+    { name: '广告跳转网站名称', value: 'url_name' },
+    { name: '有效日期', value: 'date' }
   ];
+  positionObj = {};
   constructor(
     private modelService: NzModalService,
     private nzMessageService: NzMessageService,
@@ -33,10 +38,21 @@ export class ListComponent implements OnInit {
     this.message.getAdList().subscribe(res => {
       if (res) this.searchData = { ...res };
     })
+    this.get_adposition();
   }
 
   ngOnInit() {
     this.get_data();
+  }
+
+  get_adposition() {
+    this.serverService.ads__ad_position_list().subscribe(res => {
+      if (res['status'] === 200) {
+        res['result'].forEach(item => {
+          this.positionObj[item.id] = item.name;
+        })
+      }
+    })
   }
 
   get_data(flag?: boolean) {
@@ -69,7 +85,7 @@ export class ListComponent implements OnInit {
 
   show_modal(id) {
     const modal = this.modelService.create({
-      nzTitle: id ? '编辑广告' : '添加广告',
+      nzTitle: id ? '广告详情' : '添加广告',
       nzContent: AddComponent,
       nzFooter: null,
       nzComponentParams: {

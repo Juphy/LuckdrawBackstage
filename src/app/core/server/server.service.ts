@@ -227,4 +227,9 @@ export class ServerService {
   shop__inside_shop(): Observable<any> {
     return this.http.get('shop/inside_shop')
   }
+
+  // 广告详情
+  ads__ads_info(params: any): Observable<any> {
+    return this.http.post('ads/ads_info', params);
+  }
 }

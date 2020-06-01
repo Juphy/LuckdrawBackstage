@@ -8,7 +8,9 @@ import {
     BellOutline,
     DeleteOutline,
     PlusOutline,
-    PictureTwoTone
+    PictureTwoTone,
+    QuestionCircleOutline,
+    NotificationOutline
 } from "@ant-design/icons-angular/icons";
 
 export const ICONS = [
@@ -20,5 +22,7 @@ export const ICONS = [
     BellOutline,
     DeleteOutline,
     PlusOutline,
-    PictureTwoTone
+    PictureTwoTone,
+    QuestionCircleOutline,
+    NotificationOutline
 ]

@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
         { id: 3, pid: 0, name: 'ads', display_name: '广告管理', description: "1" },
         { id: 31, pid: 3, name: 'ads_list', display_name: '广告列表', description: "2" },
         { id: 32, pid: 3, name: 'ads_position', display_name: '广告位置', description: "2" },
+        { id: 4, pid: 0, name: 'question', display_name: '问题管理', description: "1" },
+        { id: 41, pid: 4, name: 'question_list', display_name: '问题列表', description: "2" }
       ]
     };
     DATA['TOKEN'] = data['token'];

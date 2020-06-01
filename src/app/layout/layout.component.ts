@@ -33,7 +33,7 @@ export class LayoutComponent implements OnInit {
         obj['path'] = URL[item['name']]
         // 区分次级菜单和特性
         // 需要修改的地方
-        if (['main', 'market','ads'].includes(item.name)) {
+        if (['main', 'market', 'ads', 'question'].includes(item.name)) {
           let ary = [];
           data.forEach(_item => {
             if (item.id === _item.pid) {

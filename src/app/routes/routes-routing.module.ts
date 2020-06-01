@@ -19,6 +19,8 @@ const routes: Routes = [
       { path: "market", loadChildren: () => import('./market/market.module').then(m => m.MarketModule) },
 
       { path: "ads", loadChildren: () => import('./ads/ads.module').then(m => m.AdsModule) },
+      
+      { path: 'question', loadChildren: () => import('./question/question.module').then(m => m.QuestionModule) },
 
       { path: 'notfound', component: NotfoundComponent },
       { path: '**', redirectTo: 'notfound' }

@@ -23,7 +23,9 @@ export const URL = {
   // 营销管理
   market: "/console/market",
   // 广告管理
-  ads: "/console/ads"
+  ads: "/console/ads",
+  // 问题管理
+  question: '/console/question'
 }
 
 // 次级菜单
@@ -40,14 +42,18 @@ export const URLS = {
 
   // 广告列表
   ads_list: "/console/ads/ads_list",
-  ads_position: '/console/ads/ads_position'
+  ads_position: '/console/ads/ads_position',
+
+  // 问题列表
+  question_list: '/console/question/question_list'
 }
 
 // 控制图标
 export const ICON = {
   main: 'appstore',
   market: 'user',
-  ads: 'edit'
+  ads: 'notification',
+  question: 'question-circle'
 }
 
 // 控制按钮

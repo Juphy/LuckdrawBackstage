@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { ServerService } from '@core';
 import { NzMessageService, NzModalService, NzModalRef } from 'ng-zorro-antd';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -12,7 +12,7 @@ import { Ad_Type, AdType, Url_Type, UrlType } from '@routes/DATA';
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
-export class AddComponent implements OnInit {
+export class AddComponent implements OnInit, AfterViewInit {
   validateForm: FormGroup;
   fileList = [];
   previewImage: string | undefined = '';
@@ -52,7 +52,31 @@ export class AddComponent implements OnInit {
       url_id: [null, [Validators.required]],
       date: [null, [Validators.required]],
       sort: [0, [Validators.required]]
-    })
+    });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.id) {
+      this.serverService.ads__ads_info({ id: this.id }).subscribe(res => {
+        if (res['status'] === 200) {
+          res = res['result'];
+          this.validateForm.get('name').setValue(res['name']);
+          this.validateForm.get('url_name').setValue(res['url_name']);
+          this.validateForm.get('url_type').setValue(res['url_type']);
+          this.validateForm.get('url_path').setValue(res['url_path']);
+          this.validateForm.get('url_id').setValue(res['url_id']);
+          this.validateForm.get('sort').setValue(res['sort']);
+          this.validateForm.get('position_id').setValue(res['position_id']);
+          this.validateForm.get('date').setValue([new Date(res['start_date']), new Date(res['end_date'])])
+          this.fileList = [{
+            uid: 1,
+            name: '1',
+            status: 'done',
+            url: res.image
+          }];
+        }
+      })
+    }
   }
 
   // 预览图片
