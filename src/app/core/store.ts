@@ -62,3 +62,8 @@ export let FN = {
   market: {},
   ads: {}
 }
+
+// option
+export const Options = {
+  'QA': []
+};

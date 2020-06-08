@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
         { id: 11, pid: 1, name: 'main_list', display_name: '商品列表', description: "2" },
         { id: 12, pid: 1, name: 'category', display_name: '商品分类', description: "2" },
         { id: 13, pid: 1, name: 'group', display_name: '商品分组', description: "2" },
+        { id: 13, pid: 1, name: 'group123', display_name: '商品分组123', description: "2" },
         { id: 2, pid: 0, name: 'market', display_name: '营销管理', description: "1" },
         { id: 21, pid: 2, name: 'coupon', display_name: '优惠券管理', description: "2" },
         // { id: 22, pid: 2, name: 'ad', display_name: '广告管理', description: "2" },

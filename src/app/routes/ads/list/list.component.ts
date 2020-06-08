@@ -61,6 +61,10 @@ export class ListComponent implements OnInit {
       page: this.searchData.page,
       pagesize: this.searchData.pagesize
     };
+    this.searchItems.forEach(item => {
+      let value = item.value;
+      if (this.searchData[value]) params[value] = this.searchData[value];
+    })
     this.loading = true;
     this.serverService.ads__list(params).subscribe(res => {
       this.loading = false;

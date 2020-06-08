@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DATA } from '@core/store';
+import { DATA, Options } from '@core/store';
 import {
   HttpResponse,
   EditCategory,
@@ -38,7 +38,11 @@ import {
   EditAds,
   DelAds,
   ChangeSort,
-  UpdateClickNum
+  UpdateClickNum,
+  QuestionAnswers,
+  SysOptions,
+  EditQuestion,
+  DelQuestion
 } from "./types";
 
 @Injectable({
@@ -231,5 +235,34 @@ export class ServerService {
   // 广告详情
   ads__ads_info(params: any): Observable<any> {
     return this.http.post('ads/ads_info', params);
+  }
+
+  // 常见问题列表
+  manager__question_answers(params: QuestionAnswers): Observable<any> {
+    return this.http.post('manager/question_answers', params);
+  }
+
+  // 编辑添加问题
+  manager__edit_question_answer(params: EditQuestion): Observable<any> {
+    return this.http.post('manager/edit_question_answer', params)
+  }
+
+  // 删除问题
+  manager__del_question_answer(params: DelQuestion): Observable<any> {
+    return this.http.post('manager/del_question_answer', params);
+  }
+
+  // question type
+  get_question_type(params: SysOptions): Observable<any> {
+    if (Options.QA.length) {
+      return of(Options.QA);
+    } else {
+      return this.http.post<HttpResponse>('home/sys_options', params).pipe(
+        map(e => {
+          Options.QA = e['result'] || [];
+          return Options.QA;
+        })
+      );
+    }
   }
 }

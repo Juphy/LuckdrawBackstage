@@ -199,3 +199,24 @@ export interface ChangeSort {
 export interface UpdateClickNum {
     id: number;
 }
+
+export interface QuestionAnswers {
+    page?: number;
+    pagesize?: number;
+    type?: number;
+}
+
+export interface SysOptions {
+    type?: string;
+}
+
+export interface EditQuestion {
+    type: number;
+    question: string;
+    answer: string;
+    id?: number;
+}
+
+export interface DelQuestion {
+    id: number;
+}
