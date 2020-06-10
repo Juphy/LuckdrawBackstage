@@ -48,7 +48,7 @@
     </nz-sider>
     <nz-layout class="right-layout">
       <div class="right-box">
-        <nz-tabset nzLinkRouter *ngIf="tabs.length">
+        <nz-tabset nzLinkRouter *ngIf="tabs.length" [(nzSelectedIndex)]="selectedIndex">
           <nz-tab *ngFor="let tab of tabs">
             <a nz-tab-link [routerLink]="[tab.url]"><i nz-icon [nzType]="tab.icon"
                 nzTheme="outline"></i>{{tab.name}}</a>

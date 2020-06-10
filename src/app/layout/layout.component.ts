@@ -16,6 +16,7 @@ export class LayoutComponent implements OnInit {
   path: any = "";
   isCollapsed = false;
   triggerTemplate: TemplateRef<void> | null = null;
+  selectedIndex = 0;
   @ViewChild("trigger", { static: false }) customTrigger: TemplateRef<void>;
   constructor(private location: Location, private titleService: Title, private router: Router) {
     // 设置浏览器tab文字
@@ -59,7 +60,13 @@ export class LayoutComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
+    this.selectedIndex = 0;
+  }
 
   activate(e) {
     this.path = this.location.path();
@@ -88,6 +95,8 @@ export class LayoutComponent implements OnInit {
           let _path = this.path.split('/');
           _path.pop();
           this.tabs = this.menus.find(item => item.url.includes(_path.join('/')))['children'];
+          console.log(this.tabs);
+          this.selectedIndex = 0;
         }
       }
     } else {

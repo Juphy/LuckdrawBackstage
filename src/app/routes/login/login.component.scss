@@ -3,13 +3,13 @@
   height: 100%;
   text-align: center;
   position: relative;
+  background: url(assets/body.jpg);
 
-  div {
+  .erweima-container {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 50%;
     margin-left: -215px;
-    margin-top: -260px;
     text-align: center;
   }
 

@@ -1,7 +1,23 @@
 <div class="erweima">
-  <div>
-    <h2>请扫描二维码登录！</h2>
-    <img src="assets/erweima.jpg">
-    <button nz-button nzType='primary' (click)="login()">登录</button>
+  <div class="erweima-container">
+    <!-- <img src="assets/erweima.jpg"> -->
+    <div class="erweima-link">
+      <a href="/">返回首页</a>
+      <a href="javascript:;">已有账号？去登陆</a>
+    </div>
+    <div class="erweima-logo">
+      <img src="assets/logo.png">
+      <a class="qrcode">
+        <span>扫码登录</span>
+      </a>
+    </div>
+    <div class="erweima-form">
+      <nz-tabset>
+        <nz-tab nzTitle="          普通登录          ">
+
+        </nz-tab>
+        <nz-tab nzTitle="       手机登录        "></nz-tab>
+      </nz-tabset>
+    </div>
   </div>
 </div>
