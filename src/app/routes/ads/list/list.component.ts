@@ -87,7 +87,7 @@ export class ListComponent implements OnInit {
     this.get_data();
   }
 
-  show_modal(id) {
+  show_modal(id?) {
     const modal = this.modelService.create({
       nzTitle: id ? '广告详情' : '添加广告',
       nzContent: AddComponent,

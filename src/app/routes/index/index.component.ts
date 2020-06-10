@@ -15,11 +15,9 @@ export class IndexComponent implements OnInit {
     if (UserInfo.id && UserInfo.name) {
       this.isLogin = true;
       this.userName = UserInfo.name;
-      let a = UserInfo['permission'].find(item => item.description == 1);
+      let a = UserInfo['permission'].find(item => item.type == 1);
       let b = UserInfo['permission'].find(item => item.pid == a.id);
-      this.path = b ? URLS[b['name']] : URL[a['name']];
-      console.log(a, b);
-      console.log(this.path);
+      this.path = b ? URLS[b['display_name']] : URL[a['display_name']];
     }
   }
 

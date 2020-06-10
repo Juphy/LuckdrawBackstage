@@ -9,7 +9,7 @@ import { AddComponent } from './add/add.component';
 })
 export class ListComponent implements OnInit {
   searchItems = [
-    { name: '问题类型', value: 'type', type: 'number', class: "option'", span: 6 }
+    { name: '问题类型', value: 'type', type: 'number', class: "option", span: 6 }
   ];
   loading = false;
   searchData = {
@@ -36,6 +36,7 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.get_data();
   }
 
   get_question_type() {

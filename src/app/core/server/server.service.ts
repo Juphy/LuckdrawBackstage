@@ -42,7 +42,14 @@ import {
   QuestionAnswers,
   SysOptions,
   EditQuestion,
-  DelQuestion
+  DelQuestion,
+  UserInfo,
+  RoleAdd,
+  RoleEdit,
+  RoleValid,
+  RoleInvalid,
+  RoleInfo,
+  RoleBinds
 } from "./types";
 
 @Injectable({
@@ -264,5 +271,40 @@ export class ServerService {
         })
       );
     }
+  }
+
+  // 获取用户信息
+  wechat__get_service_user_info(params: UserInfo): Observable<any> {
+    return this.http.post<HttpResponse>('wechat/get_service_user_info', params)
+  }
+
+  // 添加角色
+  role__add(params: RoleAdd): Observable<any> {
+    return this.http.post<HttpResponse>('role/add', params)
+  }
+
+  // 编辑角色
+  role__edit(params: RoleEdit): Observable<any> {
+    return this.http.post<HttpResponse>('role/edit', params)
+  }
+
+  // 禁用角色
+  role__valid(params: RoleValid): Observable<any> {
+    return this.http.post<HttpResponse>('role/valid', params)
+  }
+
+  // 恢复角色
+  role__invalid(params: RoleInvalid): Observable<any> {
+    return this.http.post<HttpResponse>('role/invalid', params);
+  }
+
+  // 角色信息
+  role__info(params: RoleInfo): Observable<any> {
+    return this.http.post<HttpResponse>('role/info', params)
+  }
+
+  // 绑定或者解绑角色
+  role__binds(params: RoleBinds): Observable<any> {
+    return this.http.post<HttpResponse>('role/binds', params)
   }
 }

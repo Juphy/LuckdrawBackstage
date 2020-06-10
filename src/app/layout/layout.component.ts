@@ -25,22 +25,22 @@ export class LayoutComponent implements OnInit {
     data.forEach(item => {
       if (item.pid === 0) {
         let obj = {};
-        obj["name"] = item["display_name"];
+        obj["name"] = item["name"];
         // 将主菜单改为对应的次级菜单
         let bb = data.find(_item => _item.pid === item.id);
-        obj["url"] = bb ? URLS[bb['name']] : URL[item["name"]];
-        obj["icon"] = ICON[item["name"]];
-        obj['path'] = URL[item['name']]
+        obj["url"] = bb ? URLS[bb['display_name']] : URL[item["display_name"]];
+        obj["icon"] = ICON[item["display_name"]];
+        obj['path'] = URL[item['display_name']]
         // 区分次级菜单和特性
         // 需要修改的地方
-        if (['main', 'market', 'ads', 'question'].includes(item.name)) {
+        if (['activity_manage', 'ads_manage', 'goods_manage', 'shop_manage', 'market_manage', 'order_manage', 'permission_manage', 'user_manage', 'sys_manage'].includes(item.display_name)) {
           let ary = [];
           data.forEach(_item => {
             if (item.id === _item.pid) {
               ary.push({
-                name: _item.display_name,
-                url: URLS[_item.name],
-                icon: ICON[_item.name]
+                name: _item.name,
+                url: URLS[_item.display_name],
+                icon: ICON[_item.display_name]
               });
             }
           });
@@ -49,22 +49,20 @@ export class LayoutComponent implements OnInit {
           let o = {};
           data.forEach(_item => {
             if (item.id === _item.pid) {
-              o[_item["name"]] = true;
+              o[_item["display_name"]] = true;
             }
           });
-          FN[item["name"]] = o;
+          FN[item["display_name"]] = o;
         }
         this.menus.push(obj);
       }
     });
-    console.log(this.menus);
   }
 
   ngOnInit() { }
 
   activate(e) {
     this.path = this.location.path();
-    console.log(this.path);
     let data = UserInfo.permission;
     let name;
     for (let key in URL) {
@@ -78,7 +76,7 @@ export class LayoutComponent implements OnInit {
       }
     }
     if (name) {
-      let a = data.find(item => item.name == name);
+      let a = data.find(item => item.display_name == name);
       if (!a) {
         this.router.navigateByUrl('/notfound');
       } else {

@@ -13,14 +13,24 @@ const routes: Routes = [
     path: 'console',
     component: LayoutComponent,
     children: [
-      // 产品管理
+      { path: 'activity', loadChildren: () => import('./activity/activity.module').then(m => m.ActivityModule) },
+
+      { path: "ads", loadChildren: () => import('./ads/ads.module').then(m => m.AdsModule) },
+
       { path: "main", loadChildren: () => import('./main/main.module').then(m => m.MainModule) },
+
+      { path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule) },
+
       // 营销管理
       { path: "market", loadChildren: () => import('./market/market.module').then(m => m.MarketModule) },
 
-      { path: "ads", loadChildren: () => import('./ads/ads.module').then(m => m.AdsModule) },
-      
-      { path: 'question', loadChildren: () => import('./question/question.module').then(m => m.QuestionModule) },
+      { path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderModule) },
+
+      { path: 'permission', loadChildren: () => import('./permission/permission.module').then(m => m.PermissionModule) },
+
+      { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+
+      { path: 'sys', loadChildren: () => import('./sys/sys.module').then(m => m.SysModule) },
 
       { path: 'notfound', component: NotfoundComponent },
       { path: '**', redirectTo: 'notfound' }

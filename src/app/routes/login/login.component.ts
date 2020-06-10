@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DATA, UserInfo, URL } from "@core/store";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { ServerService } from '@core';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +12,32 @@ import { Router } from "@angular/router";
 export class LoginComponent implements OnInit {
 
   constructor(private http: HttpClient,
-    private router: Router) { }
+    private router: Router,
+    private server: ServerService) { }
 
   ngOnInit() {
-    this.login();
   }
 
   login() {
+    this.server.wechat__get_service_user_info({}).subscribe(res => {
+      if (res.status === 200) {
+        res = res['result'];
+        let { id, nickname, roles, permissions } = res;
+        permissions = permissions.filter(item => item.belong_to === 'pc')
+        UserInfo['id'] = id;
+        UserInfo['name'] = nickname;
+        UserInfo['roles'] = roles;
+        UserInfo['permission'] = permissions;
+
+        // localStorage存储信息
+        localStorage.setItem('name', nickname);
+        localStorage.setItem('id', id.toString());
+        localStorage.setItem('permission', JSON.stringify(permissions));
+        this.router.navigateByUrl('/index');
+      }
+    })
+
+
     let data = {
       token: '1234567890',
       user_info: {
@@ -36,7 +56,6 @@ export class LoginComponent implements OnInit {
         { id: 11, pid: 1, name: 'main_list', display_name: '商品列表', description: "2" },
         { id: 12, pid: 1, name: 'category', display_name: '商品分类', description: "2" },
         { id: 13, pid: 1, name: 'group', display_name: '商品分组', description: "2" },
-        { id: 13, pid: 1, name: 'group123', display_name: '商品分组123', description: "2" },
         { id: 2, pid: 0, name: 'market', display_name: '营销管理', description: "1" },
         { id: 21, pid: 2, name: 'coupon', display_name: '优惠券管理', description: "2" },
         // { id: 22, pid: 2, name: 'ad', display_name: '广告管理', description: "2" },
@@ -47,19 +66,7 @@ export class LoginComponent implements OnInit {
         { id: 41, pid: 4, name: 'question_list', display_name: '问题列表', description: "2" }
       ]
     };
-    DATA['TOKEN'] = data['token'];
-    UserInfo['permission'] = data['permission_list'];
-    let user_info = data['user_info'];
-    for (let key of ['id', 'name', 'roles']) {
-      UserInfo[key] = user_info[key];
-    }
-    // localStorage存储信息
-    localStorage.setItem('token', data['token']);
-    localStorage.setItem('name', user_info['name']);
-    localStorage.setItem('id', user_info['id'].toString());
-    localStorage.setItem('roles', JSON.stringify(user_info["roles"]));
-    localStorage.setItem('permission', JSON.stringify(data['permission_list']));
-    // this.router.navigateByUrl('/index');
+
   }
 
 }

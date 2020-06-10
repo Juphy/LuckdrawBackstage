@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from "@shared/shared.module";
-import { SecondComponent } from './second.component';
 import { RouterModule, Routes } from "@angular/router";
+import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
-  { path: '', component: SecondComponent },
+  { path: 'list', component: ListComponent }
 ];
+
 @NgModule({
   imports: [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SecondComponent]
+  declarations: [ListComponent]
 })
-export class SecondModule { }
+export class UserModule { }

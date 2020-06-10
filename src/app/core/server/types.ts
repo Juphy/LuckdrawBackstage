@@ -220,3 +220,36 @@ export interface EditQuestion {
 export interface DelQuestion {
     id: number;
 }
+
+export interface UserInfo {
+    code?: any;
+    state?: any;
+}
+
+export interface RoleAdd {
+    name: string;
+    permissions: any;
+}
+
+export interface RoleEdit {
+    id: number;
+    name: string;
+    permissions: any;
+}
+
+export interface RoleValid {
+    id: number;
+}
+
+export interface RoleInvalid {
+    id: number;
+}
+
+export interface RoleInfo {
+    id: number;
+}
+
+export interface RoleBinds {
+    user_id: number;
+    roles: number[];
+}

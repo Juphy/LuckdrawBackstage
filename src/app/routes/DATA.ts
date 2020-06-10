@@ -13,13 +13,13 @@ export const SendType = {
 };
 
 export const Spu_Status = [
-  { name: '下架', value: 0 },
-  { name: '上架', value: 1 }
+  { name: '已下架', value: 0 },
+  { name: '已上架', value: 1 }
 ];
 
 export const SpuStatus = {
-  0: '下架',
-  1: '上架'
+  0: '已下架',
+  1: '已上架'
 }
 
 export const Ad_Type = [

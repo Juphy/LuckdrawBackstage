@@ -10,7 +10,15 @@ import {
     PlusOutline,
     PictureTwoTone,
     QuestionCircleOutline,
-    NotificationOutline
+    NotificationOutline,
+    MenuOutline,
+    ShopOutline,
+    TableOutline,
+    PoundOutline,
+    TrademarkOutline,
+    SettingOutline,
+    ProjectOutline,
+    ShoppingOutline
 } from "@ant-design/icons-angular/icons";
 
 export const ICONS = [
@@ -24,5 +32,13 @@ export const ICONS = [
     PlusOutline,
     PictureTwoTone,
     QuestionCircleOutline,
-    NotificationOutline
+    NotificationOutline,
+    MenuOutline,
+    ShopOutline,
+    TableOutline,
+    PoundOutline,
+    TrademarkOutline,
+    SettingOutline,
+    ProjectOutline,
+    ShoppingOutline
 ]
