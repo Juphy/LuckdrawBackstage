@@ -1,19 +1,133 @@
 .erweima {
   width: 100%;
   height: 100%;
+  overflow-y: auto;
   text-align: center;
   position: relative;
   background: url(assets/body.jpg);
+  -webkit-user-select: none;
 
   .erweima-container {
     position: absolute;
     top: 0;
     left: 50%;
-    margin-left: -215px;
+    width: 536px;
+    margin-left: -268px;
     text-align: center;
   }
 
-  h2 {
-    margin: 0;
+  .erweima-link {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      color: #fff;
+      line-height: 32px;
+      font-size: 14px;
+    }
+  }
+
+  .erweima-inner {
+    background-color: #fff;
+    border-radius: 3px;
+    padding-bottom: 24px;
+  }
+
+  .erweima-logo {
+    padding: 36px 0;
+    text-align: center;
+    position: relative;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
+
+    div {
+      display: inline-block;
+      line-height: 48px;
+      font-size: 18px;
+      font-weight: 600;
+      margin-left: 8px;
+      vertical-align: top;
+    }
+
+    a {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 50px;
+      height: 50px;
+
+
+      span {
+        position: absolute;
+        left: -64px;
+        display: inline-block;
+        font-size: 12px;
+        color: #ff8c14;
+      }
+    }
+
+    a.qrcode {
+      background: url(assets/co.png);
+      background-size: cover;
+    }
+
+    a.qrcode:hover {
+      background: url(assets/co1.png) no-repeat;
+      background-size: cover;
+    }
+
+    a.screen {
+      background: url(assets/pc.png);
+      background-size: cover;
+    }
+
+    a.screen:hover {
+      background: url(assets/pc1.png);
+      background-size: cover;
+    }
+  }
+
+  .erweima-form {
+    width: 70%;
+    margin: 0 auto;
+
+    .erweima-erweima {
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .erweima-footer {
+    text-align: center;
+    font-size: 14px;
+  }
+
+}
+
+:host ::ng-deep {
+  .ant-tabs-bar {
+    border: none;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab:hover,
+  .ant-tabs-nav .ant-tabs-tab-active {
+    color: #ff552e;
+  }
+
+  .ant-tabs-ink-bar {
+    background-color: #ff552e;
+  }
+
+  .ant-btn-primary {
+    background-color: #ff552e;
+    border-color: #ff552e;
+  }
+
+  .ant-form-explain {
+    text-align: left;
   }
 }

@@ -1,21 +1,70 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DATA, UserInfo, URL } from "@core/store";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { ServerService } from '@core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent implements OnInit, OnDestroy {
+  selectedIndex = 0;
+  loading = false;
   constructor(private http: HttpClient,
     private router: Router,
-    private server: ServerService) { }
+    private server: ServerService,
+    private fb: FormBuilder) {
+    this.form = fb.group({
+      userName: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
+      captcha: [null, [Validators.required]],
+    })
+  }
+
+  form: FormGroup;
+
+  get userName() {
+    return this.form.controls.userName;
+  }
+
+  get password() {
+    return this.form.controls.password;
+  }
+
+  get mobile() {
+    return this.form.controls.mobile;
+  }
+
+  get captcha() {
+    return this.form.controls.captcha;
+  }
 
   ngOnInit() {
+  }
+
+  submit() {
+    let params = {};
+    switch (this.selectedIndex) {
+      case 0:
+        this.userName.markAsDirty();
+        this.userName.updateValueAndValidity();
+        this.password.markAsDirty();
+        this.password.updateValueAndValidity();
+        if (this.userName.invalid || this.password.invalid) return;
+        break;
+      case 1:
+        this.mobile.markAsDirty();
+        this.mobile.updateValueAndValidity();
+        this.captcha.markAsDirty();
+        this.captcha.updateValueAndValidity();
+        if (this.mobile.invalid || this.captcha.invalid) return;
+        break;
+    }
+    // 请求接口 params;
   }
 
   login() {
@@ -36,37 +85,40 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/index');
       }
     })
-
-
-    let data = {
-      token: '1234567890',
-      user_info: {
-        name: '文字',
-        id: 1,
-        roles: [
-          {
-            id: 1,
-            name: '超级管理员',
-            status: 0
-          }
-        ],
-      },
-      permission_list: [
-        { id: 1, pid: 0, name: 'main', display_name: '产品管理', description: "1" },
-        { id: 11, pid: 1, name: 'main_list', display_name: '商品列表', description: "2" },
-        { id: 12, pid: 1, name: 'category', display_name: '商品分类', description: "2" },
-        { id: 13, pid: 1, name: 'group', display_name: '商品分组', description: "2" },
-        { id: 2, pid: 0, name: 'market', display_name: '营销管理', description: "1" },
-        { id: 21, pid: 2, name: 'coupon', display_name: '优惠券管理', description: "2" },
-        // { id: 22, pid: 2, name: 'ad', display_name: '广告管理', description: "2" },
-        { id: 3, pid: 0, name: 'ads', display_name: '广告管理', description: "1" },
-        { id: 31, pid: 3, name: 'ads_list', display_name: '广告列表', description: "2" },
-        { id: 32, pid: 3, name: 'ads_position', display_name: '广告位置', description: "2" },
-        { id: 4, pid: 0, name: 'question', display_name: '问题管理', description: "1" },
-        { id: 41, pid: 4, name: 'question_list', display_name: '问题列表', description: "2" }
-      ]
-    };
-
   }
 
+  count = 0;
+  captchaLoading = false;
+  interval$: any;
+  get_captcha() {
+    if (this.mobile.invalid) {
+      this.mobile.markAsDirty({ onlySelf: true });
+      this.mobile.updateValueAndValidity({ onlySelf: true });
+      return;
+    }
+    this.count = 59;
+    this.interval$ = setInterval(() => {
+      this.count -= 1;
+      if (this.count <= 0) {
+        clearInterval(this.interval$)
+      }
+    }, 1000);
+  }
+
+  flag = true; //true 普通登录  false扫码登录
+  change_flag() {
+    this.flag = !this.flag;
+    if (!this.flag) {
+      // 获取二维码
+    }
+  }
+
+  erweima = "assets/erweima.jpg";
+  imgLoading = true;
+
+  ngOnDestroy(): void {
+    if (this.interval$) {
+      clearInterval(this.interval$);
+    }
+  }
 }

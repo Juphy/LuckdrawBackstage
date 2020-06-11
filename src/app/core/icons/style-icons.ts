@@ -18,7 +18,9 @@ import {
     TrademarkOutline,
     SettingOutline,
     ProjectOutline,
-    ShoppingOutline
+    ShoppingOutline,
+    LockOutline,
+    MailOutline
 } from "@ant-design/icons-angular/icons";
 
 export const ICONS = [
@@ -40,5 +42,7 @@ export const ICONS = [
     TrademarkOutline,
     SettingOutline,
     ProjectOutline,
-    ShoppingOutline
+    ShoppingOutline,
+    LockOutline,
+    MailOutline
 ]
