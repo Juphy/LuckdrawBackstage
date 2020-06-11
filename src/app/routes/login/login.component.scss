@@ -6,6 +6,8 @@
   position: relative;
   background: url(assets/body.jpg);
   -webkit-user-select: none;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 
   .erweima-container {
     position: absolute;
@@ -22,7 +24,7 @@
 
     a {
       color: #fff;
-      line-height: 32px;
+      line-height: 48px;
       font-size: 14px;
     }
   }

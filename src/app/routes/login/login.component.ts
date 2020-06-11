@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.login();
   }
 
   submit() {
@@ -71,18 +72,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.server.wechat__get_service_user_info({}).subscribe(res => {
       if (res.status === 200) {
         res = res['result'];
-        let { id, nickname, roles, permissions } = res;
+        let { id, nickname, permissions, headimgurl } = res;
         permissions = permissions.filter(item => item.belong_to === 'pc')
         UserInfo['id'] = id;
         UserInfo['name'] = nickname;
-        UserInfo['roles'] = roles;
+        UserInfo['headimgurl'] = headimgurl;
         UserInfo['permission'] = permissions;
-
+        console.log(UserInfo);
         // localStorage存储信息
         localStorage.setItem('name', nickname);
         localStorage.setItem('id', id.toString());
+        localStorage.setItem('headimgurl', headimgurl);
         localStorage.setItem('permission', JSON.stringify(permissions));
-        this.router.navigateByUrl('/index');
+        // this.router.navigateByUrl('/index');
       }
     })
   }

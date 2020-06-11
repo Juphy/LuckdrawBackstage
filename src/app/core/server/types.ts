@@ -253,3 +253,9 @@ export interface RoleBinds {
     user_id: number;
     roles: number[];
 }
+
+export interface RoleList {
+    status?: number;
+    page?: number;
+    pagesize?: number;
+}

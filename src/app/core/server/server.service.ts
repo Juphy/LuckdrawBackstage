@@ -49,7 +49,8 @@ import {
   RoleValid,
   RoleInvalid,
   RoleInfo,
-  RoleBinds
+  RoleBinds,
+  RoleList
 } from "./types";
 
 @Injectable({
@@ -278,6 +279,11 @@ export class ServerService {
     return this.http.post<HttpResponse>('wechat/get_service_user_info', params)
   }
 
+  // 角色列表
+  role__list(params: RoleList): Observable<any> {
+    return this.http.post<HttpResponse>('role/list', params);
+  }
+
   // 添加角色
   role__add(params: RoleAdd): Observable<any> {
     return this.http.post<HttpResponse>('role/add', params)
@@ -306,5 +312,19 @@ export class ServerService {
   // 绑定或者解绑角色
   role__binds(params: RoleBinds): Observable<any> {
     return this.http.post<HttpResponse>('role/binds', params)
+  }
+
+  // 获取权限
+  role__permissions(): Observable<any> {
+    if (DATA.permission.length) {
+      return of(DATA.permission)
+    } else {
+      return this.http.get('role/permissions').pipe(
+        map(e => {
+          DATA.permission = e['result'] || [];
+          return DATA.permission;
+        })
+      )
+    }
   }
 }

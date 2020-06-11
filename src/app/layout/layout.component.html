@@ -11,7 +11,9 @@
         <nz-badge nzDot><i nz-icon nzType="bell" nzTheme="outline"></i></nz-badge>
       </div>
       <div class="ant-Mleft-xxxl">
-        <i class="user" nz-icon nzType="user" nzTheme="outline"></i>
+        <i *ngIf="!headimgurl" class="user" nz-icon nzType="user" nzTheme="outline"></i>
+        <img *ngIf="headimgurl" [src]="headimgurl"
+          style="width: 22px;height: 22px;border-radius: 26px;  margin-right: 4px;position: relative;top: -1px">
         {{ userName }}
       </div>
     </div>

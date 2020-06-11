@@ -6,14 +6,14 @@ export const SiteInfo = {
 export const UserInfo = {
   name: '',
   id: '',
-  roles: [],
-  info: {},
+  headimgurl: '',
   permission: []
 };
 export const App = "min-backstage";
 export const AppName = '一起拼手气';
 export const DATA = {
-  TOKEN: ''
+  TOKEN: '',
+  permission: []
 };
 
 // 主菜单

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LayoutComponent implements OnInit {
   userName = '';
+  headimgurl = '';
   Permission = [];
   menus = [];
   tabs = [];
@@ -22,6 +23,7 @@ export class LayoutComponent implements OnInit {
     // 设置浏览器tab文字
     this.titleService.setTitle(AppName);
     this.userName = UserInfo['name'] || '明治';
+    this.headimgurl = UserInfo['headimgurl'] || '';
     const data = UserInfo.permission;
     data.forEach(item => {
       if (item.pid === 0) {

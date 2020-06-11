@@ -20,6 +20,7 @@ export class StartupService {
     UserInfo["id"] = localStorage.getItem("id")
       ? localStorage.getItem("id")
       : "";
+    UserInfo['headimgurl'] = localStorage.getItem('headimgurl') ? localStorage.getItem('headimgurl') : '';
     UserInfo["permission"] = localStorage.getItem("permission")
       ? JSON.parse(localStorage.getItem("permission"))
       : [];

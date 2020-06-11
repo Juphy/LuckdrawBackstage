@@ -73,4 +73,17 @@ export class MessageService {
     return of(this.adList);
   }
 
+  // 角色列表
+  roleList: any;
+  setRoleList(obj) {
+    this.roleList = obj;
+  }
+
+  clearRoleList() {
+    this.roleList = null;
+  }
+
+  getRoleList(): Observable<any> {
+    return of(this.roleList);
+  }
 }
