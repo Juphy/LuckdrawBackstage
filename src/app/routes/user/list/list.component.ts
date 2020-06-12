@@ -62,7 +62,7 @@ export class ListComponent implements OnInit {
     { name: '特殊人员？', value: 'is_special' },
     { name: '关注服务号？', value: 'attention_service' },
     { name: '关注小程序？', value: 'attention_applet' },
-    { name: '关注时间', value: 'subscribe_time' },
+    { name: '创建时间', value: 'created_at' },
   ];
   sexOption = [
     { name: '男', value: 1 },
@@ -149,7 +149,7 @@ export class ListComponent implements OnInit {
         this.data.forEach(item => {
           item['sex'] = this.sexObj[item.sex];
           item['balance'] = item['balance'] ? item['balance'].toFixed(2) : item['balance'];
-          item['subscribe_time'] = formatDate(item['subscribe_time'] * 1000, 'yyyy-MM-dd HH:mm:ss', 'en-US')
+          item['created_at'] = formatDate(item['created_at'] * 1000, 'yyyy-MM-dd HH:mm:ss', 'en-US')
         })
         this.total = res['pageinfo']['total'];
       }
