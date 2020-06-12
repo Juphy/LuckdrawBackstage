@@ -20,8 +20,10 @@
         <div *ngIf="!flag" class="erweima-erweima">
           <div>1秒即登录，方便又安全</div>
           <div>
-            <nz-spin></nz-spin>
-            <img [src]="erweima">
+            <div *ngIf="imgLoading" style="padding: 48px 0;font-size: 48px;">
+              <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+            </div>
+            <img *ngIf="!imgLoading" [src]="erweima">
           </div>
         </div>
         <form *ngIf="flag" nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">

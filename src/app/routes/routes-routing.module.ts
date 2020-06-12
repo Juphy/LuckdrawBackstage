@@ -26,7 +26,7 @@ const routes: Routes = [
 
       { path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderModule) },
 
-      { path: 'permission', loadChildren: () => import('./permission/permission.module').then(m => m.PermissionModule) },
+      { path: 'role', loadChildren: () => import('./role/role.module').then(m => m.RoleModule) },
 
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
 

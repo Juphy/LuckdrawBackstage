@@ -50,7 +50,8 @@ import {
   RoleInvalid,
   RoleInfo,
   RoleBinds,
-  RoleList
+  RoleList,
+  UserList
 } from "./types";
 
 @Injectable({
@@ -326,5 +327,10 @@ export class ServerService {
         })
       )
     }
+  }
+
+  // 用户列表
+  manager__user_list(params: UserList): Observable<any> {
+    return this.http.post('manager/user_list', params)
   }
 }
