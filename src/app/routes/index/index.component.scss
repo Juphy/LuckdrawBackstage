@@ -62,11 +62,169 @@
   }
 }
 
-.banners {
+.title {
   text-align: center;
+  color: #333333;
+  padding: 50px 0;
+
+  h5 {
+    font-size: 18px;
+    color: #878787;
+  }
+
+  h3 {
+    font-size: 48px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+}
+
+.boxs {
+  padding: 100px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  div[nz-row] {
+    margin: 0 auto !important;
+    padding: 0 15px;
+  }
 
   img {
     width: 100%;
-    max-width: 1800px;
+  }
+
+  h3 {
+    line-height: 70px;
+    background: #f9f9f9;
+    font-size: 18px;
+    text-align: center;
+    color: #666666;
+  }
+}
+
+
+.descs {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  nz-row {
+    padding-bottom: 160px;
+    margin-bottom: 240px;
+    position: relative;
+
+    img {
+      width: 100%;
+    }
+
+    .descs-text {
+      padding: 0 70px 0 80px;
+      color: #363636;
+
+      h3 {
+        font-size: 40px;
+        padding: 20px 0;
+      }
+
+      p {
+        font-size: 22px;
+        line-height: 40px;
+        padding-bottom: 20px;
+      }
+
+      a {
+        font-size: 18px;
+        color: #ab8e75;
+      }
+
+    }
+
+    .img-float {
+      position: absolute;
+      bottom: 0px;
+      right: 0;
+    }
+
+  }
+}
+
+:host ::ng-deep {
+  @media only screen and (max-width: 780px) {
+    .title {
+      h5 {
+        font-size: 12px !important;
+        color: #878787 !important;
+      }
+
+      h3 {
+        font-size: 24px !important;
+      }
+
+      h4 {
+        font-size: 14px !important;
+      }
+    }
+
+    .boxs h3 {
+      line-height: 40px !important;
+      background: #f9f9f9 !important;
+      font-size: 14px !important;
+      color: #666666 !important;
+      text-align: center !important;
+    }
+  }
+
+  @media only screen and (max-width: 1024px) {
+    div[nz-col] {
+      margin-bottom: 12px;
+    }
+
+    .title {
+      padding: 20px 0 !important;
+    }
+
+    .boxs {
+      padding: 50px 0 !important;
+
+    }
+
+    .descs {
+
+      nz-row {
+        padding-bottom: 0 !important;
+        margin-bottom: 100px !important;
+
+        .descs-text {
+          padding: 0 30px !important;
+
+          h3 {
+            font-size: 26px !important;
+            padding: 30px 0 !important;
+            margin-bottom: 0;
+          }
+
+          p {
+            font-size: 22px !important;
+            line-height: 40px !important;
+            padding-bottom: 0 !important;
+          }
+
+          a {
+            font-size: 18px;
+            color: #ab8e75;
+          }
+        }
+
+        .img-float {
+          position: relative !important;
+
+          img {
+            margin-top: 20px !important;
+          }
+        }
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-<ul nz-menu [nzMode]="'horizontal'" class="menus ant-Pright">
+<ul nz-menu [nzMode]="'horizontal'" class="menus">
   <li class="menu ant-Mright" *ngIf="!isLogin" nz-menu-item [routerLink]="['/login']"><i nz-icon nzType="login"
       nzTheme="outline"></i>登录</li>
   <li class="menu" *ngIf="isLogin" nz-menu-item><i *ngIf="!headimgurl" nz-icon nzType="user" nzTheme="outline"></i><img
@@ -11,6 +11,47 @@
     </a>
   </li>
 </ul>
-<div class="banners">
-  <img src="assets/000061.JPG">
+<div class="title">
+  <h5>欢迎来到德莱联盟！</h5>
+  <h3>好礼品我们造,用心做好产品</h3>
+  <h4>We build good products and make good products.</h4>
+</div>
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let banner of banners">
+      <img [src]="banner.url" [alt]="banner.name" width="100%">
+    </div>
+  </div>
+  <!-- Add Pagination -->
+  <div class="swiper-pagination swiper-pagination-white"></div>
+  <!-- Add Arrows -->
+  <div class="swiper-button-next swiper-button-white"></div>
+  <div class="swiper-button-prev swiper-button-white"></div>
+</div>
+<div class="boxs">
+  <div nz-row [nzGutter]="12">
+    <div nz-col [nzSm]="12" [nzMd]="12" [nzLg]="6" *ngFor="let box of boxs">
+      <img [src]="box.url" [alt]="box.name">
+      <h3>{{box.name}}</h3>
+    </div>
+  </div>
+</div>
+<div class="descs">
+  <div style="margin: 0 auto;padding: 0 15px">
+    <nz-row *ngFor="let desc of descs">
+      <nz-col [nzSm]="24" [nzMd]="12" [nzLg]="12">
+        <img [src]="desc.src1">
+      </nz-col>
+      <nz-col [nzSm]="24" [nzMd]="12" [nzLg]="12">
+        <div class="descs-text">
+          <h3>{{desc.h3}}</h3>
+          <p>{{desc.p}}</p>
+          <a [href]="desc.url">查看更多 ></a>
+        </div>
+      </nz-col>
+      <nz-col [nzMd]="24" [nzLg]="16" class="img-float">
+        <img [src]="desc.src2">
+      </nz-col>
+    </nz-row>
+  </div>
 </div>

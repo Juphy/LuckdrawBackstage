@@ -6,11 +6,13 @@ import { AddComponent } from './add/add.component';
 import { DatePipe } from '@angular/common';
 import { DailyComponent } from './daily/daily.component';
 import { ExchangeComponent } from './exchange/exchange.component';
+import { MoneyComponent } from './money/money.component';
 
 const routes: Routes = [
   { path: 'coupon', component: CouponComponent },
   { path: 'daily', component: DailyComponent },
   { path: 'exchange', component: ExchangeComponent },
+  { path: 'money', component: MoneyComponent }
 ];
 
 @NgModule({
@@ -19,7 +21,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [DatePipe],
-  declarations: [CouponComponent, AddComponent, DailyComponent, ExchangeComponent],
+  declarations: [CouponComponent, AddComponent, DailyComponent, ExchangeComponent, MoneyComponent],
   // AddComponent 添加优惠券
   entryComponents: [AddComponent]
 })

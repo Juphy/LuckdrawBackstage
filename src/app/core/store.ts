@@ -64,6 +64,8 @@ export const URLS = {
   daily_task_manage: '/console/market/daily',
   // 兑换红包
   exchange_money_manage: '/console/market/exchange',
+  // 活动价格
+  activity_time_manage: '/console/market/money',
 
   // 商品订单
   goods_order_manage: '/console/order/goods',
@@ -82,8 +84,6 @@ export const URLS = {
   question_answer_manage: '/console/sys/question',
   // 意见反馈
   feedback_manage: '/console/sys/feedback',
-  // 活动价格
-  activity_money_manage: '/console/sys/money',
 }
 
 // 控制图标
