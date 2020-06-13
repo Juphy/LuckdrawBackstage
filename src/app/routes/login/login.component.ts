@@ -108,15 +108,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   flag = true; //true 普通登录  false扫码登录
+  erweima = "assets/erweima.jpg";
+  imgLoading = true; // true 正在加载  false 加载二维码完成
   change_flag() {
     this.flag = !this.flag;
+    this.imgLoading = true;
     if (!this.flag) {
       // 获取二维码
+      setTimeout(() => {
+        this.imgLoading = false;
+      }, 2000);
     }
   }
-
-  erweima = "assets/erweima.jpg";
-  imgLoading = true;
 
   ngOnDestroy(): void {
     if (this.interval$) {

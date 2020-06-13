@@ -95,6 +95,7 @@
   .erweima-form {
     width: 70%;
     margin: 0 auto;
+    transition: all 10s;
 
     .erweima-erweima {
       img {
@@ -120,6 +121,7 @@
     color: #ff552e;
   }
 
+  .ant-spin-dot-item,
   .ant-tabs-ink-bar {
     background-color: #ff552e;
   }

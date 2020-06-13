@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
+  selector: 'app-add-role',
+  templateUrl: './add-role.component.html',
 })
-export class AddUserComponent implements OnInit {
+export class AddRoleComponent implements OnInit {
   @Input() id: number;
   constructor() { }
 

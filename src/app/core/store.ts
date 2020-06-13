@@ -31,7 +31,7 @@ export const URL = {
   // 订单管理
   order_manage: '/console/order',
   // 权限管理
-  permission_manage: '/console/permission',
+  permission_manage: '/console/role',
   // 用户管理
   user_manage: '/console/user/list',
   // 系统设置
@@ -75,7 +75,7 @@ export const URLS = {
   activity_time_order_manage: '/console/order/exchange',
 
   // 权限列表
-  permission_list_manage: '/console/permission/list',
+  permission_list_manage: '/console/role/list',
 
   // 用户列表
   user_list_manage: '/console/user/list',

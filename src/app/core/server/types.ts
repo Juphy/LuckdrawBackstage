@@ -259,3 +259,25 @@ export interface RoleList {
     page?: number;
     pagesize?: number;
 }
+
+export interface UserList {
+    attention_service?: number;
+    attention_applet?: number;
+    nickname?: string;
+    realname?: string;
+    sex?: number;
+    shop_id?: number;
+    shop_name?: string;
+    min_point?: number;
+    max_point?: number;
+    min_balance?: number;
+    max_balance?: number;
+    phone?: string;
+    joined_count?: number;
+    is_manager?: boolean;
+    is_special?: boolean;
+    start_created_at?: string;
+    end_created_at?: string;
+    page?: number;
+    pagesize?: number;
+}

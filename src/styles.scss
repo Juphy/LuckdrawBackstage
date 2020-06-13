@@ -111,7 +111,7 @@ $bgColor: #f5f7fa;
 
       label {
         display: inline-block;
-        width: 86px;
+        width: 96px;
         line-height: $ant;
         margin-right: 10px;
         margin-left: $xl;
@@ -144,7 +144,7 @@ $bgColor: #f5f7fa;
 }
 
 .ant-table-thead>tr>th {
-  white-space: nowrap;
+  // white-space: nowrap;
 }
 
 .ant-table-tbody>tr>td {
@@ -308,4 +308,8 @@ $bgColor: #f5f7fa;
   margin-right: 12px;
   line-height: 26px;
   font-size: 16px;
+}
+
+.ant-calendar-picker {
+  width: inherit !important;
 }
