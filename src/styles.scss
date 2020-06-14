@@ -195,6 +195,27 @@ $bgColor: #f5f7fa;
   border-bottom: 2px solid #c0865b;
 }
 
+.ant-dropdown-menu {
+  top: -3px;
+}
+
+.ant-dropdown-menu-item {
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 1px;
+}
+
+.ant-dropdown-menu-item:hover {
+  color: #c0865b;
+  background-color: #fff;
+}
+
+.ant-menu-horizontal>.ant-menu-item,
+.ant-menu-horizontal>.ant-menu-submenu {
+  top: 0;
+}
+
 .ant-tabs-tab a {
   color: #6c727a;
 }

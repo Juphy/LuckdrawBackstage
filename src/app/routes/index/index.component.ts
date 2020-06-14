@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserInfo, URL, URLS } from '@core';
+import { Router } from "@angular/router";
 import Swiper from 'swiper';
+
 
 @Component({
   selector: 'app-index',
@@ -30,7 +32,9 @@ export class IndexComponent implements OnInit, AfterViewInit {
     { src1: 'assets/img31.jpg', h3: '高级设备流水制作', p: '本公司专门为您打造定制的商品包装。本公司专门为您打造定制的商品包装。', url: '', src2: 'assets/img32.jpg' }
   ];
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
   }
 
   ngOnInit() {
@@ -62,6 +66,15 @@ export class IndexComponent implements OnInit, AfterViewInit {
         delay: 2000,
       },
     })
+  }
+
+  logout() {
+    localStorage.clear();
+    UserInfo['name'] = '';
+    UserInfo['id'] = '';
+    UserInfo['headimgurl'] = '';
+    UserInfo['permission'] = [];
+    this.router.navigateByUrl('/login');
   }
 
 }

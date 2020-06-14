@@ -113,7 +113,11 @@ export class LayoutComponent implements OnInit {
   }
 
   logout() {
+    UserInfo['name'] = '';
+    UserInfo['id'] = '';
+    UserInfo['headimgurl'] = '';
+    UserInfo['permission'] = [];
     localStorage.clear();
-    this.router.navigateByUrl('/login')
+    this.router.navigateByUrl('/index');
   }
 }

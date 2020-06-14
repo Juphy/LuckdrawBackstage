@@ -10,12 +10,17 @@
       <div class="ant-Mright-xxxl">
         <nz-badge nzDot><i nz-icon nzType="bell" nzTheme="outline"></i></nz-badge>
       </div>
-      <div class="ant-Mleft-xxxl">
+      <div class="ant-Mleft-xxxl ant-Pright-xxxl ant-Pleft-small" nz-dropdown [nzDropdownMenu]="menu">
         <i *ngIf="!headimgurl" class="user" nz-icon nzType="user" nzTheme="outline"></i>
         <img *ngIf="headimgurl" [src]="headimgurl"
           style="width: 22px;height: 22px;border-radius: 26px;  margin-right: 4px;position: relative;top: -1px">
         {{ userName }}
       </div>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item (click)="logout()">退出登录</li>
+        </ul>
+      </nz-dropdown-menu>
     </div>
   </header>
   <nz-layout class="layout">

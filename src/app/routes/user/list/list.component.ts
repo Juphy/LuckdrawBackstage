@@ -62,7 +62,7 @@ export class ListComponent implements OnInit {
     { name: '特殊人员？', value: 'is_special' },
     { name: '关注服务号？', value: 'attention_service' },
     { name: '关注小程序？', value: 'attention_applet' },
-    { name: '创建时间', value: 'created_at' },
+    { name: '关注时间', value: 'created_at' },
   ];
   sexOption = [
     { name: '男', value: 1 },
