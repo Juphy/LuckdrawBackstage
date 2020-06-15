@@ -21,10 +21,10 @@ export class IndexComponent implements OnInit, AfterViewInit {
   ];
   swiper: Swiper;
   boxs = [
-    { name: '食品包装', url: 'assets/img1.jpg' },
-    { name: '食品包装', url: 'assets/img2.jpg' },
-    { name: '食品包装', url: 'assets/img3.jpg' },
-    { name: '食品包装', url: 'assets/img4.jpg' }
+    { name: '食品包装', url: 'assets/img1.jpg', href: 'javascript:;' },
+    { name: '食品包装', url: 'assets/img2.jpg', href: 'javascript:;' },
+    { name: '食品包装', url: 'assets/img3.jpg', href: 'javascript:;' },
+    { name: '食品包装', url: 'assets/img4.jpg', href: 'javascript:;' }
   ];
   descs = [
     { src1: 'assets/img11.jpg', h3: '优秀包装设计美学', p: '本公司专门为您打造定制的商品包装。本公司专门为您打造定制的商品包装。', url: '', src2: 'assets/img12.jpg' },
@@ -57,13 +57,14 @@ export class IndexComponent implements OnInit, AfterViewInit {
         el: '.swiper-pagination',
         clickable: true,
       },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
+      // navigation: {
+      //   nextEl: '.swiper-button-next',
+      //   prevEl: '.swiper-button-prev',
+      // },
       loop: true,
       autoplay: {
         delay: 2000,
+        disableOnInteraction: false,
       },
     })
   }
@@ -74,7 +75,6 @@ export class IndexComponent implements OnInit, AfterViewInit {
     UserInfo['id'] = '';
     UserInfo['headimgurl'] = '';
     UserInfo['permission'] = [];
-    this.router.navigateByUrl('/login');
   }
 
 }

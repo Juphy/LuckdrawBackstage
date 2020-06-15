@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.login();
+    this.get_time$();
+    // this.login();
   }
 
   submit() {
@@ -107,23 +108,30 @@ export class LoginComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  flag = true; //true 普通登录  false扫码登录
+  flag = false; //true 普通登录  false扫码登录
   erweima = "assets/erweima.jpg";
-  imgLoading = true; // true 正在加载  false 加载二维码完成
+  imgLoading = false; // true 正在加载  false 加载二维码完成
   change_flag() {
     this.flag = !this.flag;
-    this.imgLoading = true;
+    clearInterval(this.timer$);
     if (!this.flag) {
-      // 获取二维码
-      setTimeout(() => {
-        this.imgLoading = false;
-      }, 2000);
+      this.num = 1;
+      this.get_time$();
     }
+  }
+
+  timer$: any;
+  num = 1;
+  get_time$() {
+    this.timer$ = setInterval(() => {
+      this.num += 1;
+    }, 250)
   }
 
   ngOnDestroy(): void {
     if (this.interval$) {
       clearInterval(this.interval$);
+      clearInterval(this.timer$);
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class="erweima-container">
     <!-- <img src="assets/erweima.jpg"> -->
     <div class="erweima-link">
-      <a href="/">返回首页</a>
+      <a routerLink="/index">返回首页</a>
       <a href="javascript:;">已有账号？去登陆</a>
     </div>
     <div class="erweima-inner">
@@ -23,7 +23,12 @@
             <div *ngIf="imgLoading" style="padding: 48px 0;font-size: 48px;">
               <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
             </div>
-            <img *ngIf="!imgLoading" [src]="erweima">
+            <!-- <img *ngIf="!imgLoading" [src]="erweima"> -->
+            <div *ngIf="!imgLoading&&num%480!==0" class="iframe-container">
+              <iframe
+                src="https://open.weixin.qq.com/connect/qrconnect?appid=wx25f16c3e9bad9b7a&redirect_uri=http%3A%2F%2Ffw.wenquanpage.com%2Fwechat%2Fget_service_user_info&response_type=code&scope=snsapi_login#wechat_redirect"
+                frameborder="0" sandbox="allow-scripts allow-same-origin allow-top-navigation"></iframe>
+            </div>
           </div>
         </div>
         <form *ngIf="flag" nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">

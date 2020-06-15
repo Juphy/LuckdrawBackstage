@@ -118,6 +118,5 @@ export class LayoutComponent implements OnInit {
     UserInfo['headimgurl'] = '';
     UserInfo['permission'] = [];
     localStorage.clear();
-    this.router.navigateByUrl('/index');
   }
 }

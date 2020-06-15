@@ -1,7 +1,6 @@
 .menus {
   position: relative;
-  height: 65p
-  x;
+  height: 65p x;
   z-index: 9;
 
   li {
@@ -233,4 +232,16 @@
 
 :focus {
   outline: none;
+}
+
+.footer {
+  background-color: #555c69;
+  text-align: center;
+  padding: 48px 0;
+  color: #fff;
+
+  p {
+    margin-bottom: 0;
+    margin: 12px;
+  }
 }

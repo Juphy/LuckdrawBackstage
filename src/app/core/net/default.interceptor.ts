@@ -59,9 +59,9 @@ export class DefaultInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.url !== 'siteinfo') {
             let url = SiteInfo.api + '/' + req.url;
-            if (req.url === 'ucs/upload_img') {
+            if (req.url.includes('https')) {
                 req = req.clone({
-                    url: SiteInfo.api + '/' + req.url
+                    url: req.url
                 });
             } else {
                 req = req.clone({

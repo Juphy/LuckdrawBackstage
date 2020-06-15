@@ -1,7 +1,7 @@
 <div class="container">
   <header>
     <div [ngClass]="!isCollapsed?'logo': 'logo logo-collapsed'">
-      <a href="/">
+      <a>
         <img src="assets/logos.png">
         <div>一起拼手气</div>
       </a>
@@ -18,13 +18,13 @@
       </div>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu nzSelectable>
-          <li nz-menu-item (click)="logout()">退出登录</li>
+          <li nz-menu-item [routerLink]="['/login']" (click)="logout()">退出登录</li>
         </ul>
       </nz-dropdown-menu>
     </div>
   </header>
   <nz-layout class="layout">
-    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
       <div class="trigger" (click)="isCollapsed = !isCollapsed">
         <i nz-icon nzTheme="outline" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
       </div>
