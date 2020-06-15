@@ -281,3 +281,22 @@ export interface UserList {
     page?: number;
     pagesize?: number;
 }
+
+export interface TemplateList {
+    template_name?: string;
+    template_type?: string;
+    page?: number;
+    pagesize?: number;
+}
+
+export interface DelTemplate {
+    id: number;
+}
+
+export interface ShopList {
+    type?: number;
+    belong_to_user?: number;
+    name?: string;
+    page?: number;
+    pagesize?: number;
+}

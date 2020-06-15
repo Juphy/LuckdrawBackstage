@@ -108,5 +108,12 @@ export let FN = {
 
 // option
 export const Options = {
-  'QA': []
+  "postage": [],
+  "Postage": {},
+  "action": [],
+  "Action": {},
+  "feedback": [],
+  "Feedback": {},
+  "question_answer": [],
+  "QuestionAnswer": {}
 };

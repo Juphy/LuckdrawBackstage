@@ -1,15 +1,16 @@
 <div nz-row>
-  <div nz-col nzSpan="4" *ngFor="let d of data" class="item-box ant-Mright ant-Mbottom">
+  <div nz-col [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="4" [nzXXl]="3" *ngFor="let d of data"
+    class="item-box ant-Mright ant-Mbottom">
     <ng-container *ngIf="d.id">
       <div class="ant-Pleft ant-Pright ant-Ptop ant-Pbottom">
         <div style="display:flex">
-          <label style="display: inline-block;line-height: 32px;width: 54px">
+          <label style="display: inline-block;line-height: 32px;width: 54px;white-space: nowrap;">
             名称：
           </label>
           <input style="flex: 1" type="text" nz-input [(ngModel)]="d.name" [disabled]="d.type">
         </div>
         <div class="ant-Mtop" style="display: flex;">
-          <label style="display: inline-block;line-height: 32px;width: 54px">
+          <label style="display: inline-block;line-height: 32px;width: 54px;white-space: nowrap;">
             店铺：
           </label>
           <nz-select [(ngModel)]="d.shop_id" [nzDisabled]="d.type" style="flex: 1">
@@ -27,8 +28,8 @@
           </ng-container>
         </div>
         <div class="line"></div>
-        <div *ngIf="!d.show" (click)="change_group_show(d.id, 1)">显示</div>
-        <div *ngIf="d.show" (click)="change_group_show(d.id, 0)">隐藏</div>
+        <div *ngIf="!d.show" (click)="change_group_show(d.id, 1, d.name)">显示</div>
+        <div *ngIf="d.show" (click)="change_group_show(d.id, 0, d.name)">隐藏</div>
         <div class="line"></div>
         <div *ngIf="d.type" style="color: #f5222d" nz-popconfirm nzPopconfirmTitle="你确定要删除这个分组吗？"
           nzPopconfirmPlacement="top" (nzOnConfirm)="confirm(d.id)" (nzOnCancel)="cancel()">删除</div>

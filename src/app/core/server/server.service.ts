@@ -51,7 +51,9 @@ import {
   RoleInfo,
   RoleBinds,
   RoleList,
-  UserList
+  UserList,
+  TemplateList,
+  DelTemplate
 } from "./types";
 
 @Injectable({
@@ -203,76 +205,80 @@ export class ServerService {
 
   // 编辑广告位置
   ads__edit_ad_position(params: EditAdPosition): Observable<any> {
-    return this.http.post('ads/edit_ad_position', params);
+    return this.http.post<HttpResponse>('ads/edit_ad_position', params);
   }
 
   // 修改广告位置状态
   ads__ad_position_info(params: AdPositionStatus): Observable<any> {
-    return this.http.post('ads/change_ad_position_status', params);
+    return this.http.post<HttpResponse>('ads/change_ad_position_status', params);
   }
 
   // 广告位置的广告
   ads__position_ads(params: AdPositionAds): Observable<any> {
-    return this.http.post('ads/ad_position_ads', params);
+    return this.http.post<HttpResponse>('ads/ad_position_ads', params);
   }
 
   // 添加或编辑广告
   ads__edit_ads(params: EditAds): Observable<any> {
-    return this.http.post('ads/edit_ads', params);
+    return this.http.post<HttpResponse>('ads/edit_ads', params);
   }
 
   // 删除广告
   ads__del_ads(params: DelAds): Observable<any> {
-    return this.http.post('ads/edit_ads', params);
+    return this.http.post<HttpResponse>('ads/edit_ads', params);
   }
 
   // 修改广告排序位置
   ads__change_sort(params: ChangeSort): Observable<any> {
-    return this.http.post('ads/change_sort', params);
+    return this.http.post<HttpResponse>('ads/change_sort', params);
   }
 
   // 更新广告点击次数
   ads__update_click_num(params: UpdateClickNum): Observable<any> {
-    return this.http.post('ads/update_click_num', params);
+    return this.http.post<HttpResponse>('ads/update_click_num', params);
   }
 
   // 内部店铺
   shop__inside_shop(): Observable<any> {
-    return this.http.get('shop/inside_shop')
+    return this.http.get<HttpResponse>('shop/inside_shop')
   }
 
   // 广告详情
   ads__ads_info(params: any): Observable<any> {
-    return this.http.post('ads/ads_info', params);
+    return this.http.post<HttpResponse>('ads/ads_info', params);
   }
 
   // 常见问题列表
   manager__question_answers(params: QuestionAnswers): Observable<any> {
-    return this.http.post('manager/question_answers', params);
+    return this.http.post<HttpResponse>('manager/question_answers', params);
   }
 
   // 编辑添加问题
   manager__edit_question_answer(params: EditQuestion): Observable<any> {
-    return this.http.post('manager/edit_question_answer', params)
+    return this.http.post<HttpResponse>('manager/edit_question_answer', params)
   }
 
   // 删除问题
   manager__del_question_answer(params: DelQuestion): Observable<any> {
-    return this.http.post('manager/del_question_answer', params);
+    return this.http.post<HttpResponse>('manager/del_question_answer', params);
   }
 
   // question type
   get_question_type(params: SysOptions): Observable<any> {
-    if (Options.QA.length) {
-      return of(Options.QA);
+    if (Options.question_answer.length) {
+      return of(Options.question_answer);
     } else {
-      return this.http.post<HttpResponse>('home/sys_options', params).pipe(
+      return this.home__sys_options(params).pipe(
         map(e => {
-          Options.QA = e['result'] || [];
-          return Options.QA;
+          Options.question_answer = e['result'] || [];
+          return Options.question_answer;
         })
-      );
+      )
     }
+  }
+
+  home__sys_options(params: SysOptions): Observable<any> {
+    return this.http.post<HttpResponse>('home/sys_options', params);
   }
 
   // 获取用户信息
@@ -331,6 +337,16 @@ export class ServerService {
 
   // 用户列表
   manager__user_list(params: UserList): Observable<any> {
-    return this.http.post('manager/user_list', params)
+    return this.http.post<HttpResponse>('manager/user_list', params)
+  }
+
+  // 模板列表
+  activity__template_list(params: TemplateList): Observable<any> {
+    return this.http.post<HttpResponse>('activity/template_list', params);
+  }
+
+  // 删除模板
+  activity__del_template(params: DelTemplate): Observable<any> {
+    return this.http.post<HttpResponse>('activity/del_template', params);
   }
 }

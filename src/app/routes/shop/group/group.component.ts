@@ -108,9 +108,12 @@ export class GroupComponent implements OnInit {
     })
   }
 
-  change_group_show(id, show) {
+  change_group_show(id, show, name) {
     this.serverService.goods__change_group_show({ id, show }).subscribe(res => {
-      if (res['status'] === 200) this.get_data();
+      if (res['status'] === 200) {
+        this.nzMessageService.success(`分组【${name}】${show ? '显示' : '隐藏'}成功！`);
+        this.get_data();
+      };
     })
   }
 }

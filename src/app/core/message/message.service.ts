@@ -86,4 +86,18 @@ export class MessageService {
   getRoleList(): Observable<any> {
     return of(this.roleList);
   }
+
+  // 模板列表
+  templateList: any;
+  setTemplateList(obj) {
+    this.templateList = obj;
+  }
+
+  clearTemplateList() {
+    this.templateList = null;
+  }
+
+  getTemplateList(): Observable<any> {
+    return of(this.templateList);
+  }
 }
