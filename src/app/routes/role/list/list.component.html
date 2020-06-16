@@ -28,10 +28,8 @@
   </div>
 </div>
 <div class="container-box overflow-box">
-  <nz-table #table nzShowSizeChanger [nzData]="data" [(nzPageSize)]="searchData.pagesize"
-    [(nzPageIndex)]="searchData.page" [nzFrontPagination]="false" [nzTotal]="total" [nzShowTotal]="totalTemplate"
-    [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry" (nzPageIndexChange)="get_data()"
-    (nzPageSizeChange)="get_data(true)">
+  <nz-table #table nzShowSizeChanger [nzData]="data" [nzFrontPagination]="true" [nzTotal]="total" [nzShowTotal]="totalTemplate"
+    [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry">
     <thead>
       <tr>
         <th *ngFor="let t of theads">{{t.name}}</th>

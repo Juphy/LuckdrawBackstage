@@ -9,8 +9,7 @@ import { Ad_Type, AdType, Url_Type, UrlType } from '@routes/DATA';
 
 @Component({
   selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']
+  templateUrl: './add.component.html'
 })
 export class AddComponent implements OnInit, AfterViewInit {
   validateForm: FormGroup;

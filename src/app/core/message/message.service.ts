@@ -87,7 +87,7 @@ export class MessageService {
     return of(this.roleList);
   }
 
-  // 模板列表
+  // 模板列表 
   templateList: any;
   setTemplateList(obj) {
     this.templateList = obj;
@@ -99,5 +99,19 @@ export class MessageService {
 
   getTemplateList(): Observable<any> {
     return of(this.templateList);
+  }
+
+  // 店铺列表
+  shopList: any;
+  setShopList(obj) {
+    this.shopList = obj;
+  }
+
+  clearShopList() {
+    this.shopList = null;
+  }
+
+  getShopList(): Observable<any> {
+    return of(this.shopList);
   }
 }

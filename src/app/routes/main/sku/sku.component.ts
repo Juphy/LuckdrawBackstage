@@ -4,8 +4,7 @@ import { NzModalRef, isTemplateRef, NzMessageService } from 'ng-zorro-antd';
 declare const Number;
 @Component({
   selector: 'app-sku',
-  templateUrl: './sku.component.html',
-  styleUrls: ['./sku.component.scss']
+  templateUrl: './sku.component.html'
 })
 export class SkuComponent implements OnInit {
   visible = false;

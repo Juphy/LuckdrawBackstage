@@ -11,6 +11,11 @@
             <ng-template ngSwitchCase="input">
               <input nz-input [type]="item.type" [(ngModel)]="searchData[item.value]" [placeholder]="'请输入'+item.name">
             </ng-template>
+            <ng-template ngSwitchCase="option">
+              <nz-select [(ngModel)]="searchData[item.value]" nzAllowClear="true" [nzPlaceHolder]="'请选择'+item.name">
+                <nz-option *ngFor="let o of templateTypeOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
+              </nz-select>
+            </ng-template>
             <ng-template ngSwitchCase="date">
               <nz-range-picker [(ngModel)]="searchData[item.value]" nzShowTime></nz-range-picker>
             </ng-template>

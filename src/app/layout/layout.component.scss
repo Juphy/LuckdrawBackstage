@@ -15,6 +15,17 @@
     background: linear-gradient(90deg, #2B3037, #6c727A);
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
 
+    .trigger {
+      flex: 1;
+      text-align: left;
+      margin-left: 12px;
+
+      i {
+        cursor: pointer;
+        font-size: 20px;
+      }
+    }
+
     .logo {
       width: 200px;
       height: 100%;

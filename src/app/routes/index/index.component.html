@@ -18,7 +18,7 @@
 </ul>
 <div class="title">
   <h5>欢迎来到德莱联盟！</h5>
-  <h3>好礼品我们造,用心做好产品</h3>
+  <h3>好礼品我们造，用心做好产品</h3>
   <h4>We build good products and make good products.</h4>
 </div>
 <div class="swiper-container">
@@ -32,16 +32,6 @@
   <!-- Add Arrows -->
   <!-- <div class="swiper-button-next swiper-button-white"></div>
   <div class="swiper-button-prev swiper-button-white"></div> -->
-</div>
-<div class="boxs">
-  <div nz-row [nzGutter]="12">
-    <div nz-col [nzSm]="12" [nzMd]="12" [nzLg]="6" *ngFor="let box of boxs">
-      <a [href]="box.href">
-        <img [src]="box.url" [alt]="box.name">
-        <h3>{{box.name}}</h3>
-      </a>
-    </div>
-  </div>
 </div>
 <div class="descs">
   <div style="margin: 0 auto;padding: 0 15px">
@@ -62,11 +52,21 @@
     </nz-row>
   </div>
 </div>
+<div class="boxs">
+  <div nz-row [nzGutter]="12">
+    <div nz-col [nzSm]="12" [nzMd]="12" [nzLg]="6" *ngFor="let box of boxs">
+      <a [href]="box.href">
+        <img [src]="box.url" [alt]="box.name">
+        <h3>{{box.name}}</h3>
+      </a>
+    </div>
+  </div>
+</div>
 <div class="partner">
 
 </div>
 <div class="footer">
   <p>微信公众号 wenquanpage&nbsp;&nbsp;&nbsp;联系邮箱 wenquan@gmail.com</p>
-  <p>Copyright©2020 Powered by Juphy <a>1.0.0</a></p>
+  <p>Copyright©2020 Powered by Juphy <a>0.1.0</a></p>
   <p>晋ICP备 20002205号 -1</p>
 </div>

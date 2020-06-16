@@ -115,5 +115,17 @@ export const Options = {
   "feedback": [],
   "Feedback": {},
   "question_answer": [],
-  "QuestionAnswer": {}
+  "QuestionAnswer": {},
+  "template": [],
+  "Template": {},
+  "order_status": [
+    { name: '待支付', value: 100 },
+    { name: '已失效', value: 101 },
+    { name: '待发货', value: 200 },
+    { name: '已发货', value: 201 },
+    { name: '已完成', value: 202 },
+    { name: '支付失败', value: 300 },
+    { name: '申请退款', value: 400 },
+    { name: '已退款', value: 401 }
+  ]
 };

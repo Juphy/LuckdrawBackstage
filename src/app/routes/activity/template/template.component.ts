@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServerService, MessageService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd';
 
@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd';
   selector: 'app-template',
   templateUrl: './template.component.html'
 })
-export class TemplateComponent implements OnInit {
+export class TemplateComponent implements OnInit, OnDestroy {
   searchItems = [
     { name: '模板名称', value: 'template_name', type: 'text', class: "input", span: 6 },
-    { name: '模板类型', value: 'template_type', type: 'text', class: "input", span: 6 }
+    { name: '模板类型', value: 'template_type', type: 'text', class: "option", span: 6 }
   ];
   loading = false;
   searchData = {
@@ -25,6 +25,8 @@ export class TemplateComponent implements OnInit {
     { name: '模板名称', value: 'template_name' },
     { name: '模板类型', value: 'template_type' }
   ];
+  templateTypeOption = [];
+  templateTypeObj = {};
   constructor(
     private nzMessageService: NzMessageService,
     private serverService: ServerService,
@@ -37,6 +39,20 @@ export class TemplateComponent implements OnInit {
 
   ngOnInit() {
     this.get_data();
+    this.get_template_type();
+  }
+
+  ngOnDestroy(): void {
+    this.message.setTemplateList(this.searchData);
+  }
+
+  get_template_type() {
+    this.serverService.home__sys_options({ type: 'template' }).subscribe(res => {
+      this.templateTypeOption = [...res];
+      this.templateTypeOption.forEach(item => {
+        this.templateTypeObj[item.value] = item.name;
+      })
+    })
   }
 
   get_data(flag?: boolean) {
@@ -81,5 +97,4 @@ export class TemplateComponent implements OnInit {
       }
     })
   }
-
 }

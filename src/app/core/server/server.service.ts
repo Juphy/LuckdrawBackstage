@@ -53,7 +53,20 @@ import {
   RoleList,
   UserList,
   TemplateList,
-  DelTemplate
+  DelTemplate,
+  ShopList,
+  ShopInfo,
+  OrderGoodsList,
+  OrderActivities,
+  OrderActivitiesTimes,
+  FeedbackList,
+  HandleFeedback,
+  EditDailyTasks,
+  DelDailyTask,
+  ExchangeMoneyList,
+  EditExchangeMoney,
+  ChangeExchangeMoneyStatus,
+  DelExchangeMoney
 } from "./types";
 
 @Injectable({
@@ -349,4 +362,86 @@ export class ServerService {
   activity__del_template(params: DelTemplate): Observable<any> {
     return this.http.post<HttpResponse>('activity/del_template', params);
   }
+
+  // 获取template_type
+  get_template_type(params: SysOptions): Observable<any> {
+    if (Options.template.length) {
+      return of(Options.template)
+    } else {
+      return this.home__sys_options(params).pipe(
+        map(e => {
+          Options.template = e['result'] || [];
+          return Options.template;
+        })
+      )
+    }
+  }
+
+  // 店铺列表
+  shop__lists(params: ShopList): Observable<any> {
+    return this.http.post('shop/lists', params);
+  }
+
+  // 店铺信息
+  shop__info(params: ShopInfo): Observable<any> {
+    return this.http.post('shop/info', params);
+  }
+
+  // 商品订单列表
+  order__goods_lists(params: OrderGoodsList): Observable<any> {
+    return this.http.post('order/goods_lists', params);
+  }
+
+  // 活动订单
+  order__activities(params: OrderActivities): Observable<any> {
+    return this.http.post('order/activities', params);
+  }
+
+  // 活动充值订单
+  order__activity_times(params: OrderActivitiesTimes): Observable<any> {
+    return this.http.post('order/activity_times', params);
+  }
+
+  // 反馈列表
+  manager__feedback_list(params: FeedbackList): Observable<any> {
+    return this.http.post('manager/feedback_list', params);
+  }
+
+  // 处理反馈
+  manager__handle_feedback(params: HandleFeedback): Observable<any> {
+    return this.http.post('manager/handle_feedback', params);
+  }
+
+  // 每日任务列表
+
+  // 添加编辑每日任务
+  manager__edit_daily_tasks(params: EditDailyTasks): Observable<any> {
+    return this.http.post('manager/edit_daily_tasks', params);
+  }
+
+  // 删除每日任务
+  manager__del_daily_task(params: DelDailyTask): Observable<any> {
+    return this.http.post('manager/del_daily_task', params)
+  }
+
+  // 兑换红包列表
+  manager__exchange_money_list(params: ExchangeMoneyList): Observable<any> {
+    return this.http.post('manager/exchange_money_list', params)
+  }
+
+  // 添加编辑兑换红包
+  manager__edit_exchange_money(params: EditExchangeMoney): Observable<any> {
+    return this.http.post<HttpResponse>('manager/edit_exchange_money', params);
+  }
+
+  // 修改红包状态
+  manager__change_exchange_money_status(params: ChangeExchangeMoneyStatus): Observable<any> {
+    return this.http.post<HttpResponse>('manager/change_exchange_money_status', params);
+  }
+
+  // 删除红包
+  manager__del_exchange_money(params: DelExchangeMoney): Observable<any> {
+    return this.http.post('manager/del_exchange_money', params);
+  }
+
 }

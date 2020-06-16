@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
     { name: '余额（元）', value: 'balance', type: 'number', class: "number", span: 6 },
     { name: '幸运币', value: 'point', type: 'number', class: "number", span: 6 },
     { name: '关注服务号?', value: 'attention_service', type: 'number', class: "option", span: 6 },
-    { name: '关注小程序?', value: 'attention_applet', type: 'number', class: "option", span: 6 },
+    // { name: '关注小程序?', value: 'attention_applet', type: 'number', class: "option", span: 6 },
     { name: '参与次数', value: 'joined_count', type: 'number', class: "number", span: 6 },
     { name: '关注时间', value: 'date', type: 'text', class: "date", span: 8 },
   ];
@@ -41,7 +41,7 @@ export class ListComponent implements OnInit {
     min_point: '',
     max_point: '',
     attention_service: null,
-    attention_applet: null,
+    // attention_applet: null,
     joined_count: '',
     date: null
   };
@@ -58,10 +58,9 @@ export class ListComponent implements OnInit {
     { name: '参与次数', value: 'joined_count' },
     { name: '店铺ID', value: 'shop_id' },
     { name: '店铺名称', value: 'shop_name' },
-    { name: '管理员？', value: 'is_manager' },
-    { name: '特殊人员？', value: 'is_special' },
-    { name: '关注服务号？', value: 'attention_service' },
-    { name: '关注小程序？', value: 'attention_applet' },
+    { name: '管理员?', value: 'is_manager' },
+    { name: '特殊人员?', value: 'is_special' },
+    { name: '关注服务号?', value: 'attention_service' },
     { name: '关注时间', value: 'created_at' },
   ];
   sexOption = [
@@ -149,7 +148,7 @@ export class ListComponent implements OnInit {
         this.data.forEach(item => {
           item['sex'] = this.sexObj[item.sex];
           item['balance'] = item['balance'] ? item['balance'].toFixed(2) : item['balance'];
-          item['created_at'] = formatDate(item['created_at'] * 1000, 'yyyy-MM-dd HH:mm:ss', 'en-US')
+          item['created_at'] = formatDate(item['subscribe_time'] * 1000, 'yyyy-MM-dd HH:mm:ss', 'en-US')
         })
         this.total = res['pageinfo']['total'];
       }

@@ -144,11 +144,13 @@ $bgColor: #f5f7fa;
 }
 
 .ant-table-thead>tr>th {
-  // white-space: nowrap;
+  white-space: nowrap;
+  padding: 8px 12px;
 }
 
 .ant-table-tbody>tr>td {
   word-break: break-all;
+  padding: 8px 12px;
 }
 
 .w-100 {

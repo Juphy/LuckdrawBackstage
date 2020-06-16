@@ -70,6 +70,13 @@ export class StartupService {
             });
             Options.QuestionAnswer[item.value] = item.name;
             break;
+          case "template":
+            Options.template.push({
+              name: item.name,
+              value: item.value
+            })
+            Options.Template[item.value] = item.name;
+            break;
         }
       })
     }, err => {

@@ -300,3 +300,71 @@ export interface ShopList {
     page?: number;
     pagesize?: number;
 }
+
+export interface ShopInfo {
+    id: number;
+}
+
+export interface OrderGoodsList {
+    status?: number;
+    page?: number;
+    pagesize?: number;
+}
+
+export interface OrderActivities {
+    name?: string;
+    page?: number;
+    pagesize?: number;
+}
+
+export interface OrderActivitiesTimes {
+    nickname?: string;
+    start_time?: string;
+    end_time?: string;
+}
+
+export interface FeedbackList {
+    page?: number;
+    pagesize?: number;
+}
+
+export interface HandleFeedback {
+    id: number;
+    remark?: string;
+}
+
+export interface EditDailyTasks {
+    action_type: number[],
+    name: string;
+    times: number;
+    point: number;
+    balance: number;
+    url?: string;
+    id?: number;
+}
+
+export interface DelDailyTask {
+    id: number;
+}
+
+export interface ExchangeMoneyList {
+
+}
+
+export interface EditExchangeMoney {
+    type: number;
+    point: number;
+    money: number;
+    total: number;
+    status?: number;
+    id?: number;
+}
+
+export interface ChangeExchangeMoneyStatus {
+    id: number;
+    status: number;
+}
+
+export interface DelExchangeMoney {
+    id: number;
+}

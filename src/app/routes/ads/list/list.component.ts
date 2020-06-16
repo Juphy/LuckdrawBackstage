@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ServerService, MessageService } from '@core';
 import { AddComponent } from '../add/add.component';
@@ -7,7 +7,7 @@ import { AddComponent } from '../add/add.component';
   selector: 'app-list',
   templateUrl: './list.component.html'
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   searchItems = [
     { name: '广告名称', value: 'name', type: 'text', class: "input", span: 6 }
   ];
@@ -42,6 +42,10 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.get_data();
+  }
+
+  ngOnDestroy(): void {
+    this.message.setAdList(this.searchData);
   }
 
   get_adposition() {

@@ -5,8 +5,7 @@ import { ServerService, MessageService } from '@core';
 
 @Component({
   selector: 'app-coupon',
-  templateUrl: './coupon.component.html',
-  styleUrls: ['./coupon.component.scss']
+  templateUrl: './coupon.component.html'
 })
 export class CouponComponent implements OnInit, OnDestroy {
   searchItems = [
