@@ -124,7 +124,7 @@ export class ListComponent implements OnInit {
       let value = item.value, param = this.searchData[value];
       switch (value) {
         case 'is_manager':
-          if (param === true || param === false) params[value] = param; 
+          if (param === true || param === false) params[value] = param;
           break;
         case 'date':
           if (param && param[0]) params['start_created_at'] = formatDate(param[0], 'yyyy-MM-dd HH:mm:ss', 'en-US');
@@ -148,7 +148,7 @@ export class ListComponent implements OnInit {
         this.data.forEach(item => {
           item['sex'] = this.sexObj[item.sex];
           item['balance'] = item['balance'] ? item['balance'].toFixed(2) : item['balance'];
-          item['created_at'] = formatDate(item['subscribe_time'] * 1000, 'yyyy-MM-dd HH:mm:ss', 'en-US')
+          item['created_at'] = formatDate(new Date(item['created_at']), 'yyyy-MM-dd HH:mm:ss', 'en-US')
         })
         this.total = res['pageinfo']['total'];
       }

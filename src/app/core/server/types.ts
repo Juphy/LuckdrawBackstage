@@ -368,3 +368,11 @@ export interface ChangeExchangeMoneyStatus {
 export interface DelExchangeMoney {
     id: number;
 }
+
+export interface ActivityManagerList {
+    nickname?: string;
+    phone?: string;
+    belong_to?: number;
+    page?: number;
+    pagesize?: number;
+}

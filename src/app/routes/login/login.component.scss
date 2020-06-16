@@ -16,6 +16,17 @@
     width: 536px;
     margin-left: -268px;
     text-align: center;
+
+    .erweima-loading {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 48px;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      padding-top: 200px;
+      padding-left: 7px;
+    }
   }
 
   .erweima-link {
@@ -115,6 +126,7 @@
     border: none;
   }
 
+  .ant-spin.ant-spin-show-text .ant-spin-text,
   .ant-tabs-nav .ant-tabs-tab:hover,
   .ant-tabs-nav .ant-tabs-tab-active {
     color: #ff552e;

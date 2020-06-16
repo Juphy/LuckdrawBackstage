@@ -48,6 +48,7 @@ export class ExchangeComponent implements OnInit {
     })
     this.loading = true;
     this.serverService.order__activity_times(params).subscribe(res => {
+      this.loading = false;
       if (res.status === 200) {
         this.data = res['result'];
         this.total = this.data.length;
@@ -55,6 +56,14 @@ export class ExchangeComponent implements OnInit {
     }, err => {
       this.loading = false;
     })
+  }
+
+  clear_data() {
+    this.searchData = {
+      nickname: '',
+      date: null
+    };
+    this.get_data();
   }
 
 }

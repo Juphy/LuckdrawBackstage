@@ -66,7 +66,8 @@ import {
   ExchangeMoneyList,
   EditExchangeMoney,
   ChangeExchangeMoneyStatus,
-  DelExchangeMoney
+  DelExchangeMoney,
+  ActivityManagerList
 } from "./types";
 
 @Injectable({
@@ -413,6 +414,9 @@ export class ServerService {
   }
 
   // 每日任务列表
+  manager__daily_task_list(): Observable<any> {
+    return this.http.get('manager/daily_task_list');
+  }
 
   // 添加编辑每日任务
   manager__edit_daily_tasks(params: EditDailyTasks): Observable<any> {
@@ -442,6 +446,11 @@ export class ServerService {
   // 删除红包
   manager__del_exchange_money(params: DelExchangeMoney): Observable<any> {
     return this.http.post('manager/del_exchange_money', params);
+  }
+
+  // 活动列表
+  activity__manager_list(params: ActivityManagerList): Observable<any> {
+    return this.http.post('activity/manager_list', params);
   }
 
 }

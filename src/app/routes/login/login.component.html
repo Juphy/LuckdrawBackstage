@@ -26,7 +26,7 @@
             <!-- <img *ngIf="!imgLoading" [src]="erweima"> -->
             <div *ngIf="!imgLoading&&num%480!==0" class="iframe-container">
               <iframe
-                src="https://open.weixin.qq.com/connect/qrconnect?appid=wx25f16c3e9bad9b7a&redirect_uri=http%3A%2F%2Ffw.wenquanpage.com%2Fwechat%2Fget_service_user_info&response_type=code&scope=snsapi_login#wechat_redirect"
+                src="https://open.weixin.qq.com/connect/qrconnect?appid=wx25f16c3e9bad9b7a&redirect_uri=https%3A%2F%2Fraffle.admin.wenquanpage.com%2F%23%2Flogin&response_type=code&scope=snsapi_login#wechat_redirect"
                 frameborder="0" sandbox="allow-scripts allow-same-origin allow-top-navigation"></iframe>
             </div>
           </div>
@@ -97,6 +97,9 @@
         </div>
         <div>Copyright©2020&nbsp;&nbsp;<span style="color: #ff552e">Juphy</span>出品</div>
       </div>
+    </div>
+    <div *ngIf="bgLoading" class="erweima-loading">
+      <nz-spin nzSimple [nzSize]="'large'" nzTip="正在登录中..."></nz-spin>
     </div>
   </div>
 </div>
