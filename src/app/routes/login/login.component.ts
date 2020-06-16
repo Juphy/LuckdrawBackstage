@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // 伪造数据
-    this.login();
+    // this.login();
   }
 
   submit() {
