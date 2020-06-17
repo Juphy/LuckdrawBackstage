@@ -1,3 +1,59 @@
-<p>
-  feedback works!
-</p>
+<!-- <div class="container-box ant-Mbottom-large">
+  <div class="search">
+    <div class="query">
+      <b>查询条件</b>
+    </div>
+    <nz-row>
+      <ng-container *ngFor="let item of searchItems">
+        <nz-col [nzSpan]="item.span">
+          <label>{{item.name}}</label>
+          <ng-container [ngSwitch]="item.class">
+            <ng-template ngSwitchCase="option">
+            </ng-template>
+          </ng-container>
+        </nz-col>
+      </ng-container>
+    </nz-row>
+    <nz-row>
+      <nz-col [nzSpan]="24" style="justify-content:flex-end;display: flex;padding-right: 24px">
+        <button class="ant-Mleft" nz-button nzType="primary" (click)="get_data(true)" [nzLoading]="loading">搜索</button>
+        <button class="ant-Mleft" nz-button (click)="clear_data()">清空</button>
+      </nz-col>
+    </nz-row>
+  </div>
+</div> -->
+<div class="container-box overflow-box">
+  <nz-table #table nzShowSizeChanger [nzData]="data" [(nzPageSize)]="searchData.pagesize"
+    [(nzPageIndex)]="searchData.page" [nzFrontPagination]="false" [nzTotal]="total" [nzShowTotal]="totalTemplate"
+    [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry" (nzPageIndexChange)="get_data()"
+    (nzPageSizeChange)="get_data(true)">
+    <thead>
+      <tr>
+        <th *ngFor="let t of theads">{{t.name}}</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of table.data">
+        <td *ngFor="let t of theads">
+          <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
+          </ng-container>
+        </td>
+        <td>
+          <button nz-button class="ant-Mright" (click)="show_modal(data.id)">处理反馈</button>
+        </td>
+      </tr>
+    </tbody>
+    <ng-template #totalTemplate>
+      总计 {{total}} 条
+    </ng-template>
+  </nz-table>
+</div>
+<nz-modal [(nzVisible)]="visible" nzTitle="处理反馈" (nzOnCancel)="handle_cancel()" (nzOnOk)="handle_ok()"
+  [nzOkLoading]="okLoading">
+  <div style="display: flex;">
+    <label style="line-height: 32px;height: 32px;display: inline-block;">备注：</label><textarea style="flex: 1"
+      [(ngModel)]="remark" rows="3"></textarea>
+  </div>
+</nz-modal>
