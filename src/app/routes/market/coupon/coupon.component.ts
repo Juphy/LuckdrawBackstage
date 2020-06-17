@@ -73,7 +73,7 @@ export class CouponComponent implements OnInit, OnDestroy {
 
   show_modal(id?) {
     const modal = this.modalService.create({
-      nzTitle: '添加优惠券',
+      nzTitle: id ? '查看优惠券' : '添加优惠券',
       nzContent: AddComponent,
       nzFooter: null,
       nzComponentParams: {

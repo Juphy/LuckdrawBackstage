@@ -41,6 +41,19 @@
       <tr *ngFor="let data of table.data">
         <td *ngFor="let t of theads">
           <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchCase="image">
+              <img [src]="data.prize_info[0].image" style="width: 160px">
+              <ng-container *ngIf="data.prize_info.length===1">
+                <div style="width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                  奖品：{{data.prize_info[0].name}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.prize_info.length > 1">
+                <ng-container *ngFor="let p of data.prize_info;let i = index">
+                  <div style="width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                    {{prizeIndex[i]}}：{{p.name}}</div>
+                </ng-container>
+              </ng-container>
+            </ng-template>
             <ng-template ngSwitchCase="creator">
               <img *ngIf="data.creator_headimgurl" [src]="data.creator_headimgurl"
                 style="width: 18px;height: 18px;border-radius: 18px;margin-right: 4px;">

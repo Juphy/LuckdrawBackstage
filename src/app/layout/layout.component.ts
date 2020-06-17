@@ -75,12 +75,12 @@ export class LayoutComponent implements OnInit {
     let data = UserInfo.permission;
     let name;
     for (let key in URL) {
-      if (URL[key] == this.path) {
+      if (this.path.includes(URL[key])) {
         name = key;
       }
     }
     for (let key in URLS) {
-      if (URLS[key] == this.path) {
+      if (this.path.includes(URLS[key])) {
         name = key;
       }
     }

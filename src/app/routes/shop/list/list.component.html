@@ -11,6 +11,11 @@
             <ng-template ngSwitchCase="input">
               <input nz-input [type]="item.type" [(ngModel)]="searchData[item.value]" [placeholder]="'请输入'+item.name">
             </ng-template>
+            <ng-template ngSwitchCase="option">
+              <nz-select [(ngModel)]="searchData[item.value]" [nzPlaceHolder]="'请选择'+item.name">
+                <nz-option *ngFor="let o of shopTypeOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
+              </nz-select>
+            </ng-template>
             <ng-template ngSwitchCase="date">
               <nz-range-picker [(ngModel)]="searchData[item.value]" nzShowTime></nz-range-picker>
             </ng-template>
@@ -34,18 +39,17 @@
     <thead>
       <tr>
         <th *ngFor="let t of theads">{{t.name}}</th>
-        <th>操作</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of table.data">
         <td *ngFor="let t of theads">
           <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchCase="logo">
+              <img [src]="data.logo" style="width: 60px">
+            </ng-template>
             <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
           </ng-container>
-        </td>
-        <td>
-          <!-- <button nz-button class="ant-Mright" (click)="show_modal(data.id)">查看详情</button> -->
         </td>
       </tr>
     </tbody>

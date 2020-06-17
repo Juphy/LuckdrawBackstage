@@ -1,3 +1,26 @@
-<p>
-  daily works!
-</p>
+<div class="container-box overflow-box">
+  <button nz-button>添加每日任务</button>
+  <nz-table #table nzShowSizeChanger [nzData]="data" [nzFrontPagination]="true" [nzTotal]="total"
+    [nzShowTotal]="totalTemplate" [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry">
+    <thead>
+      <tr>
+        <th *ngFor="let t of theads">{{t.name}}</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of table.data">
+        <td *ngFor="let t of theads">
+          <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
+          </ng-container>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </tbody>
+    <ng-template #totalTemplate>
+      总计 {{total}} 条
+    </ng-template>
+  </nz-table>
+</div>

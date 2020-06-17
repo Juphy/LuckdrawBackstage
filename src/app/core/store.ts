@@ -108,6 +108,14 @@ export let FN = {
 
 // option
 export const Options = {
+  "shop_type": [
+    { name: '内部店铺', value: 1 },
+    { name: '普通店铺', value: 2 }
+  ],
+  "ShopType": {
+    1: '内部店铺',
+    2: '普通店铺'
+  },
   "postage": [],
   "Postage": {},
   "action": [],

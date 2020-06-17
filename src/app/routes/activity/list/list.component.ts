@@ -26,17 +26,25 @@ export class ListComponent implements OnInit {
   pagesizeAry = [16, 32, 48];
   theads = [
     { name: '活动名称', value: 'name' },
+    { name: '活动奖品', value: 'image' },
     { name: '开奖类型', value: 'draw_mode' },
     { name: '最终开奖时间', value: 'end_time' },
     { name: '创建时间', value: 'created_at' },
-    { name: '创建人ID', value: 'creator' },
-    { name: '创建人', value: 'creator_id' },
+    { name: '创建人ID', value: 'creator_id' },
+    { name: '创建人', value: 'creator' },
     { name: '创建人电话', value: 'phone' },
   ];
   DrawMode = {
     1: '定时开奖',
     2: '手动开奖',
     3: '满人开奖' // constraint_max_num
+  };
+  prizeIndex = {
+    0: '一等奖',
+    1: '二等奖',
+    2: '三等奖',
+    3: '四等奖',
+    4: '五等奖'
   };
   constructor(
     private nzMessageService: NzMessageService,

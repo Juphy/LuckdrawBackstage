@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { ServerService, MessageService } from '@core';
+import { ServerService, MessageService, Options } from '@core';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-list',
@@ -24,8 +25,14 @@ export class ListComponent implements OnInit, OnDestroy {
   total = 0;
   pagesizeAry = [16, 32, 48];
   theads = [
-    { name: '店铺名称', value: 'name' }
+    { name: '店铺名称', value: 'name' },
+    { name: '店铺logo', value: 'logo' },
+    { name: '简单描述', value: 'describe' },
+    { name: '所属用户ID', value: 'belong_to_user' },
+    { name: '创建时间', value: 'created_at' },
   ];
+  shopTypeOption = [...Options.shop_type];
+  shopTypeObj = { ...Options.ShopType };
   constructor(
     private nzMessageService: NzMessageService,
     private serverService: ServerService,
@@ -61,6 +68,9 @@ export class ListComponent implements OnInit, OnDestroy {
         res = res.result;
         this.data = res.data;
         this.total = res['pageinfo']['total'];
+        this.data.forEach(item => {
+          item['created_at'] = formatDate(new Date(item.created_at), 'yyyy-MM-dd HH:mm:ss', 'en-US');
+        })
       }
     }, err => {
       this.loading = false;

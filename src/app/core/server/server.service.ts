@@ -390,7 +390,7 @@ export class ServerService {
 
   // 商品订单列表
   order__goods_lists(params: OrderGoodsList): Observable<any> {
-    return this.http.post('order/goods_lists', params);
+    return this.http.post('order/goods', params);
   }
 
   // 活动订单

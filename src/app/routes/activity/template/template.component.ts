@@ -23,10 +23,18 @@ export class TemplateComponent implements OnInit, OnDestroy {
   pagesizeAry = [16, 32, 48];
   theads = [
     { name: '模板名称', value: 'template_name' },
-    { name: '模板类型', value: 'template_type' }
+    { name: '模板类型', value: 'template_type' },
+    { name: '活动奖品', value: 'image' }
   ];
   templateTypeOption = [];
   templateTypeObj = {};
+  prizeIndex = {
+    0: '一等奖',
+    1: '二等奖',
+    2: '三等奖',
+    3: '四等奖',
+    4: '五等奖'
+  };
   constructor(
     private nzMessageService: NzMessageService,
     private serverService: ServerService,
@@ -47,7 +55,7 @@ export class TemplateComponent implements OnInit, OnDestroy {
   }
 
   get_template_type() {
-    this.serverService.home__sys_options({ type: 'template' }).subscribe(res => {
+    this.serverService.get_template_type({ type: 'template' }).subscribe(res => {
       this.templateTypeOption = [...res];
       this.templateTypeOption.forEach(item => {
         this.templateTypeObj[item.value] = item.name;
@@ -97,4 +105,7 @@ export class TemplateComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  cancel() { }
 }
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServerService } from '@core';
+import { ServerService, MessageService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
@@ -11,7 +11,8 @@ export class CategoryComponent implements OnInit {
   data = [];
   constructor(
     private serverService: ServerService,
-    private nzMessageService: NzMessageService
+    private nzMessageService: NzMessageService,
+    private message: MessageService
   ) { }
 
   ngOnInit() {
@@ -82,6 +83,13 @@ export class CategoryComponent implements OnInit {
       name: data.category_name
     }).subscribe(res => {
       if (res['status'] === 200) this.get_data();
+    })
+  }
+
+  set_category(category_id) {
+    this.message.getSpuList().subscribe(res => {
+      res['category_id'] = category_id;
+      this.message.setSpuList(res);
     })
   }
 }

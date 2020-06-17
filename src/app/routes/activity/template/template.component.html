@@ -39,14 +39,36 @@
     <thead>
       <tr>
         <th *ngFor="let t of theads">{{t.name}}</th>
+        <th>操作</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of table.data">
         <td *ngFor="let t of theads">
           <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchCase="image">
+              <img [src]="data.prize_info[0].image" style="width: 160px">
+              <ng-container *ngIf="data.prize_info.length===1">
+                <div style="width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                  奖品：{{data.prize_info[0].name}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.prize_info.length > 1">
+                <ng-container *ngFor="let p of data.prize_info;let i = index">
+                  <div style="width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                    {{prizeIndex[i]}}：{{p.name}}</div>
+                </ng-container>
+              </ng-container>
+            </ng-template>
+            <ng-template ngSwitchCase="template_type">
+              {{templateTypeObj[data.template_type]}}
+            </ng-template>
             <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
           </ng-container>
+        </td>
+        <td>
+          <button nz-button nz-popconfirm nzPopconfirmTitle="您确定要删除这个模板吗?" nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="del_template()" (nzOnCancel)="cancel()"><i nz-icon nzType="delete" nzTheme="outline"
+              style="color: #ff4d4f"></i></button>
         </td>
       </tr>
     </tbody>
