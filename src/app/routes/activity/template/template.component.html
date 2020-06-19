@@ -67,7 +67,7 @@
         </td>
         <td>
           <button nz-button nz-popconfirm nzPopconfirmTitle="您确定要删除这个模板吗?" nzPopconfirmPlacement="bottom"
-            (nzOnConfirm)="del_template()" (nzOnCancel)="cancel()"><i nz-icon nzType="delete" nzTheme="outline"
+            (nzOnConfirm)="del_template(data.id)" (nzOnCancel)="cancel()"><i nz-icon nzType="delete" nzTheme="outline"
               style="color: #ff4d4f"></i></button>
         </td>
       </tr>
