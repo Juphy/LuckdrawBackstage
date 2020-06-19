@@ -17,7 +17,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
   banners = [
     { name: '1', url: 'assets/banner1.jpg' },
     { name: '2', url: 'assets/banner1.jpg' },
-    { name: '3', url: 'assets/banner1.jpg' }
+    { name: '3', url: 'assets/banner3.jpg' }
   ];
   swiper: Swiper;
   boxs = [
@@ -62,6 +62,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
       //   prevEl: '.swiper-button-prev',
       // },
       loop: true,
+      autoHeight: true,
       autoplay: {
         delay: 2000,
         disableOnInteraction: false,

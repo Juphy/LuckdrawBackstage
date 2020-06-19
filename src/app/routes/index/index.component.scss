@@ -87,6 +87,7 @@
   padding: 100px 0;
   max-width: 1200px;
   margin: 0 auto;
+  padding-top: 0;
 
   div[nz-row] {
     margin: 0 auto !important;
@@ -110,6 +111,7 @@
 .descs {
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 64px;
 
   nz-row {
     padding-bottom: 160px;
