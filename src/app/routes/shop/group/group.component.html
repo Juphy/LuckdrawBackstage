@@ -17,7 +17,8 @@
             <nz-option *ngFor="let o of shopOption" [nzValue]="o.id" [nzLabel]="o.name"></nz-option>
           </nz-select>
         </div>
-        <div class="ant-Mtop">商品数：<a style="text-decoration: underline;">{{d.goods_count}}</a></div>
+        <div class="ant-Mtop">商品数：<a style="text-decoration: underline;" [routerLink]="['/console/main/main_list']"
+            (click)="set_group(d.id)">{{d.goods_count}}</a></div>
       </div>
       <div class="btns">
         <div *ngIf="d.type" (click)="edit(d)">编辑</div>

@@ -5,11 +5,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']
+  selector: 'app-add-coupon',
+  templateUrl: './add-coupon.component.html',
+  styleUrls: ['./add-coupon.component.scss']
 })
-export class AddComponent implements OnInit {
+export class AddCouponComponent implements OnInit {
   current = 0;
   goods_group_scopes = [];
   goods_spu_scopes = [];//

@@ -156,10 +156,10 @@ export class SkuComponent implements OnInit {
     let flag = false, skus = [];
     this.data.forEach((item, index) => {
       for (let key of ['name', 'price', 'point']) {
-        if (!item[key]) {
-          flag = true;
-          this.nzMessageService.error(`第${index + 1}行未填写完整！`);
-        }
+        // if (item[key]) {
+        //   flag = true;
+        //   this.nzMessageService.error(`第${index + 1}行未填写完整！`);
+        // }
       }
       let obj = {
         name: item.name,

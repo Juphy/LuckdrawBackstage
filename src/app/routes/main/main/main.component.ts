@@ -54,7 +54,11 @@ export class MainComponent implements OnInit, OnDestroy {
     private nzMessageService: NzMessageService
   ) {
     this.message.getSpuList().subscribe(res => {
-      if (res) this.searchData = { ...res };
+      if (res) {
+        for (let key in res) {
+          this.searchData[key] = res[key];
+        }
+      };
     });
     this.get_category_list();
     this.get_group_list();

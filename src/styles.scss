@@ -194,8 +194,8 @@ $bgColor: #f5f7fa;
 .ant-menu-horizontal>.ant-menu-submenu-open,
 .ant-menu-horizontal>.ant-menu-item-selected,
 .ant-menu-horizontal>.ant-menu-submenu-selected {
-  color: #c0865b;
-  border-bottom: 2px solid #c0865b;
+  // color: #c0865b;
+  // border-bottom: 2px solid #c0865b;
 }
 
 .ant-dropdown-menu {
@@ -211,8 +211,8 @@ $bgColor: #f5f7fa;
 }
 
 .ant-dropdown-menu-item:hover {
-  color: #c0865b;
-  background-color: #fff;
+  // color: #c0865b;
+  // background-color: #fff;
 }
 
 .ant-menu-horizontal>.ant-menu-item,
@@ -337,4 +337,8 @@ $bgColor: #f5f7fa;
 
 .ant-calendar-picker {
   width: inherit !important;
+}
+
+.impowerBox .info {
+  display: none !important;
 }

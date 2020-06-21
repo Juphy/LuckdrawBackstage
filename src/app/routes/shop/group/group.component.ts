@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServerService } from '@core';
+import { ServerService, MessageService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
@@ -13,7 +13,8 @@ export class GroupComponent implements OnInit {
   shopObj = {};
   constructor(
     private serverService: ServerService,
-    private nzMessageService: NzMessageService
+    private nzMessageService: NzMessageService,
+    private message: MessageService
   ) {
     this.get_inside_shop();
   }
@@ -114,6 +115,16 @@ export class GroupComponent implements OnInit {
         this.nzMessageService.success(`分组【${name}】${show ? '显示' : '隐藏'}成功！`);
         this.get_data();
       };
+    })
+  }
+
+  set_group(id) {
+    this.message.getSpuList().subscribe(res => {
+      if (res['groups']) {
+        if (!res['groups'].includes(id)) res['groups'].push(id);
+      } else {
+        res['groups'] = [id];
+      }
     })
   }
 }

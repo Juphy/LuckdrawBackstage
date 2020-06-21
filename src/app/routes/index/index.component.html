@@ -20,25 +20,27 @@
   </ul>
 </div>
 <div class="main">
-  <div class="title">
-    <h5>欢迎来到德莱联盟！</h5>
-    <h3>好礼品我们造，用心做好产品</h3>
-    <h4>We build good products and make good products.</h4>
-  </div>
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" *ngFor="let banner of banners">
-        <img [src]="banner.url" [alt]="banner.name" width="100%">
+  <div class='banners'>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let banner of banners">
+          <img [src]="banner.url" [alt]="banner.name" width="100%">
+        </div>
       </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination swiper-pagination-white"></div>
+      <!-- Add Arrows -->
+      <!-- <div class="swiper-button-next swiper-button-white"></div>
+    <div class="swiper-button-prev swiper-button-white"></div> -->
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination swiper-pagination-white"></div>
-    <!-- Add Arrows -->
-    <!-- <div class="swiper-button-next swiper-button-white"></div>
-  <div class="swiper-button-prev swiper-button-white"></div> -->
+    <div class="title">
+      <!-- <h5>欢迎来到德莱联盟！</h5> -->
+      <h3>好礼品我们造，用心做好产品</h3>
+      <h4>We build good products and make good products.</h4>
+    </div>
   </div>
   <div class="descs">
-    <div style="margin: 0 auto;padding: 0 15px">
+    <div style="margin: 0 auto;padding: 0 16px">
       <nz-row *ngFor="let desc of descs">
         <nz-col [nzSm]="24" [nzMd]="12" [nzLg]="12">
           <img [src]="desc.src1">
@@ -57,6 +59,7 @@
     </div>
   </div>
   <div class="boxs">
+    <h1>一起拼手气————合作商家</h1>
     <div nz-row [nzGutter]="12">
       <div nz-col [nzSm]="12" [nzMd]="12" [nzLg]="6" *ngFor="let box of boxs">
         <a [href]="box.href">
@@ -65,13 +68,13 @@
         </a>
       </div>
     </div>
+    <h4>更多商家正在接洽中，请耐心等待...</h4>
   </div>
   <div class="partner">
-
   </div>
 </div>
 <div class="footer">
   <p>微信公众号 wenquanpage&nbsp;&nbsp;&nbsp;联系邮箱 wenquan@gmail.com</p>
-  <p>Copyright©2020 Powered by Juphy <a>0.1.5</a></p>
+  <p>Copyright©2020 Powered by Juphy <a>0.1.6</a></p>
   <p>晋ICP备 20002205号 -1</p>
 </div>

@@ -189,9 +189,14 @@ export class BuildComponent implements OnInit, AfterViewInit {
     if (flag) return;
     let images = [];
     this.fileList.forEach(item => images.push(item.url));
+    let name = this.validateForm.get('name').value;
+    if (name.length > 50) {
+      this.nzMessageService.warning('商品名称不得超过50个字！');
+      return;
+    }
     let params = {
       shop_id: this.validateForm.get('shop_id').value,
-      name: this.validateForm.get('name').value,
+      name,
       groups: this.validateForm.get('groups').value,
       category_id: this.validateForm.get('category_id').value,
       description: this.validateForm.get('description').value,

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
 import { DATA, UserInfo, URL } from "@core/store";
 import { HttpClient } from "@angular/common/http";
 import { Router, RouterEvent, NavigationEnd } from "@angular/router";
@@ -11,14 +11,15 @@ import { Location } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedIndex = 0;
   loading = false;
   constructor(private http: HttpClient,
     private router: Router,
     private server: ServerService,
     private location: Location,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private el: ElementRef) {
     this.router.events.subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
         let path: any = event.url.split('?')[1];
@@ -65,6 +66,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
       captcha: [null, [Validators.required]],
     })
+  }
+
+  ngAfterViewInit(): void {
+    let body = document.body;
+    body.style.background = `url(assets/body.jpg)`;
   }
 
   form: FormGroup;
@@ -167,6 +173,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    let body = document.body;
+    body.style.background = ``;
     if (this.interval$) {
       clearInterval(this.interval$);
       clearInterval(this.timer$);

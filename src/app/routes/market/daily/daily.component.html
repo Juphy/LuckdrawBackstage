@@ -1,5 +1,5 @@
 <div class="container-box overflow-box">
-  <button nz-button>添加每日任务</button>
+  <button nz-button class="ant-Mbottom" (click)="show_modal()">添加每日任务</button>
   <nz-table #table nzShowSizeChanger [nzData]="data" [nzFrontPagination]="true" [nzTotal]="total"
     [nzShowTotal]="totalTemplate" [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry">
     <thead>

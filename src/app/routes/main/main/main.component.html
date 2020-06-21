@@ -83,6 +83,7 @@
           <button nz-button class="ant-Mright" (click)="show_modal(data.id)">查看详情</button>
           <button nz-button class="ant-Mright" *ngIf="data.status===0" (click)="change_status(data.id, 1)">上架</button>
           <button nz-button class="ant-Mright" *ngIf="data.status===1" (click)="change_status(data.id, 0)">下架</button>
+          <button nz-button class="ant-Mright">删除</button>
           <button nz-button (click)="show_sku(data.id)">查看规格</button>
         </td>
       </tr>

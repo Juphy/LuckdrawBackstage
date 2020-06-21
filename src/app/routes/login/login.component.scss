@@ -4,7 +4,6 @@
   overflow-y: auto;
   text-align: center;
   position: relative;
-  background: url(assets/body.jpg);
   -webkit-user-select: none;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -149,17 +148,14 @@
 
 .iframe-container {
   width: 300px;
-  height: 300px;
+  height: 390px;
   overflow: hidden;
   margin: 0 auto;
   position: relative;
-  left: -8px;
 }
 
 .iframe-container iframe {
   position: relative;
-  top: -40px;
-  height: 340px;
+  height: 390px;
   overflow: hidden;
-  right: -17px;
 }

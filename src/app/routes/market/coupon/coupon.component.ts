@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AddComponent } from '../add/add.component';
+import { AddCouponComponent } from '../add-coupon/add-coupon.component';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ServerService, MessageService } from '@core';
 
@@ -74,7 +74,7 @@ export class CouponComponent implements OnInit, OnDestroy {
   show_modal(id?) {
     const modal = this.modalService.create({
       nzTitle: id ? '查看优惠券' : '添加优惠券',
-      nzContent: AddComponent,
+      nzContent: AddCouponComponent,
       nzFooter: null,
       nzComponentParams: {
         id

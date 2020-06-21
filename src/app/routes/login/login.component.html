@@ -3,22 +3,20 @@
     <!-- <img src="assets/erweima.jpg"> -->
     <div class="erweima-link">
       <a routerLink="/index">返回首页</a>
-      <a href="javascript:;">已有账号？去登陆</a>
     </div>
     <div class="erweima-inner">
       <div class="erweima-logo">
         <img src="assets/logo.png">
         <div>一起拼手气</div>
-        <a *ngIf="flag" class="qrcode" (click)="change_flag()">
+        <!-- <a *ngIf="flag" class="qrcode" (click)="change_flag()">
           <span>扫码登录</span>
         </a>
         <a *ngIf="!flag" class="screen" (click)="change_flag()">
           <span>密码登录</span>
-        </a>
+        </a> -->
       </div>
       <div class="erweima-form">
         <div *ngIf="!flag" class="erweima-erweima">
-          <div>1秒即登录，方便又安全</div>
           <div>
             <div *ngIf="imgLoading" style="padding: 48px 0;font-size: 48px;">
               <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
