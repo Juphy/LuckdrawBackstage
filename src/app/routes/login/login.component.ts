@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     // 伪造数据
-    this.login();
+    // this.login();
   }
 
   submit() {

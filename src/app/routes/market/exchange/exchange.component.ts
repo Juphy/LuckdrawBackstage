@@ -68,7 +68,7 @@ export class ExchangeComponent implements OnInit {
     })
   }
 
-  show_modal(data) {
+  show_modal(data?) {
     const modal = this.modalService.create({
       nzTitle: data ? '兑换红包详情' : '添加兑换红包',
       nzContent: AddExchangeComponent,
