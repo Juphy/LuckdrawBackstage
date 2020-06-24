@@ -12,10 +12,15 @@
       <tr *ngFor="let data of table.data">
         <td *ngFor="let t of theads">
           <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchCase="action_type">
+              <nz-tag *ngFor="let o of data.action_type">{{typeObj[o]}}</nz-tag>
+            </ng-template>
             <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
           </ng-container>
         </td>
         <td>
+          <button nz-button (click)="show_modal(data)">编辑</button>
+          <button nz-button class="ant-Mleft" nzType="danger" (click)="del_task(data.id)">删除</button>
         </td>
       </tr>
     </tbody>

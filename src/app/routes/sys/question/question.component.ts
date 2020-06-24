@@ -98,4 +98,12 @@ export class QuestionComponent implements OnInit {
     })
   }
 
+  delete(id) {
+    this.serverService.manager__del_question_answer({ id }).subscribe(res => {
+      if (res.status === 200) {
+        this.nzMessageService.success('问题删除成功！');
+        this.get_data(true);
+      }
+    })
+  }
 }

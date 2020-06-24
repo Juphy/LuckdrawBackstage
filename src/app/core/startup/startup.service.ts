@@ -37,7 +37,6 @@ export class StartupService {
         return [err1]
       })
     ).subscribe(([res1]) => {
-      console.log(res1);
       // option
       res1.forEach(item => {
         let type = item.type;
@@ -76,6 +75,13 @@ export class StartupService {
               value: item.value
             })
             Options.Template[item.value] = item.name;
+            break;
+          case "online_gallery":
+            Options.online_gallery.push({
+              name: item.name,
+              value: item.value
+            })
+            Options.onlineGallery[item.value] = item.name;
             break;
         }
       })

@@ -23,7 +23,10 @@ import {
     MailOutline,
     HomeOutline,
     LeftOutline,
-    RightOutline
+    RightOutline,
+    CarOutline,
+    EnvironmentOutline,
+    MessageOutline
 } from "@ant-design/icons-angular/icons";
 
 export const ICONS = [
@@ -50,5 +53,8 @@ export const ICONS = [
     MailOutline,
     HomeOutline,
     LeftOutline,
-    RightOutline
+    RightOutline,
+    CarOutline,
+    EnvironmentOutline,
+    MessageOutline
 ]

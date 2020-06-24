@@ -8,6 +8,8 @@ import { DailyComponent } from './daily/daily.component';
 import { ExchangeComponent } from './exchange/exchange.component';
 import { MoneyComponent } from './money/money.component';
 import { AddDailyComponent } from './add-daily/add-daily.component';
+import { AddMoneyComponent } from './add-money/add-money.component';
+import { AddExchangeComponent } from './add-exchange/add-exchange.component';
 
 const routes: Routes = [
   { path: 'coupon', component: CouponComponent },
@@ -22,9 +24,9 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [DatePipe],
-  declarations: [CouponComponent, AddCouponComponent, DailyComponent, AddDailyComponent, ExchangeComponent, MoneyComponent],
+  declarations: [CouponComponent, AddCouponComponent, DailyComponent, AddDailyComponent, ExchangeComponent, MoneyComponent, AddMoneyComponent, AddExchangeComponent],
   // AddCouponComponent 添加优惠券
   // AddDailyComponent 添加每日任务
-  entryComponents: [AddCouponComponent, AddDailyComponent]
+  entryComponents: [AddCouponComponent, AddDailyComponent, AddMoneyComponent, AddExchangeComponent]
 })
 export class MarketModule { }

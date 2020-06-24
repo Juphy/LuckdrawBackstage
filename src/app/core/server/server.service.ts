@@ -67,7 +67,17 @@ import {
   EditExchangeMoney,
   ChangeExchangeMoneyStatus,
   DelExchangeMoney,
-  ActivityManagerList
+  ActivityManagerList,
+  OnlineGalleryList,
+  EditOnlineGallery,
+  DelOnlineGallery,
+  ActivityTimeList,
+  ActivityEditTimes,
+  ActivityDelTimes,
+  ActivityChangeTimeShow,
+  EditLogistics,
+  UserRoles,
+  CouponInfo
 } from "./types";
 
 @Injectable({
@@ -429,8 +439,8 @@ export class ServerService {
   }
 
   // 兑换红包列表
-  manager__exchange_money_list(params: ExchangeMoneyList): Observable<any> {
-    return this.http.post('manager/exchange_money_list', params)
+  manager__exchange_money_list(): Observable<any> {
+    return this.http.get('manager/exchange_money_list')
   }
 
   // 添加编辑兑换红包
@@ -445,12 +455,91 @@ export class ServerService {
 
   // 删除红包
   manager__del_exchange_money(params: DelExchangeMoney): Observable<any> {
-    return this.http.post('manager/del_exchange_money', params);
+    return this.http.post<HttpResponse>('manager/del_exchange_money', params);
+  }
+
+  // 活动时长列表
+  activity__time_list(params: ActivityTimeList): Observable<any> {
+    return this.http.post<HttpResponse>('activity/time_list', params)
+  }
+
+  // 
+  activity__edit_times(params: ActivityEditTimes): Observable<any> {
+    return this.http.post<HttpResponse>('activity/edit_times', params)
+  }
+
+  activity__del_times(params: ActivityDelTimes): Observable<any> {
+    return this.http.post<HttpResponse>('activity/del_times', params)
+  }
+
+  activity__change_time_show(params: ActivityChangeTimeShow): Observable<any> {
+    return this.http.post<HttpResponse>('activity/change_time_show', params);
   }
 
   // 活动列表
   activity__manager_list(params: ActivityManagerList): Observable<any> {
-    return this.http.post('activity/manager_list', params);
+    return this.http.post<HttpResponse>('activity/manager_list', params);
   }
 
+  // 在线图库列表
+  manager__online_gallery_list(params: OnlineGalleryList): Observable<any> {
+    return this.http.post<HttpResponse>('manager/online_gallery_list', params);
+  }
+
+  // 添加 编辑图库
+  manager__edit_online_gallery(params: EditOnlineGallery): Observable<any> {
+    return this.http.post<HttpResponse>('manager/edit_online_gallery', params);
+  }
+
+  // 删除图库
+  manager__del_online_gallery(params: DelOnlineGallery): Observable<any> {
+    return this.http.post<HttpResponse>('manager/del_online_gallery', params);
+  }
+
+  // 活动类型
+  activity__type_list(): Observable<any> {
+    if (Options.activity_type.length) {
+      return of(Options.activity_type)
+    } else {
+      return this.http.get<HttpResponse>('activity/type_list').pipe(
+        map(e => {
+          let activity_type = e['result'] || [];
+          activity_type.forEach(item => {
+            Options.ActivityType[item.id] = item.name;
+            Options.activity_type.push({
+              name: item.name,
+              value: item.id
+            })
+          })
+          return Options.activity_type;
+        })
+      );
+    }
+  }
+
+  // 物流公司
+  home__ogistic_company_list(): Observable<any> {
+    if (Options.company_list.length) {
+      return of(Options.company_list);
+    } else {
+      return this.http.get<HttpResponse>('home/logistic_company_list').pipe(
+        map(e => {
+          Options.company_list = e['result'] || [];
+          return Options.company_list;
+        })
+      )
+    }
+  }
+
+  order__edit_logistics(params: EditLogistics): Observable<any> {
+    return this.http.post<HttpResponse>('order/edit_logistics', params);
+  }
+
+  role__user_roles(params: UserRoles): Observable<any> {
+    return this.http.post<HttpResponse>('role/user_roles', params);
+  }
+
+  goods__coupon_info(params: CouponInfo): Observable<any> {
+    return this.http.post<HttpResponse>('goods/coupon_info', params);
+  }
 }

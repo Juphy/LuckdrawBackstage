@@ -29,30 +29,73 @@
   </div>
 </div>
 <div class="container-box overflow-box">
-  <nz-table #table nzShowSizeChanger [nzData]="data" [(nzPageSize)]="searchData.pagesize"
-    [(nzPageIndex)]="searchData.page" [nzFrontPagination]="false" [nzTotal]="total" [nzShowTotal]="totalTemplate"
-    [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry" (nzPageIndexChange)="get_data()"
-    (nzPageSizeChange)="get_data(true)">
-    <thead>
-      <tr>
-        <th *ngFor="let t of theads">{{t.name}}</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of table.data">
-        <td *ngFor="let t of theads">
-          <ng-container [ngSwitch]="t.value">
-            <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
-          </ng-container>
-        </td>
-        <td>
-          <!-- <button nz-button class="ant-Mright" (click)="show_modal(data.id)">查看详情</button> -->
-        </td>
-      </tr>
-    </tbody>
-    <ng-template #totalTemplate>
-      总计 {{total}} 条
-    </ng-template>
-  </nz-table>
+  <!-- <nz-table #table nzShowSizeChanger [nzData]="data" [(nzPageSize)]="searchData.pagesize"
+              [(nzPageIndex)]="searchData.page" [nzFrontPagination]="false" [nzTotal]="total" [nzShowTotal]="totalTemplate"
+              [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry" (nzPageIndexChange)="get_data()"
+              (nzPageSizeChange)="get_data(true)">
+              <thead>
+                <tr>
+                  <th *ngFor="let t of theads">{{t.name}}</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of table.data">
+                  <td *ngFor="let t of theads">
+                    <ng-container [ngSwitch]="t.value">
+                      <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <button nz-button class="ant-Mright" (click)="show_modal(data.id)">查看详情</button>
+                  </td>
+                </tr>
+              </tbody>
+              <ng-template #totalTemplate>
+                总计 {{total}} 条
+              </ng-template>
+            </nz-table> -->
+  <nz-row style="min-width: 1100px">
+    <div class='goods_header'>
+      <nz-col nzSpan="7">商品</nz-col>
+      <nz-col nzSpan="4" class="text-center left-border">成交单价(元)/幸运币</nz-col>
+      <nz-col nzSpan="2" class="text-center left-border">购买数量</nz-col>
+      <nz-col nzSpan="4" class="text-center left-border">实付金额(元)/幸运币</nz-col>
+      <nz-col nzSpan="3" class="text-center left-border">支付方式</nz-col>
+      <nz-col nzSpan="2" class="text-center left-border">订单状态</nz-col>
+      <nz-col nzSpan="2" class="text-center left-border">操作</nz-col>
+    </div>
+    <div class="goods_mainer" *ngFor="let d of data">
+      <div class="goods_top">
+        订单编号：{{d.order_no}} &nbsp;&nbsp;&nbsp;下单时间：{{d.order_time}}
+      </div>
+      <div class="goods_inner">
+        <nz-col nzSpan="7">
+          <img [src]="d.images[0]" style="height: 100%;vertical-align: top;">
+        </nz-col>
+        <nz-col nzSpan="4" class="text-center left-border">
+          {{d.goods_price.toFixed(2)}} / {{d.goods_point}}
+        </nz-col>
+        <nz-col nzSpan="2" class="text-center left-border"> {{d.goods_num}}
+        </nz-col>
+        <nz-col nzSpan="4" class="text-center left-border">
+          {{d.real_price.toFixed(2)}} / {{d.real_point}}
+        </nz-col>
+        <nz-col nzSpan="3" class="text-center left-border">{{paytypeObj[d.pay_type]}}</nz-col>
+        <nz-col nzSpan="2" class="text-center left-border">{{statusObj[d.status]}}</nz-col>
+        <nz-col nzSpan="2" class="text-center left-border">
+          <a (click)="show_modal(d)">查看</a>
+        </nz-col>
+      </div>
+      <div class="goods_footer">
+        备注：{{d.remark}}
+      </div>
+    </div>
+  </nz-row>
+  <nz-pagination style="float: right;" [(nzPageIndex)]="searchData.page" [nzTotal]="total"
+    [(nzPageSize)]="searchData.pagesize" [nzShowTotal]="totalTemplate" (nzPageIndexChange)="get_data()"
+    [nzPageSizeOptions]="pagesizeAry" [nzShowSizeChanger]="true" (nzPageSizeChange)="get_data(true)"></nz-pagination>
+  <ng-template #totalTemplate>
+    总计 {{total}} 条
+  </ng-template>
 </div>

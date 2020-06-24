@@ -6,11 +6,12 @@ import { BuildComponent } from './build/build.component';
 import { CategoryComponent } from './category/category.component';
 import { DatePipe } from '@angular/common';
 import { SkuComponent } from './sku/sku.component';
+import { SpecComponent } from './spec/spec.component';
 
 const routes: Routes = [
   { path: 'main_list', component: MainComponent },
   { path: 'category', component: CategoryComponent },
-  // { path: 'group', component: GroupComponent },
+  { path: 'spec', component: SpecComponent },
 ];
 
 @NgModule({
@@ -18,7 +19,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MainComponent, BuildComponent, CategoryComponent, SkuComponent],
+  declarations: [MainComponent, BuildComponent, CategoryComponent, SkuComponent, SpecComponent],
   providers: [DatePipe],
   entryComponents: [BuildComponent, SkuComponent]
 })

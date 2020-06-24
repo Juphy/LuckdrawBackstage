@@ -106,7 +106,7 @@ export interface SpuChangeStatus {
 
 export interface AddSpec {
     name: string;
-    values: Array<string>;
+    values?: Array<string>;
 }
 
 export interface SpecList {
@@ -321,6 +321,8 @@ export interface OrderActivitiesTimes {
     nickname?: string;
     start_time?: string;
     end_time?: string;
+    page?: number;
+    pagesize?: number;
 }
 
 export interface FeedbackList {
@@ -375,4 +377,59 @@ export interface ActivityManagerList {
     belong_to?: number;
     page?: number;
     pagesize?: number;
+}
+
+export interface OnlineGalleryList {
+    name?: string;
+    type?: number;
+    page?: number;
+    pagesize?: number;
+}
+
+export interface EditOnlineGallery {
+    name: string;
+    img_path: string;
+    types: number[];
+    id?: number;
+}
+
+export interface DelOnlineGallery {
+    id: number;
+}
+
+export interface ActivityTimeList {
+    activity_type?: number;
+    show?: any;
+}
+
+export interface ActivityEditTimes {
+    activity_type: number;
+    hours: number;
+    handler_price: number;
+    real_price: number;
+    show?: any;
+    id?: number;
+}
+
+export interface ActivityDelTimes {
+    id: number;
+}
+
+export interface ActivityChangeTimeShow {
+    id: number;
+    show: any;
+}
+
+export interface EditLogistics {
+    order_id: any;
+    logistic_company_id: any;
+    track_number: any;
+}
+
+export interface UserRoles {
+    user_id: number;
+}
+
+export interface CouponInfo {
+    id: number;
 }

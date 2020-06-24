@@ -73,10 +73,10 @@ export class BuildComponent implements OnInit, AfterViewInit {
           this.validateForm.get('shop_id').setValue(res['shop_id']);
           this.validateForm.get('name').setValue(res['goods_name']);
           this.validateForm.get('category_id').setValue(res['category_id']);
-          this.validateForm.get('groups').setValue(JSON.parse(res['groups']));
+          this.validateForm.get('groups').setValue(res['groups']);
           this.validateForm.get('description').setValue(res['description']);
           this.validateForm.get('send_type').setValue(res['send_type']);
-          let images = JSON.parse(res['images']);
+          let images = res['images'];
           images = images.map((item, index) => {
             return {
               uid: index,

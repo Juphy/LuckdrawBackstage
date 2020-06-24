@@ -11,7 +11,7 @@ export class AddDailyComponent implements OnInit {
   validateForm: FormGroup;
   actionTypeOption = [];
   btnLoading = false;
-  @Input() id: number;
+  @Input() data: any;
   constructor(
     private serverService: ServerService,
     private nzMessageService: NzMessageService,
@@ -29,7 +29,15 @@ export class AddDailyComponent implements OnInit {
       point: [0],
       balance: [0],
       url: [''],
-    })
+    });
+    if (this.data) {
+      this.validateForm.get('name').setValue(this.data.name);
+      this.validateForm.get('action_type').setValue(this.data.action_type);
+      this.validateForm.get('times').setValue(this.data.times);
+      this.validateForm.get('point').setValue(this.data.point);
+      this.validateForm.get('balance').setValue(this.data.balance);
+      this.validateForm.get('url').setValue(this.data.url);
+    }
   }
 
   make_cancel() {
@@ -55,19 +63,19 @@ export class AddDailyComponent implements OnInit {
     let params = {
       name: this.validateForm.get('name').value,
       action_type: this.validateForm.get('action_type').value,
-      times: this.validateForm.get('action_type').value,
+      times: this.validateForm.get('times').value,
       point,
       balance,
       url: this.validateForm.get('url').value
     };
-    if (this.id) {
-      params['id'] = this.id;
+    if (this.data) {
+      params['id'] = this.data.id;
     }
     this.btnLoading = true;
     this.serverService.manager__edit_daily_tasks(params).subscribe(res => {
       this.btnLoading = false;
       if (res.status === 200) {
-        this.nzMessageService.success(this.id ? '每日任务编辑成功！' : '每日任务添加成功！');
+        this.nzMessageService.success(this.data ? '每日任务编辑成功！' : '每日任务添加成功！');
         this.nzModelRef.destroy(true);
       }
     }, err => {

@@ -19,7 +19,6 @@
     </nz-row>
     <nz-row>
       <nz-col [nzSpan]="24" style="justify-content:flex-end;display: flex;padding-right: 24px">
-        <button nz-button (click)="show_modal()">添加问题</button>
         <button class="ant-Mleft" nz-button nzType="primary" (click)="get_data(true)" [nzLoading]="loading">搜索</button>
         <button class="ant-Mleft" nz-button (click)="clear_data()">清空</button>
       </nz-col>
@@ -27,6 +26,7 @@
   </div>
 </div>
 <div class="container-box overflow-box">
+  <button nz-button (click)="show_modal()" class="ant-Mbottom">添加问题</button>
   <nz-table #table nzShowSizeChanger [nzData]="data" [(nzPageSize)]="searchData.pagesize"
     [(nzPageIndex)]="searchData.page" [nzFrontPagination]="false" [nzTotal]="total" [nzShowTotal]="totalTemplate"
     [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry" (nzPageIndexChange)="get_data()"
@@ -46,7 +46,8 @@
           </ng-container>
         </td>
         <td>
-          <button nz-button class="ant-Mright" (click)="show_modal(data)">查看详情</button>
+          <button nz-button class="ant-Mright" (click)="show_modal(data)">编辑</button>
+          <button nz-button (click)="delete(data.id)" nzType="danger">删除</button>
         </td>
       </tr>
     </tbody>

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { ServerService, MessageService } from '@core';
 import { Options } from '@core';
+import { DetailComponent } from '../detail/detail.component';
 
 @Component({
   selector: 'app-goods',
-  templateUrl: './goods.component.html'
+  templateUrl: './goods.component.html',
 })
 export class GoodsComponent implements OnInit {
   searchItems = [
@@ -20,15 +21,32 @@ export class GoodsComponent implements OnInit {
   data = [];
   total = 0;
   pagesizeAry = [16, 32, 48];
-  theads = [
-    { name: '订单状态', value: 'status' }
-  ];
+  theads = [];
   statusOption = [];
   statusObj = {};
+  goodsTypeOption = [
+    { name: '兑换商品', value: 1 },
+    { name: '奖品商品', value: 2 }
+  ];
+  goodsTypeObj = {
+    1: '兑换商品',
+    2: '奖品商品'
+  };
+  paytypeOption = [
+    { name: '平台幸运币', value: 0 },
+    { name: '微信', value: 10 },
+    { name: '微信混合支付', value: 11 }
+  ];
+  paytypeObj = {
+    0: '平台幸运币',
+    10: '微信',
+    11: '微信混合支付'
+  };
   constructor(
     private nzMessageService: NzMessageService,
     private serverService: ServerService,
-    private message: MessageService
+    private message: MessageService,
+    private modalService: NzModalService
   ) {
     Options.order_status.forEach(item => {
       this.statusOption.push({
@@ -60,6 +78,9 @@ export class GoodsComponent implements OnInit {
         res = res.result;
         this.data = res.data;
         this.total = res['pageinfo']['total'];
+        this.data = this.data.map(item => {
+          return Object.assign(item.spu_info, item)
+        })
       }
     }, err => {
       this.loading = false;
@@ -72,6 +93,24 @@ export class GoodsComponent implements OnInit {
       pagesize: 16,
       status: null
     }
+    this.get_data(true);
+  }
+
+  show_modal(data) {
+    const modal = this.modalService.create({
+      nzTitle: '订单详情',
+      nzContent: DetailComponent,
+      nzFooter: null,
+      nzComponentParams: {
+        data
+      },
+      nzMaskClosable: false,
+      nzClosable: true,
+      nzWidth: 1200
+    })
+    modal.afterClose.subscribe(res => {
+      if (res) this.get_data(true);
+    })
   }
 
 }

@@ -41,7 +41,7 @@
           </ng-container>
         </td>
         <td>
-          <button nz-button class="ant-Mright" (click)="show_modal(data.id)">处理反馈</button>
+          <button [disabled]="data.remark" nz-button class="ant-Mright" (click)="show_modal(data.id)">处理反馈</button>
         </td>
       </tr>
     </tbody>
@@ -53,7 +53,7 @@
 <nz-modal [(nzVisible)]="visible" nzTitle="处理反馈" (nzOnCancel)="handle_cancel()" (nzOnOk)="handle_ok()"
   [nzOkLoading]="okLoading">
   <div style="display: flex;">
-    <label style="line-height: 32px;height: 32px;display: inline-block;">备注：</label><textarea style="flex: 1"
+    <label style="line-height: 32px;height: 32px;display: inline-block;">备注：</label><textarea style="flex: 1" nz-input
       [(ngModel)]="remark" rows="3"></textarea>
   </div>
 </nz-modal>

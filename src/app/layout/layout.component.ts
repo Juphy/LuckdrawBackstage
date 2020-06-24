@@ -97,7 +97,6 @@ export class LayoutComponent implements OnInit {
           let _path = this.path.split('/');
           _path.pop();
           this.tabs = this.menus.find(item => item.url.includes(_path.join('/')))['children'];
-          console.log(this.tabs, this.path);
           this.tabs.forEach((item, index) => {
             if (item.url === this.path) this.selectedIndex = index;
           })

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ServerService, MessageService } from '@core';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-feedback',
@@ -17,7 +18,8 @@ export class FeedbackComponent implements OnInit {
   total = 0;
   pagesizeAry = [16, 32, 48];
   theads = [
-    { name: '反馈问题', value: 'name' }
+    { name: '反馈问题', value: 'name' },
+    { name: '反馈时间', value: 'created_at' },
   ];
   visible = false;
   okLoading = false;
@@ -45,6 +47,10 @@ export class FeedbackComponent implements OnInit {
         res = res['result'];
         this.data = res['data'];
         this.total = res['pageinfo']['total'];
+        this.data.forEach(item => {
+          item['name'] = JSON.parse(item.content)['ops'][0]['insert'];
+          item['created_at'] = formatDate(item.created_at, 'yyyy-MM-dd HH:mm:ss', 'zh-Hans');
+        })
       }
     }, err => {
       this.loading = false;
@@ -79,6 +85,7 @@ export class FeedbackComponent implements OnInit {
       this.okLoading = false;
       this.visible = false;
       this.nzMessageService.success('反馈已处理！');
+      this.get_data();
     }, err => {
       this.okLoading = false;
       this.visible = false;

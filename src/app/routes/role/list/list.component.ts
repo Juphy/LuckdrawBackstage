@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ServerService, MessageService } from '@core';
 import { AddRoleComponent } from '../add-role/add-role.component';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-list',
@@ -20,14 +21,25 @@ export class ListComponent implements OnInit, OnDestroy {
   pagesizeAry = [16, 32, 48];
   theads = [
     { name: '角色名称', value: 'name' },
-    { name: '角色状态', value: 'status' },
+    { name: '状态', value: '_status' },
+    { name: '创建时间', value: 'created_at' },
   ];
+  Obj = {};
+  statusObj = {
+    1: '正常',
+    2: '禁用'
+  };
   constructor(
     private modelService: NzModalService,
     private nzMessageService: NzMessageService,
     private serverService: ServerService,
     private message: MessageService
   ) {
+    this.serverService.role__permissions().subscribe(res => {
+      res.forEach(item => {
+        this.Obj[item.id] = item.name;
+      })
+    })
     this.message.getRoleList().subscribe(res => {
       if (res) this.searchData = { ...res };
     })
@@ -57,6 +69,10 @@ export class ListComponent implements OnInit, OnDestroy {
       if (res['status'] === 200) {
         this.data = res['result'];
         this.total = this.data.length;
+        this.data.forEach(item => {
+          item.created_at = formatDate(item.created_at, 'yyyy-MM-dd HH:mm:ss', 'zh-Hans');
+          item['_status'] = this.statusObj[item.status];
+        })
       }
     }, err => {
       this.loading = false;
@@ -70,13 +86,13 @@ export class ListComponent implements OnInit, OnDestroy {
     this.get_data();
   }
 
-  show_modal(id?) {
+  show_modal(data?) {
     const modal = this.modelService.create({
-      nzTitle: id ? '角色详情' : '添加角色',
+      nzTitle: data ? '角色详情' : '添加角色',
       nzContent: AddRoleComponent,
       nzFooter: null,
       nzComponentParams: {
-        id
+        data
       },
       nzMaskClosable: false,
       nzClosable: true,
@@ -87,5 +103,25 @@ export class ListComponent implements OnInit, OnDestroy {
     })
   }
 
+  change(id, flag) {
+    switch (flag) {
+      case 0:
+        this.serverService.role__valid({ id }).subscribe(res => {
+          if (res.status === 200) {
+            this.nzMessageService.success('角色禁用成功！');
+            this.get_data();
+          }
+        })
+        break;
+      case 1:
+        this.serverService.role__invalid({ id }).subscribe(res => {
+          if (res.status === 200) {
+            this.nzMessageService.success('角色恢复成功！');
+            this.get_data();
+          }
+        })
+        break;
+    }
+  }
 
 }

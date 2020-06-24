@@ -1,0 +1,84 @@
+<div class="detail-container">
+  <h3 class="ant-Mbottom">订单编号：{{data.order_no}}</h3>
+  <nz-steps [(nzCurrent)]="current">
+    <nz-step *ngFor="let s of steps" [nzTitle]="s.name"></nz-step>
+  </nz-steps>
+  <h3 class="ant-Mtop">订单状态：<nz-tag>{{StatusObj[data.status]}}</nz-tag>
+  </h3>
+  <div class="detail-ship">
+    <div class="detail-left">
+      <div class="detial-desc">
+        <i nz-icon nzType="car" nzTheme="outline"></i>
+        <span class="ant-Mleft">买家付款后才可以发货</span>
+      </div>
+      <div class="detail-address ant-Mright">
+        <div><i nz-icon nzType="environment" nzTheme="outline"></i>
+        </div>
+        <ul>
+          <li>
+            <label>收货人：</label>
+            <div>{{data.receiver_name}}</div>
+          </li>
+          <li>
+            <label>手机：</label>
+            <div>{{data.receiver_phone}}</div>
+          </li>
+          <li>
+            <label>收货地址：</label>
+            <div>
+              {{data.address_info.sheng_s}}{{data.address_info.shi_s}}{{data.address_info.xian_s}}{{data.address_info.zhen_s}}{{data.address_info.street}}
+            </div>
+          </li>
+          <li style="margin-top: 24px;">
+            <label>物流公司：</label>
+            <div>
+              <nz-select style="width: 100%;" [(ngModel)]="data.logistic_company_id" [nzDisabled]="data.status!==200">
+                <nz-option *ngFor="let o of companyOption" [nzLabel]="o.name" [nzValue]="o.id"></nz-option>
+              </nz-select>
+            </div>
+          </li>
+          <li style="margin-top: 16px;">
+            <label>物流单号：</label>
+            <div><input type="text" nz-input [(ngModel)]="data.track_number" [disabled]="data.status!==200"></div>
+          </li>
+          <li style="margin-top: 16px;">
+            <label style="visibility: hidden;">物流单号：</label>
+            <div><button nz-button (click)="edit_ship()" nzType="primary">确认</button></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="detail-right">
+      <div class="detial-desc">
+        <i nz-icon nzType="user" nzTheme="outline"></i>
+        <span class="ant-Mleft">买家：{{data.user_nickname}}</span>
+      </div>
+      <div class="detail-address ant-Mleft" style="padding-left: 0;">
+        <i nz-icon nzType="message" nzTheme="outline"></i>
+        <span class="ant-Mleft">买家备注：{{data.remark}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="detail-goods">
+    <div class="B1">
+      <nz-col nzSpan="14">商品</nz-col>
+      <nz-col nzSpan="3" class="text-center left-border">成交单价(元)</nz-col>
+      <nz-col nzSpan="2" class="text-center left-border">幸运币</nz-col>
+      <nz-col nzSpan="2" class="text-center left-border">数量</nz-col>
+      <nz-col nzSpan="3" class="text-center left-border">总价</nz-col>
+    </div>
+    <div class="B2">
+      <nz-col nzSpan="14">
+        <img [src]="data.images[0]" style="height: 100%;vertical-align: top;">
+        {{data.goods_name}}
+      </nz-col>
+      <nz-col nzSpan="3" class="text-center left-border">{{data.goods_price.toFixed(2)}} </nz-col>
+      <nz-col nzSpan="2" class="text-center left-border">{{data.goods_point}}</nz-col>
+      <nz-col nzSpan="2" class="text-center left-border">{{data.goods_num}}</nz-col>
+      <nz-col nzSpan="3" class="text-center left-border">{{data.total_price.toFixed(2)}} / {{data.total_point}}</nz-col>
+    </div>
+  </div>
+  <div style="text-align: right;line-height: 32px;margin-right: 16px;margin-top: 16px;">
+    <strong>实付金额(元)/幸运币：</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{data.real_price.toFixed(2)}} / {{data.real_point}}
+  </div>
+</div>

@@ -43,15 +43,18 @@ export const URLS = {
   // 活动列表
   activity_list_manage: '/console/activity/list',
   activity_template_manage: '/console/activity/template',
+  online_gallery_manage: '/console/activity/images',
 
   // 广告列表
   ads_list_manage: "/console/ads/ads_list",
   ads_position_manage: '/console/ads/ads_position',
+  ads_template_manage: '/console/ads/template',
 
   // 产品管理
   goods_list_manage: "/console/main/main_list",
   // 分类
   goods_category_manage: "/console/main/category",
+  goods_spec_manage: '/console/main/spec',
 
   // 店铺列表
   shop_list_manage: '/console/shop/list',
@@ -73,6 +76,8 @@ export const URLS = {
   activity_order_manage: '/console/order/activity',
   // 活动充值订单
   activity_time_order_manage: '/console/order/exchange',
+  // 提现订单
+  cash_manage: '/console/order/cash',
 
   // 权限列表
   permission_list_manage: '/console/role/list',
@@ -84,6 +89,8 @@ export const URLS = {
   question_answer_manage: '/console/sys/question',
   // 意见反馈
   feedback_manage: '/console/sys/feedback',
+  // 日志
+  sys_log_manage: '/console/sys/log'
 }
 
 // 控制图标
@@ -126,6 +133,8 @@ export const Options = {
   "QuestionAnswer": {},
   "template": [],
   "Template": {},
+  'online_gallery': [],
+  'onlineGallery': {},
   "order_status": [
     { name: '待支付', value: 100 },
     { name: '已失效', value: 101 },
@@ -135,5 +144,8 @@ export const Options = {
     { name: '支付失败', value: 300 },
     { name: '申请退款', value: 400 },
     { name: '已退款', value: 401 }
-  ]
+  ],
+  "activity_type": [],
+  'ActivityType': {},
+  'company_list': []
 };

@@ -12,6 +12,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ListComponent, AddRoleComponent]
+  declarations: [ListComponent, AddRoleComponent],
+  entryComponents: [AddRoleComponent]
 })
 export class RoleModule { }

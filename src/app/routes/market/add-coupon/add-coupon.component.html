@@ -38,6 +38,7 @@
             <nz-option *ngFor="let option of SpuOption" [nzLabel]="option.goods_name" [nzValue]="option.id">
             </nz-option>
           </nz-select>
+          <button nz-button class="ant-Mleft" (click)="add()">添加</button>
         </nz-col>
       </nz-row>
       <nz-row class="ant-Mbottom">
@@ -45,7 +46,21 @@
           <label>已选择商品：</label>
         </nz-col>
         <nz-col nzSpan="16">
-
+          <ng-container *ngFor="let s of goods_spu_scopes">
+            <nz-card nzHoverable
+              style="width:240px;float: left;margin-right: 16px;margin-bottom: 16px;position: relative;"
+              [nzCover]="coverTemplate">
+              <nz-card-meta [nzTitle]="s.goods_name" [nzDescription]="descTemplate"></nz-card-meta>
+              <ng-template #descTemplate>
+                <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{s.description}}</div>
+              </ng-template>
+              <span style="position: absolute;color: #f5222d;top: 0;right: 0;font-size: 20px;" (click)="remove(s.id)"><i
+                  nz-icon nzType="close" nzTheme="outline"></i></span>
+            </nz-card>
+            <ng-template #coverTemplate>
+              <img [src]="s.images[0]" height="120px" />
+            </ng-template>
+          </ng-container>
         </nz-col>
       </nz-row>
     </ng-container>
@@ -76,8 +91,14 @@
         <nz-form-item *ngIf="validateForm.get('type').value==2">
           <nz-form-label [nzSpan]="6" nzRequired>优惠折扣</nz-form-label>
           <nz-form-control [nzSpan]="12" nzErrorTip="请输入优惠折扣！">
-            <nz-input-number formControlName="preferential_price" [nzMin]="0" [nzMax]="10" [nzStep]="0.1">
-            </nz-input-number><label style="line-height: 32px;margin-left: 8px">折</label>
+            <nz-select [ngModelOptions]="{standalone: true}" [(ngModel)]="op1" nzAllowClear="true" style="width: 70px">
+              <nz-option *ngFor="let o of option1" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
+            </nz-select>
+            点
+            <nz-select [ngModelOptions]="{standalone: true}" [(ngModel)]="op2" nzAllowClear="true" style="width: 70px">
+              <nz-option *ngFor="let o of option2" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
+            </nz-select>
+            折
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -101,7 +122,7 @@
       <nz-col nzSpan="16" nzOffset="6">
         <button nz-button *ngIf="current===0" (click)="next_step()">下一步</button>
         <button nz-button *ngIf="current===1" (click)="pre_step()">上一步</button>
-        <button nz-button *ngIf="current===1" class="ant-Mleft" (click)="make_sure()">确定</button>
+        <button nz-button *ngIf="current===1" class="ant-Mleft" (click)="make_sure()" nzType="primary">确定</button>
         <button nz-button class="ant-Mleft" (click)="make_cancel()">取消</button>
       </nz-col>
     </nz-row>

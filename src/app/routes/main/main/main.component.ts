@@ -98,8 +98,8 @@ export class MainComponent implements OnInit, OnDestroy {
         this.data = res['data'];
         this.total = res['pageinfo']['total'];
         this.data.forEach(item => {
-          item['groups'] = JSON.parse(item['groups']);
-          item['images'] = JSON.parse(item['images']);
+          item['groups'] = item['groups'];
+          item['images'] = item['images'];
         })
       }
     }, err => {
@@ -185,4 +185,12 @@ export class MainComponent implements OnInit, OnDestroy {
     })
   }
 
+  delete(id) {
+    this.serverService.goods__del_spu({ id }).subscribe(res => {
+      if (res.status === 200) {
+        this.nzMessageService.success('该商品删除成功！');
+        this.get_data();
+      }
+    })
+  }
 }

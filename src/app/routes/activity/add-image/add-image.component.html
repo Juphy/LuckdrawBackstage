@@ -1,0 +1,49 @@
+<form nz-form [formGroup]="validateForm">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">图片描述</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入图片描述！">
+      <input type="text" nz-input formControlName="name" placeholder="请输入图片描述">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">图片分类</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请选择图片分类！">
+      <nz-select formControlName="types" nzPlaceHolder="请选择图片分类" nzMode="multiple">
+        <nz-option *ngFor="let o of typesOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告图片</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+        <button nz-button><i nz-icon nzType="upload"></i><span>上传图片</span></button>
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="img_path">
+    <nz-form-label [nzSpan]="6" nzRequired="true">截取的图片</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <img [src]="img_path">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" style="visibility: hidden;">XXX</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <button nz-button nzType="primary" (click)="make_sure()" class="ant-Mright" [nzLoading]="loading">确定</button>
+      <button nz-button (click)="make_cancel()">取消</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<nz-modal [(nzVisible)]="visible" nzTitle="处理图片" (nzOnCancel)="handle_no()" (nzOnOk)="handle_ok()" nzWidth="720px"
+  [nzMaskClosable]="false" [nzOkLoading]="okLoading">
+  <div class="container" *ngIf="imageUrl">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="img-container">
+          <img id="image" alt="Picture">
+        </div>
+      </div>
+    </div>
+  </div>
+</nz-modal>

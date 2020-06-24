@@ -91,6 +91,7 @@
     <thead>
       <tr>
         <th *ngFor="let t of theads">{{t.name}}</th>
+        <th>操作</th>
       </tr>
     </thead>
     <tbody>
@@ -113,6 +114,9 @@
             </ng-template>
           </ng-container>
         </td>
+        <td>
+          <button nz-button (click)="show_modal(data.id)">修改角色</button>
+        </td>
       </tr>
     </tbody>
     <ng-template #totalTemplate>
@@ -120,3 +124,14 @@
     </ng-template>
   </nz-table>
 </div>
+<nz-modal [(nzVisible)]="visible" nzTitle="修改用户角色" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  [nzOkLoading]="okLoading">
+  <nz-row>
+    <nz-col nzSpan="6" style="line-height: 32px;text-align: right;">角色列表：</nz-col>
+    <nz-col nzSpan="16">
+      <nz-select nzMode="multiple" nzAllowClear="true" [(ngModel)]="roles" style="width: 100%;">
+        <nz-option *ngFor="let role of roleOption" [nzLabel]="role.name" [nzValue]="role.id"></nz-option>
+      </nz-select>
+    </nz-col>
+  </nz-row>
+</nz-modal>

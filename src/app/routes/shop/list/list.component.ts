@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
 export class ListComponent implements OnInit, OnDestroy {
   searchItems = [
     { name: '店铺类型', value: 'type', type: 'text', class: 'option', span: 6 },
-    { name: '所属用户', value: 'belong_to_user', type: 'text', class: 'input', span: 6 },
+    { name: '所属用户ID', value: 'belong_to_user', type: 'text', class: 'input', span: 6 },
     { name: '店铺名称', value: 'name', type: 'text', class: 'input', span: 6 },
   ];
   loading = false;

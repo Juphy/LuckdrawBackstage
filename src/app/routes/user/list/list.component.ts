@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ServerService, MessageService } from '@core';
 import { formatDate } from '@angular/common';
@@ -7,7 +7,7 @@ import { formatDate } from '@angular/common';
   selector: 'app-list',
   templateUrl: './list.component.html',
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   searchItems = [
     { name: '用户昵称', value: 'nickname', type: 'text', class: "input", span: 6 },
     { name: '真实姓名', value: 'realname', type: 'text', class: "input", span: 6 },
@@ -98,6 +98,11 @@ export class ListComponent implements OnInit {
     { name: '是', value: true },
     { name: '否', value: false }
   ];
+  visible = false;
+  roleOption = [];
+  roles = [];
+  user_id: number;
+  okLoading = false;
   formatterBalance = (value: number) => value ? value.toFixed(2) : value;
   constructor(
     private modelService: NzModalService,
@@ -105,9 +110,13 @@ export class ListComponent implements OnInit {
     private serverService: ServerService,
     private message: MessageService
   ) {
-    this.message.getRoleList().subscribe(res => {
+    this.message.getUserList().subscribe(res => {
       if (res) this.searchData = { ...res };
     })
+  }
+
+  ngOnDestroy(): void {
+    this.message.setUserList(this.searchData);
   }
 
   ngOnInit() {
@@ -179,5 +188,36 @@ export class ListComponent implements OnInit {
       date: null
     }
     this.get_data();
+  }
+
+  show_modal(id) {
+    this.visible = true;
+    this.user_id = id;
+    this.serverService.role__list({ status: 1 }).subscribe(res => {
+      this.roleOption = [...res.result];
+    })
+    this.serverService.role__user_roles({ user_id: id }).subscribe(res => {
+      this.roles = res.result.map(item => item.id);
+    })
+  }
+
+  handleCancel() {
+    this.visible = false;
+  }
+
+  handleOk() {
+    this.okLoading = true;
+    this.serverService.role__binds({
+      user_id: this.user_id,
+      roles: this.roles
+    }).subscribe(res => {
+      this.okLoading = false;
+      if (res.status === 200) {
+        this.nzMessageService.success('用户角色修改成功！');
+        this.visible = false;
+      }
+    }, err => {
+      this.okLoading = false;
+    })
   }
 }

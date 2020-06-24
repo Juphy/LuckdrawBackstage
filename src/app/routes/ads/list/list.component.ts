@@ -107,4 +107,13 @@ export class ListComponent implements OnInit, OnDestroy {
     })
   }
 
+  delete(id) {
+    this.serverService.ads__del_ads({ id }).subscribe(res => {
+      if (res.status === 200) {
+        this.nzMessageService.success('广告删除成功！');
+        this.get_data();
+      }
+    })
+  }
+
 }

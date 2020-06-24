@@ -114,4 +114,18 @@ export class MessageService {
   getShopList(): Observable<any> {
     return of(this.shopList);
   }
+
+  // 用户列表
+  userList: any;
+  setUserList(obj) {
+    this.userList = obj;
+  }
+
+  clearUserList() {
+    this.userList = null;
+  }
+
+  getUserList(): Observable<any> {
+    return of(this.userList);
+  }
 }

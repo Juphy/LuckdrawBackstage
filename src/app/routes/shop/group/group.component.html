@@ -7,15 +7,19 @@
           <label style="display: inline-block;line-height: 32px;width: 54px;white-space: nowrap;">
             名称：
           </label>
-          <input style="flex: 1" type="text" nz-input [(ngModel)]="d.name" [disabled]="d.type">
+          <div style="flex: 1">
+            <input type="text" nz-input [(ngModel)]="d.name" [disabled]="d.type">
+          </div>
         </div>
         <div class="ant-Mtop" style="display: flex;">
           <label style="display: inline-block;line-height: 32px;width: 54px;white-space: nowrap;">
             店铺：
           </label>
-          <nz-select [(ngModel)]="d.shop_id" [nzDisabled]="d.type" style="flex: 1">
-            <nz-option *ngFor="let o of shopOption" [nzValue]="o.id" [nzLabel]="o.name"></nz-option>
-          </nz-select>
+          <div style="flex: 1">
+            <nz-select [(ngModel)]="d.shop_id" [nzDisabled]="d.type" style="width: 100%">
+              <nz-option *ngFor="let o of shopOption" [nzValue]="o.id" [nzLabel]="o.name"></nz-option>
+            </nz-select>
+          </div>
         </div>
         <div class="ant-Mtop">商品数：<a style="text-decoration: underline;" [routerLink]="['/console/main/main_list']"
             (click)="set_group(d.id)">{{d.goods_count}}</a></div>
@@ -43,15 +47,19 @@
           <label style="display: inline-block;line-height: 32px;width: 54px">
             名称：
           </label>
-          <input style="flex: 1" type="text" nz-input [(ngModel)]="d.name">
+          <div style="flex: 1">
+            <input type="text" nz-input [(ngModel)]="d.name">
+          </div>
         </div>
         <div class="ant-Mtop" style="display: flex;">
           <label style="display: inline-block;line-height: 32px;width: 54px">
             店铺：
           </label>
-          <nz-select [(ngModel)]="d.shop_id" style="flex: 1">
-            <nz-option *ngFor="let o of shopOption" [nzValue]="o.id" [nzLabel]="o.name"></nz-option>
-          </nz-select>
+          <div style="flex: 1">
+            <nz-select [(ngModel)]="d.shop_id" style="width: 100%">
+              <nz-option *ngFor="let o of shopOption" [nzValue]="o.id" [nzLabel]="o.name"></nz-option>
+            </nz-select>
+          </div>
         </div>
         <div style="visibility: hidden;" class="ant-Mtop">商品数：<a style="text-decoration: underline;">9999</a></div>
       </div>

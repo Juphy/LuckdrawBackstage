@@ -27,23 +27,26 @@
   </div>
 </div>
 <div class="container-box overflow-box">
-  <nz-table #table [nzData]="data" [nzFrontPagination]="true" [nzTotal]="total" [nzShowTotal]="totalTemplate"
-    [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry">
+  <nz-table #table [nzData]="data" [(nzPageSize)]="searchData.pagesize" [(nzPageIndex)]="searchData.page"
+    [nzFrontPagination]="false" [nzTotal]="total" [nzShowTotal]="totalTemplate" [nzLoading]="loading"
+    [nzPageSizeOptions]="pagesizeAry" (nzPageIndexChange)="get_data()" (nzPageSizeChange)="get_data(true)">
     <thead>
       <tr>
         <th *ngFor="let t of theads">{{t.name}}</th>
-        <th>操作</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of table.data">
         <td *ngFor="let t of theads">
           <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchCase="nickname">
+              <img *ngIf="data.headimgurl" [src]="data.headimgurl"
+                style="width: 18px;height: 18px;border-radius: 18px;margin-right: 4px;">
+              <i *ngIf="!data.headimgurl" class="user" nz-icon nzType="user" nzTheme="outline"
+                style="font-size: 18px;margin-right: 4px;vertical-align: middle"></i>{{data[t.value]}}
+            </ng-template>
             <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
           </ng-container>
-        </td>
-        <td>
-          <!-- <button nz-button class="ant-Mright" (click)="show_modal(data.id)">查看详情</button> -->
         </td>
       </tr>
     </tbody>

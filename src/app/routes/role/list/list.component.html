@@ -20,7 +20,6 @@
     </nz-row>
     <nz-row>
       <nz-col [nzSpan]="24" style="justify-content:flex-end;display: flex;padding-right: 24px">
-        <button nz-button (click)="show_modal()">添加角色</button>
         <button class="ant-Mleft" nz-button nzType="primary" (click)="get_data()" [nzLoading]="loading">搜索</button>
         <button class="ant-Mleft" nz-button (click)="clear_data()">清空</button>
       </nz-col>
@@ -28,6 +27,7 @@
   </div>
 </div>
 <div class="container-box overflow-box">
+  <button nz-button class="ant-Mbottom" (click)="show_modal()">添加角色</button>
   <nz-table #table nzShowSizeChanger [nzData]="data" [nzFrontPagination]="true" [nzTotal]="total"
     [nzShowTotal]="totalTemplate" [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry">
     <thead>
@@ -40,11 +40,18 @@
       <tr *ngFor="let data of table.data">
         <td *ngFor="let t of theads">
           <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchCase="permissions">
+              <nz-tag *ngFor="let p of data.permissions">{{Obj[p]}}</nz-tag>
+            </ng-template>
             <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
           </ng-container>
         </td>
         <td>
-          <button nz-button class="ant-Mright" (click)="show_modal(data.id)">查看详情</button>
+          <button nz-button class="ant-Mright" (click)="show_modal(data)">编辑角色</button>
+          <button nz-button *ngIf="data.status===1" nzType="danger" class="ant-Mright"
+            (click)="change(data.id, 0)">禁用</button>
+          <button nz-button *ngIf="data.status===2" nzType="primary" class="ant-Mright"
+            (click)="change(data.id, 1)">恢复</button>
         </td>
       </tr>
     </tbody>
