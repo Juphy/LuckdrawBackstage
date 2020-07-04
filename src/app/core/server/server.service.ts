@@ -77,7 +77,16 @@ import {
   ActivityChangeTimeShow,
   EditLogistics,
   UserRoles,
-  CouponInfo
+  CouponInfo,
+  EditOnlineGalleryTypes,
+  ChangeOnlineGalleryShow,
+  SpscValueList,
+  AddSpecValue,
+  ShopSearch,
+  AdsDelAdPosition,
+  AdsAdvertiserList,
+  AdsEditAdvertiser,
+  AdsChangeStatus
 } from "./types";
 
 @Injectable({
@@ -127,7 +136,7 @@ export class ServerService {
     return this.http.post<HttpResponse>('goods/add_spec', params)
   }
 
-  // 添加规格值
+  // 编辑规格值
   goods__edit_spec_value(params: EditSpecvalue): Observable<any> {
     return this.http.post<HttpResponse>('goods/edit_spec_value', params)
   }
@@ -135,6 +144,11 @@ export class ServerService {
   // 删除规格值
   goods__del_spec_value(params: DelSpecvalue): Observable<any> {
     return this.http.post<HttpResponse>('goods/del_spec_value', params);
+  }
+
+  // 添加规格值
+  goods__add_spec_value(params: AddSpecValue): Observable<any> {
+    return this.http.post<HttpResponse>('goods/add_spec_value', params);
   }
 
   // 添加、编辑商品
@@ -262,6 +276,26 @@ export class ServerService {
     return this.http.post<HttpResponse>('ads/update_click_num', params);
   }
 
+  // 添加 编辑广告主
+  ads__edit_advertiser(params: AdsEditAdvertiser): Observable<any> {
+    return this.http.post<HttpResponse>('ads/edit_advertiser', params);
+  }
+
+  // 广告主列表
+  ads__advertiser_list(params: AdsAdvertiserList): Observable<any> {
+    return this.http.post<HttpResponse>('ads/advertiser_list', params);
+  }
+
+  // 删除广告位置
+  ads__del_ad_position(params: AdsDelAdPosition): Observable<any> {
+    return this.http.post<HttpResponse>('ads/del_ad_position', params);
+  }
+
+  // 
+  ads__change_status(params: AdsChangeStatus): Observable<any> {
+    return this.http.post<HttpResponse>('ads/change_status', params);
+  }
+
   // 内部店铺
   shop__inside_shop(): Observable<any> {
     return this.http.get<HttpResponse>('shop/inside_shop')
@@ -307,7 +341,7 @@ export class ServerService {
 
   // 获取用户信息
   wechat__get_service_user_info(params: UserInfo): Observable<any> {
-    return this.http.post<HttpResponse>('wechat/get_service_user_info', params)
+    return this.http.post<HttpResponse>('wechat/get_pc_user_info', params)
   }
 
   // 角色列表
@@ -541,5 +575,42 @@ export class ServerService {
 
   goods__coupon_info(params: CouponInfo): Observable<any> {
     return this.http.post<HttpResponse>('goods/coupon_info', params);
+  }
+
+  // 图片上下架
+  manager__dit_online_gallery_types(params: EditOnlineGalleryTypes): Observable<any> {
+    return this.http.post<HttpResponse>('manager/edit_online_gallery_types', params);
+  }
+
+  manager__change_online_gallery_show(params: ChangeOnlineGalleryShow): Observable<any> {
+    return this.http.post<HttpResponse>('manager/change_online_gallery_show', params);
+  }
+
+  goods__spec_value_list(params: SpscValueList): Observable<any> {
+    return this.http.post<HttpResponse>('goods/spec_value_list', params);
+  }
+
+  shop__search(params: ShopSearch): Observable<any> {
+    return this.http.post<HttpResponse>('shop/search', params);
+  }
+
+  get_shop_list(): Observable<any> {
+    if (Options.shop_list.length) {
+      return of(Options.shop_list);
+    } else {
+      return this.http.post<HttpResponse>('shop/search', { name: '' }).pipe(
+        map(e => {
+          let result = e.result;
+          Options.ShopList = { ...result };
+          for (let key in result) {
+            Options.shop_list.push({
+              name: result[key],
+              value: Number(key)
+            })
+          }
+          return Options.shop_list;
+        })
+      )
+    }
   }
 }

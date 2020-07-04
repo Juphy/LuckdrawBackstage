@@ -36,7 +36,6 @@ export class BuildComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private el: ElementRef) {
     this.get_group_list();
-    this.get_category_list();
     this.get_inside_shop();
   }
 
@@ -53,6 +52,8 @@ export class BuildComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
+  
 
   ngOnInit() {
     this.validateForm = this.fb.group({
@@ -161,9 +162,13 @@ export class BuildComponent implements OnInit, AfterViewInit {
     })
   }
 
-  get_category_list() {
-    this.server.goods__group_list({}).subscribe(res => {
-      this.GroupList = res['result'];
+  get_category_list(shop_id) {
+    this.validateForm.get('groups').setValue(null);
+    if (!shop_id) return;
+    this.server.goods__group_list({ shop_id }).subscribe(res => {
+      if (res['status'] === 200) {
+        this.GroupList = [...res['result']];
+      }
     })
   }
 

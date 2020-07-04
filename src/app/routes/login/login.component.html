@@ -15,7 +15,7 @@
           <span>密码登录</span>
         </a> -->
       </div>
-      <div class="erweima-form">
+      <div class="erweima-form" *ngIf="src">
         <div *ngIf="!flag" class="erweima-erweima">
           <div>
             <div *ngIf="imgLoading" style="padding: 48px 0;font-size: 48px;">
@@ -23,9 +23,8 @@
             </div>
             <!-- <img *ngIf="!imgLoading" [src]="erweima"> -->
             <div *ngIf="!imgLoading&&num%480!==0" class="iframe-container">
-              <iframe
-                src="https://open.weixin.qq.com/connect/qrconnect?appid=wx25f16c3e9bad9b7a&redirect_uri=https%3A%2F%2Fraffle.admin.wenquanpage.com%2F%23%2Flogin&response_type=code&scope=snsapi_login#wechat_redirect"
-                frameborder="0" sandbox="allow-scripts allow-same-origin allow-top-navigation"></iframe>
+              <iframe [src]="src" frameborder="0"
+                sandbox="allow-scripts allow-same-origin allow-top-navigation"></iframe>
             </div>
           </div>
         </div>

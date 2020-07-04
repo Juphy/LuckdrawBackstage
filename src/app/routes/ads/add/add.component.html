@@ -1,5 +1,31 @@
 <form nz-form [formGroup]="validateForm">
   <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告位置</nz-form-label>
+    <nz-form-control nzSpan="12" nzErrorTip="请选择广告位置！">
+      <nz-select formControlName="position_id" nzPlaceHolder="请选择广告位置">
+        <nz-option *ngFor="let o of positionOption" [nzLabel]="o.name" [nzValue]="o.id"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告主</nz-form-label>
+    <nz-form-control nzSpan="12" nzErrorTip="请选择广告主！">
+      <nz-select formControlName="advertiser_id" nzPlaceHolder="请选择广告主">
+        <nz-option *ngFor="let o of advertiserOption" [nzLabel]="o.name" [nzValue]="o.id"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">计费方式</nz-form-label>
+    <nz-form-control nzSpan="12" nzErrorTip="请选择计费方式！">
+      <nz-radio-group formControlName="billing_method">
+        <label nz-radio [nzValue]="1">CPM</label>
+        <label nz-radio [nzValue]="2">CPC</label>
+        <label nz-radio [nzValue]="3">CPT</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired="true">广告名称</nz-form-label>
     <nz-form-control [nzSpan]="12" nzErrorTip="请输入广告名称！">
       <input type="text" nz-input formControlName="name" placeholder="请输入广告名称">
@@ -8,36 +34,28 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired="true">广告图片</nz-form-label>
     <nz-form-control [nzSpan]="12">
-      <div class="clearfix">
-        <nz-upload nzListType="picture-card" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 1"
-          [nzShowUploadList]="showUploadList" [nzPreview]="handlePreview" [nzBeforeUpload]="beforeUpload">
-          <i nz-icon nzType="plus"></i>
-        </nz-upload>
-        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
-          (nzOnCancel)="previewVisible = false">
-          <ng-template #modalContent>
-            <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
-          </ng-template>
-        </nz-modal>
-      </div>
+      <nz-upload [nzBeforeUpload]="beforeUpload">
+        <button nz-button><i nz-icon nzType="upload"></i><span>上传图片</span></button>
+      </nz-upload>
+      <img [src]="img_path">
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzRequired="true">广告位置</nz-form-label>
-    <nz-form-control nzSpan="12" nzErrorTip="请选择广告位置！">
-      <nz-select formControlName="position_id" nzPlaceHolder="请选择广告位置">
-        <nz-option *ngFor="let o of positionOption" [nzLabel]="o.name" [nzValue]="o.id"></nz-option>
-      </nz-select>
+    <nz-form-label [nzSpan]="6" nzRequired="true">广告开始日期</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入广告开始日期！">
+      <nz-date-picker [nzDisabledDate]="disabledStartDate" nzFormat="yyyy-MM-dd" nzPlaceHolder="请选择广告开始时间"
+        formControlName="start_date">
+      </nz-date-picker>
     </nz-form-control>
   </nz-form-item>
-  <!-- <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzRequired="true">广告类型</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzErrorTip="请选择广告类型！">
-      <nz-select formControlName="position_type" nzPlaceHolder="请选择广告类型">
-        <nz-option *ngFor="let o of adTypeOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
-      </nz-select>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">广告结束日期</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入广告结束日期！">
+      <nz-date-picker [nzDisabledDate]="disabledEndDate" nzFormat="yyyy-MM-dd" nzPlaceHolder="请选择广告结束时间"
+        formControlName="end_date">
+      </nz-date-picker>
     </nz-form-control>
-  </nz-form-item> -->
+  </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired="true">广告跳转网站名称</nz-form-label>
     <nz-form-control [nzSpan]="12" nzErrorTip="请输入跳转网站名称！">
@@ -51,7 +69,7 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzRequired="true">广告跳转AppId</nz-form-label>
+    <nz-form-label [nzSpan]="6">广告跳转AppId</nz-form-label>
     <nz-form-control [nzSpan]="12" nzErrorTip="请输入广告跳转AppId！">
       <input type="text" nz-input formControlName="url_id" placeholder="请输入广告跳转AppId">
     </nz-form-control>
@@ -65,15 +83,32 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzRequired="true">广告生效时间</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzErrorTip="请选择日期！">
-      <nz-range-picker formControlName="date"></nz-range-picker>
+    <nz-form-label [nzSpan]="6">购买点击次数</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入购买点击次数！">
+      <nz-input-number formControlName="buy_click_num" [nzMin]="1" [nzMax]="99999999999" [nzFormatter]="format_day"
+        [nzStep]="1"></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">购买浏览量数</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入购买浏览量数！">
+      <nz-input-number formControlName="buy_reach_num" [nzMin]="1" [nzMax]="99999999999" [nzFormatter]="format_day"
+        [nzStep]="1"></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired="true">价格</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入价格！">
+      <nz-input-number formControlName="price" [nzMin]="0" [nzFormatter]="format_money" [nzStep]="0.01">
+      </nz-input-number>
+      &nbsp;元
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired="true">排序</nz-form-label>
     <nz-form-control [nzSpan]="12" nzErrorTip="请输入排序！">
-      <nz-input-number formControlName="sort" [nzMin]="0" [nzMax]="99999999999" [nzStep]="1"></nz-input-number>
+      <nz-input-number formControlName="sort" [nzFormatter]="format_day" [nzMin]="0" [nzMax]="99999999999" [nzStep]="1">
+      </nz-input-number>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -84,3 +119,15 @@
     </nz-form-control>
   </nz-form-item>
 </form>
+<nz-modal [(nzVisible)]="visible" nzTitle="处理图片" (nzOnCancel)="handle_no()" (nzOnOk)="handle_ok()" nzWidth="720px"
+  [nzMaskClosable]="false" [nzOkLoading]="okLoading">
+  <div class="container" *ngIf="imageUrl">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="img-container">
+          <img id="image" alt="Picture">
+        </div>
+      </div>
+    </div>
+  </div>
+</nz-modal>

@@ -12,7 +12,7 @@
               <input nz-input [type]="item.type" [(ngModel)]="searchData[item.value]" [placeholder]="'请输入'+item.name">
             </ng-template>
             <ng-template ngSwitchCase="option">
-              <nz-select [(ngModel)]="searchData[item.value]" nzAllowClear nzPlaceHolder="选择图片类型">
+              <nz-select [(ngModel)]="searchData[item.value]" (ngModelChange)="get_data(true)" nzAllowClear nzPlaceHolder="选择图片类型">
                 <nz-option *ngFor="let option of typesOption" [nzLabel]="option.name" [nzValue]="option.value">
                 </nz-option>
               </nz-select>
@@ -38,6 +38,7 @@
     <thead>
       <tr>
         <th *ngFor="let t of theads">{{t.name}}</th>
+        <th>操作</th>
       </tr>
     </thead>
     <tbody>
@@ -53,6 +54,12 @@
             <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
           </ng-container>
         </td>
+        <td>
+          <button nz-button class="ant-Mright" nzType="primary" (click)="show_visible(data)">修改分类</button>
+          <button nz-button class="ant-Mright" nzType="primary" *ngIf="data.show===0"
+            (click)="make_onoff(data.id, 1)">上架</button>
+          <button nz-button nzType="danger" *ngIf="data.show===1" (click)="make_onoff(data.id, 0)">下架</button>
+        </td>
       </tr>
     </tbody>
     <ng-template #totalTemplate>
@@ -60,3 +67,12 @@
     </ng-template>
   </nz-table>
 </div>
+<nz-modal [(nzVisible)]="visible" nzTitle="修改分类" (nzOnCancel)="handle_cancel()" (nzOnOk)="handle_ok()"
+  [nzOkLoading]="okLoading">
+  <label>
+    分类：
+  </label>
+  <nz-select [(ngModel)]="types" nzPlaceHolder="请选择图片分类" nzMode="multiple">
+    <nz-option *ngFor="let o of typesOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
+  </nz-select>
+</nz-modal>

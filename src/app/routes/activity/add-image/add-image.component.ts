@@ -62,7 +62,8 @@ export class AddImageComponent implements OnInit {
     let params = {
       name: this.validateForm.get('name').value,
       types: this.validateForm.get('types').value,
-      img_path: this.img_path
+      img_path: this.img_path,
+      show: 1
     }
     this.loading = true;
     this.serverService.manager__edit_online_gallery(params).subscribe(res => {

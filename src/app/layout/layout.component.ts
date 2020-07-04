@@ -26,6 +26,7 @@ export class LayoutComponent implements OnInit {
     this.headimgurl = UserInfo['headimgurl'] || '';
     const data = UserInfo.permission;
     data.forEach(item => {
+      // 区分一级菜单
       if (item.pid === 0) {
         let obj = {};
         obj["name"] = item["name"];
@@ -36,30 +37,33 @@ export class LayoutComponent implements OnInit {
         obj['path'] = URL[item['display_name']]
         // 区分次级菜单和特性
         // 需要修改的地方
-        if (['activity_manage', 'ads_manage', 'goods_manage', 'shop_manage', 'market_manage', 'order_manage', 'permission_manage', 'user_manage', 'sys_manage'].includes(item.display_name)) {
-          let ary = [];
-          data.forEach(_item => {
-            if (item.id === _item.pid) {
-              ary.push({
-                name: _item.name,
-                url: URLS[_item.display_name],
-                icon: ICON[_item.display_name]
-              });
-            }
-          });
-          obj["children"] = ary;
-        } else {
+        // if (['activity_manage', 'ads_manage', 'goods_manage', 'shop_manage', 'market_manage', 'order_manage', 'permission_manage', 'user_manage', 'sys_manage'].includes(item.display_name)) {
+        let ary = [];
+        data.forEach(_item => {
+          if (item.id === _item.pid) {
+            ary.push({
+              name: _item.name,
+              url: URLS[_item.display_name],
+              icon: ICON[_item.display_name]
+            });
+          }
+        });
+        obj["children"] = ary;
+        // }
+        this.menus.push(obj);
+      } else {
+        if (item.type === 2) {
           let o = {};
           data.forEach(_item => {
-            if (item.id === _item.pid) {
+            if (item.id === _item.pid && _item.type === 3) {
               o[_item["display_name"]] = true;
             }
           });
           FN[item["display_name"]] = o;
         }
-        this.menus.push(obj);
       }
     });
+    console.log(FN);
   }
 
   ngOnInit() {

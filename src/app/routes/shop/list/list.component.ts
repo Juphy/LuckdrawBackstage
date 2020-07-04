@@ -25,6 +25,7 @@ export class ListComponent implements OnInit, OnDestroy {
   total = 0;
   pagesizeAry = [16, 32, 48];
   theads = [
+    { name: '店铺类型', value: 'type' },
     { name: '店铺名称', value: 'name' },
     { name: '店铺logo', value: 'logo' },
     { name: '简单描述', value: 'describe' },
@@ -69,7 +70,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.data = res.data;
         this.total = res['pageinfo']['total'];
         this.data.forEach(item => {
-          item['created_at'] = formatDate(new Date(item.created_at), 'yyyy-MM-dd HH:mm:ss', 'en-US');
+          item['created_at'] = formatDate(new Date(item.created_at), 'yyyy-MM-dd HH:mm:ss', 'zh-Hans');
         })
       }
     }, err => {
@@ -84,7 +85,8 @@ export class ListComponent implements OnInit, OnDestroy {
       name: '',
       type: null,
       belong_to_user: ''
-    }
+    };
+    this.get_data();
   }
 
 }

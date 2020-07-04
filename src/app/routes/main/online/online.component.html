@@ -1,4 +1,7 @@
 <div class="container-box ant-Mbottom-large">
+  店铺名称：{{shop.name || this.shopObj[this.searchData.shop_id]}}
+</div>
+<div class="container-box ant-Mbottom-large">
   <div class="search">
     <div class="query">
       <b>查询条件</b>
@@ -37,9 +40,9 @@
                 </ng-template>
                 <ng-template ngSwitchCase="shop_id">
                   <nz-select [(ngModel)]="searchData[item.value]" [nzPlaceHolder]="'请搜索'+item.name"
-                    (ngModelChange)='get_data(true)' [nzLoading]="flagLoading" 
-                    [nzShowSearch]="true" nzAllowClear>
-                    <nz-option *ngFor="let option of shopOption" [nzLabel]="option.name" [nzValue]="option.value">
+                    (ngModelChange)='get_data(true)' [nzLoading]="flagLoading" (nzOnSearch)="search_shop($event)"
+                    [nzShowSearch]="true" [nzServerSearch]="true" nzAllowClear>
+                    <nz-option *ngFor="let option of shopOption" [nzLabel]="option.name" [nzValue]="option.id">
                     </nz-option>
                   </nz-select>
                 </ng-template>
@@ -70,7 +73,7 @@
   </div>
 </div>
 <div class="container-box overflow-box">
-  <button nz-button (click)="show_modal()" class="ant-Mbottom">添加商品</button>
+  <!-- <button nz-button (click)="show_modal()" class="ant-Mbottom">添加商品</button> -->
   <nz-table #table nzShowSizeChanger [nzData]="data" [(nzPageSize)]="searchData.pagesize"
     [(nzPageIndex)]="searchData.page" [nzFrontPagination]="false" [nzTotal]="total" [nzShowTotal]="totalTemplate"
     [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry" (nzPageIndexChange)="get_data()"
@@ -78,7 +81,7 @@
     <thead>
       <tr>
         <th *ngFor="let t of theads">{{t.name}}</th>
-        <th>操作</th>
+        <!-- <th>操作</th> -->
       </tr>
     </thead>
     <tbody>
@@ -102,7 +105,7 @@
             <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
           </ng-container>
         </td>
-        <td>
+        <!-- <td>
           <button nz-button class="ant-Mright" (click)="show_modal(data.id)">编辑</button>
           <button nz-button class="ant-Mright" *ngIf="data.status===0" (click)="change_status(data.id, 1)">上架</button>
           <button nz-button class="ant-Mright" *ngIf="data.status===1" (click)="change_status(data.id, 0)">下架</button>
@@ -110,7 +113,7 @@
             nzType="danger">删除</button>
           <button nz-button (click)="show_sku(data.id)" *ngIf="data.status===0">编辑规格</button>
           <button nz-button (click)="show_sku(data.id)" *ngIf="data.status===1">查看规格</button>
-        </td>
+        </td> -->
       </tr>
     </tbody>
     <ng-template #totalTemplate>
@@ -118,3 +121,12 @@
     </ng-template>
   </nz-table>
 </div>
+<nz-modal [(nzVisible)]="visible" nzTitle="选择店铺" [nzClosable]="true" (nzOnCancel)="return_back()" [nzFooter]="null"
+  [nzClosable]="false">
+  <div style="width: 120px;text-align: right;display: inline-block">店铺：</div>
+  <nz-select style="width: 240px" [(ngModel)]="searchData['shop_id']" [nzPlaceHolder]="'请搜索店铺名称'"
+    (ngModelChange)='get_data(true)' [nzLoading]="flagLoading" [nzShowSearch]="true" nzAllowClear>
+    <nz-option *ngFor="let option of shopOption" [nzLabel]="option.name" [nzValue]="option.value">
+    </nz-option>
+  </nz-select>
+</nz-modal>

@@ -12,7 +12,7 @@
               <input nz-input [type]="item.type" [(ngModel)]="searchData[item.value]" [placeholder]="'请输入'+item.name">
             </ng-template>
             <ng-template ngSwitchCase="option">
-              <nz-select [(ngModel)]="searchData[item.value]" nzAllowClear="true" [nzPlaceHolder]="'请选择'+item.name">
+              <nz-select [(ngModel)]="searchData[item.value]" (ngModelChange)="get_data(true)" nzAllowClear="true" [nzPlaceHolder]="'请选择'+item.name">
                 <nz-option *ngFor="let o of templateTypeOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
               </nz-select>
             </ng-template>
@@ -46,16 +46,26 @@
       <tr *ngFor="let data of table.data">
         <td *ngFor="let t of theads">
           <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchCase="join">
+              <div *ngIf="data.constraint_point">所需积分：{{data.constraint_point}}</div>
+              <div *ngIf="data.constraint_balance">所需金额：{{(data.constraint_balance/100).toFixed(2)}}元</div>
+              <div *ngIf="data.constraint_sex">性别限制：{{constraintSex[data.constraint_sex]}}</div>
+              <div *ngIf="data.constraint_realname">需要实名认证</div>
+              <div *ngIf="data.constraint_obj">需要关注公众号</div>
+              <div
+                *ngIf="!data.constraint_obj&&!data.constraint_realname&&!data.constraint_sex&&!data.constraint_point&&!data.constraint_balance">
+                无限制</div>
+            </ng-template>
             <ng-template ngSwitchCase="image">
               <img [src]="data.prize_info[0].image" style="width: 160px">
               <ng-container *ngIf="data.prize_info.length===1">
                 <div style="width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
-                  奖品：{{data.prize_info[0].name}}</div>
+                  奖品：{{data.prize_info[0].name}}</div> × {{data.prize_info[0]['issue_num']}}
               </ng-container>
               <ng-container *ngIf="data.prize_info.length > 1">
                 <ng-container *ngFor="let p of data.prize_info;let i = index">
                   <div style="width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
-                    {{prizeIndex[i]}}：{{p.name}}</div>
+                    {{prizeIndex[i]}}：{{p.name}} × {{data.prize_info[0]['issue_num']}} </div>
                 </ng-container>
               </ng-container>
             </ng-template>

@@ -48,15 +48,38 @@
             <ng-template ngSwitchCase="position_id">
               {{positionObj[data.position_id]}}
             </ng-template>
+            <ng-template ngSwitchCase="advertiser_id">
+              {{advertiserObj[data.advertiser_id]}}
+            </ng-template>
+            <ng-template ngSwitchCase="billing_method">
+              {{billingMethod[data.billing_method]}}
+            </ng-template>
+            <ng-template ngSwitchCase="url_type">
+              {{adUrlObj[data.url_type]}}
+            </ng-template>
+            <ng-template ngSwitchCase="status">
+              {{statusObj[data.status]}}
+            </ng-template>
+            <ng-template ngSwitchCase="price">
+              {{(data.price/100).toFixed(2)}}
+            </ng-template>
             <ng-template ngSwitchCase="date">
-              {{data.start_date}}~{{data.end_date}}
+              <ng-container *ngIf="data.end_date">
+                {{data.start_date}}~{{data.end_date}}
+              </ng-container>
+              <ng-container *ngIf="!data.end_date">
+                生效日期：{{data.start_date}}<br />永久有效
+              </ng-container>
             </ng-template>
             <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
           </ng-container>
         </td>
         <td>
           <button nz-button class="ant-Mright" (click)="show_modal(data.id)">编辑</button>
-          <button nz-button class="ant-Mright" nzType="danger" (click)="delete(data.id)">删除</button>
+          <button nz-button class="ant-Mright" *ngIf="data.status===0" (click)="change_status(data.id, 1)">生效</button>
+          <button nz-button class="ant-Mright" *ngIf="data.status===1" (click)="change_status(data.id, 0)">失效</button>
+          <button nz-button nzType="danger" nz-popconfirm nzPopconfirmTitle="您确定要删除这个广告吗？"
+            nzPopconfirmPlacement="bottom" (nzOnConfirm)="delete_ad(data.id)" (nzOnCancel)="cancel()">删除</button>
         </td>
       </tr>
     </tbody>

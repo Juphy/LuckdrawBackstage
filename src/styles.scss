@@ -484,3 +484,39 @@ $bgColor: #f5f7fa;
 .ant-card-body {
   padding: 12px;
 }
+
+html,
+body {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+app-login {
+
+  html,
+  body {
+    overflow-y: hidden;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+nz-tree ul nz-tree-node {
+  margin-bottom: 16px !important;
+  display: inline-block;
+
+  li {
+    display: inline-block !important;
+    margin-right: 16px !important;
+    vertical-align: top !important;
+
+    ul nz-tree-node {
+      display: block !important;
+      margin-bottom: 0 !important;
+
+      li {
+        display: block !important;
+      }
+    }
+  }
+}

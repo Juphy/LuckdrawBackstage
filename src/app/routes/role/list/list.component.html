@@ -14,6 +14,13 @@
             <ng-template ngSwitchCase="date">
               <nz-range-picker [(ngModel)]="searchData[item.value]" nzShowTime></nz-range-picker>
             </ng-template>
+            <ng-template ngSwitchCase="option">
+              <nz-select [(ngModel)]="searchData[item.value]" (ngModelChange)="get_data()"
+                [nzPlaceHolder]="'请搜索'+item.name" nzAllowClear>
+                <nz-option *ngFor="let option of statusOption" [nzLabel]="option.name" [nzValue]="option.value">
+                </nz-option>
+              </nz-select>
+            </ng-template>
           </ng-container>
         </nz-col>
       </ng-container>

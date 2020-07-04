@@ -57,7 +57,7 @@ export class AddDailyComponent implements OnInit {
     if (flag) return;
     let point = this.validateForm.get('point').value, balance = Number((this.validateForm.get('balance').value * 100).toFixed(0));
     if (!point && !balance) {
-      this.nzMessageService.warning('奖励积分和奖励金额不能同时为空！');
+      this.nzMessageService.warning('奖励积分和奖励金额不能同时为0！');
       return;
     }
     let params = {

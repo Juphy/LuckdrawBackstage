@@ -26,7 +26,7 @@
           <li>
             <label>收货地址：</label>
             <div>
-              {{data.address_info.sheng_s}}{{data.address_info.shi_s}}{{data.address_info.xian_s}}{{data.address_info.zhen_s}}{{data.address_info.street}}
+              {{address_info.sheng_s}}{{address_info.shi_s}}{{address_info.xian_s}}{{address_info.zhen_s}}{{address_info.street}}
             </div>
           </li>
           <li style="margin-top: 24px;">
@@ -43,7 +43,8 @@
           </li>
           <li style="margin-top: 16px;">
             <label style="visibility: hidden;">物流单号：</label>
-            <div><button nz-button (click)="edit_ship()" nzType="primary">确认</button></div>
+            <div><button nz-button (click)="edit_ship()" [disabled]="data.status!==200" nzType="primary">修改物流信息</button>
+            </div>
           </li>
         </ul>
       </div>
@@ -61,24 +62,36 @@
   </div>
   <div class="detail-goods">
     <div class="B1">
-      <nz-col nzSpan="14">商品</nz-col>
+      <nz-col nzSpan="11">商品</nz-col>
       <nz-col nzSpan="3" class="text-center left-border">成交单价(元)</nz-col>
       <nz-col nzSpan="2" class="text-center left-border">幸运币</nz-col>
       <nz-col nzSpan="2" class="text-center left-border">数量</nz-col>
-      <nz-col nzSpan="3" class="text-center left-border">总价</nz-col>
+      <nz-col nzSpan="3" class="text-center left-border">优惠券</nz-col>
+      <nz-col nzSpan="2" class="text-center left-border">总价(元)</nz-col>
     </div>
     <div class="B2">
-      <nz-col nzSpan="14">
+      <nz-col nzSpan="11">
         <img [src]="data.images[0]" style="height: 100%;vertical-align: top;">
         {{data.goods_name}}
       </nz-col>
       <nz-col nzSpan="3" class="text-center left-border">{{data.goods_price.toFixed(2)}} </nz-col>
       <nz-col nzSpan="2" class="text-center left-border">{{data.goods_point}}</nz-col>
       <nz-col nzSpan="2" class="text-center left-border">{{data.goods_num}}</nz-col>
-      <nz-col nzSpan="3" class="text-center left-border">{{data.total_price.toFixed(2)}} / {{data.total_point}}</nz-col>
+      <nz-col nzSpan="3" class="text-center left-border">
+        <ng-container *ngIf="coupon_id">
+          <ng-container *ngIf="couponObj.type===1">
+            优惠额度：{{(data.preferential_price/100).toFixed(2)}}元
+          </ng-container>
+          <ng-container *ngIf="couponObj.type===2">
+            优惠折扣：{{couponObj.preferential_price[0]==0?'零':couponObj[data.preferential_price[0]]}}
+            {{couponObj.preferential_price[1]==0?'':'点 '+couponObj[data.preferential_price[1]]}}折
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="!coupon_id">无优惠</ng-container>
+      </nz-col>
+      <nz-col nzSpan="2" class="text-center left-border">{{data.total_price.toFixed(2)}}</nz-col>
     </div>
   </div>
   <div style="text-align: right;line-height: 32px;margin-right: 16px;margin-top: 16px;">
-    <strong>实付金额(元)/幸运币：</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{data.real_price.toFixed(2)}} / {{data.real_point}}
-  </div>
+    <strong>实付金额(元)：</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{data.real_price.toFixed(2)}}</div>
 </div>

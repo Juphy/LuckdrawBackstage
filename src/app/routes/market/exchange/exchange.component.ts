@@ -14,9 +14,9 @@ export class ExchangeComponent implements OnInit {
   pagesizeAry = [16, 32, 48];
   theads = [
     { name: '类型', value: 'type' },
-    { name: '积分', value: 'point' },
-    { name: '金额（元）', value: 'money' },
-    { name: '数量', value: 'total' },
+    { name: '扣除积分', value: 'point' },
+    { name: '红包金额（元）', value: 'money' },
+    { name: '发放数', value: 'total' },
     { name: '状态', value: 'status' },
   ];
   typeObj = {

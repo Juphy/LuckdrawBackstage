@@ -15,8 +15,8 @@ export class DailyComponent implements OnInit {
   theads = [
     { name: '任务名称', value: 'name' },
     { name: '任务次数', value: 'times' },
-    { name: '任务积分', value: 'point' },
-    { name: '任务金额（元）', value: 'balance' },
+    { name: '奖励积分', value: 'point' },
+    { name: '奖励金额（元）', value: 'balance' },
     { name: '任务类型', value: 'action_type' },
     { name: '任务跳转路径', value: 'url' },
   ];

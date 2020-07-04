@@ -39,11 +39,15 @@ export const AdType = {
 }
 
 export const Ad_Category = [
-  { name: '通用', value: 1 }
+  { name: '动态位', value: 1 },
+  { name: '静态位', value: 2 },
+  { name: '轮播帧', value: 3 }
 ]
 
 export const AdCategory = {
-  1: '通用'
+  1: '动态位',
+  2: '静态态位',
+  3: '轮播帧'
 }
 
 export const Ad_Status = [

@@ -24,9 +24,9 @@ export class AddMoneyComponent implements OnInit {
   ngOnInit() {
     this.validateForm = this.fb.group({
       activity_type: [null, [Validators.required]],
-      hours: [0, [Validators.required]],
-      handler_price: [0, [Validators.required]],
-      real_price: [0, [Validators.required]]
+      hours: [1, [Validators.required]],
+      handler_price: [null, [Validators.required]],
+      real_price: [null, [Validators.required]]
     })
     if (this.data) {
       this.validateForm.get('activity_type').setValue(this.data.activity_type);
@@ -50,12 +50,21 @@ export class AddMoneyComponent implements OnInit {
         if (!control.value) flag = true;
       }
     }
+
     let params = {
       activity_type: this.validateForm.get('activity_type').value,
       hours: this.validateForm.get('hours').value * 24,
       handler_price: Number((this.validateForm.get('handler_price').value * 100).toFixed(0)),
       real_price: Number((this.validateForm.get('real_price').value * 100).toFixed(0))
     };
+    if (params.handler_price === 0 || params.real_price === 0) {
+      this.nzMessageService.error('应付价格或者实付价格不能为0！');
+      return;
+    }
+    if (params.real_price < params.handler_price) {
+      this.nzMessageService.error('实付价格不得高于应付价格！');
+      return;
+    }
     if (this.data) {
       params['id'] = this.data.id;
     }

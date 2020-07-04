@@ -11,7 +11,7 @@
             <input type="text" nz-input [(ngModel)]="d.spec_name" [disabled]="d.type">
           </div>
         </div>
-        <div class="ant-Mtop">商品数：<a style="text-decoration: underline;">{{d.goods_count}}</a></div>
+        <div class="ant-Mtop">商品数：<a style="cursor: default;">{{d.num}}</a></div>
       </div>
       <div class="btns">
         <div *ngIf="d.type" (click)="edit(d)">编辑</div>
@@ -59,7 +59,7 @@
     <i nz-icon nzType="plus" nzTheme="outline"></i>
   </div>
 </div>
-<nz-modal [(nzVisible)]="visible" nzTitle="规格值" [nzOkLoading]="okLoading" (nzOnCancel)="visible = false"
+<nz-modal [(nzVisible)]="visible" nzTitle="规格值详情" [nzOkLoading]="okLoading" (nzOnCancel)="visible = false"
   [nzFooter]="null">
   <nz-row>
     <nz-col nzSpan="4">规格名：</nz-col>
@@ -71,23 +71,32 @@
       <nz-table #basicTable [nzData]="detail.spec_values" [nzShowPagination]="false">
         <thead>
           <tr>
-            <th>id</th>
-            <th nzWidth="160px">规格值</th>
+            <th nzWidth="200px">规格值</th>
             <th>商品数量</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.id }}</td>
             <td>
-              <ng-container *ngIf="data.flag">
-                <input type="text" nz-input [(ngModel)]="data._spec_value">
-              </ng-container>
-              <ng-container>{{ data.spec_value}}</ng-container>
+              <div style="display: flex;line-height: 32px;">
+                <ng-container *ngIf="data.flag">
+                  <input type="text" nz-input [(ngModel)]="data.spec_value" style="flex: 1">
+                  <span style="line-height: 32px;margin-left: 6px;">
+                    <i class="ant-Mright-small" nz-icon nzType="check" nzTheme="outline"
+                      (click)="edit_spec_value(data, data.id, data.spec_value)"></i>
+                    <i nz-icon nzType="close" nzTheme="outline" (click)="get_speclist()"></i>
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="!data.flag">{{ data.spec_value}} <i *ngIf="!data.num"
+                    style="line-height: 32px;margin-left: 6px;" nz-icon nzType="edit" nzTheme="outline"
+                    (click)='data["flag"]="true"'></i></ng-container>
+              </div>
             </td>
-            <td>{{ data.count }}</td>
+            <td>{{ data.num }}</td>
             <td>
+              <a *ngIf="!data.num" style="color:#f5222d" (click)="delete_specvalue(data.id)"><i nz-icon nzType="close"
+                  nzTheme="outline"></i></a>
             </td>
           </tr>
         </tbody>
@@ -96,6 +105,7 @@
   </nz-row>
   <nz-row class="ant-Mtop">
     <nz-col nzSpan="20" nzOffset="4">
+      <div *ngIf="flag" style="display: inline-block;line-height: 32px">规格值：</div>
       <input *ngIf="flag" type="text" class="ant-Mright" nz-input style="width: 160px" [(ngModel)]="spec_value">
       <button *ngIf="!flag" nz-button class="ant-Mright" (click)="flag = true">添加规格值</button>
       <button *ngIf="flag" nz-button class="ant-Mright" nzType="primary" (click)="add_spec_value()">确定</button>

@@ -11,8 +11,8 @@
       <div class="ant-Mbottom">{{s.name}}
       </div>
       <div>
-        <nz-select [nzDisabled]="!!Status" style="min-width: 160px" [(ngModel)]="s.option" (ngModelChange)="get_data()"
-          nzMode="multiple" nzPlaceHolder="选择规格值" nzAllowClear>
+        <nz-select [nzDisabled]="!!Status" style="min-width: 160px" [(ngModel)]="s.option"
+          (ngModelChange)="get_data(true)" nzMode="multiple" nzPlaceHolder="选择规格值" nzAllowClear>
           <nz-option *ngFor="let v of s.values" [nzLabel]="v.spec_value" [nzValue]="v.id"></nz-option>
         </nz-select>
         <button [disabled]="Status" *ngIf="!s.flag" class="ant-Mleft" nz-button (click)="add_spec_value(s)">添加</button>
@@ -28,12 +28,13 @@
     <div class="ant-Mbottom" *ngIf="data.length&&!Status">
       <label>批量填充：</label>
       <input style="width:200px" nz-input type="text" [(ngModel)]="Dvalue.name" placeholder="商品名称">
-      <nz-input-number class="ant-Mleft" [(ngModel)]="Dvalue.price" [nzMin]="0" nzStep="0.01" nzPlaceHolder="商品价格">
+      <nz-input-number class="ant-Mleft" [(ngModel)]="Dvalue.price" [nzMin]="0" nzStep="0.01"
+        [nzFormatter]="format_money" nzPlaceHolder="商品价格">
       </nz-input-number>
-      <nz-input-number class="ant-Mleft" [(ngModel)]="Dvalue.point" [nzMin]="0" [nzStep]="1" [nzPrecision]="1"
+      <nz-input-number class="ant-Mleft" [(ngModel)]="Dvalue.point" [nzMin]="0" [nzStep]="1" [nzPrecision]="1" [nzFormatter]="format_day"
         nzPlaceHolder="商品积分">
       </nz-input-number>
-      <nz-input-number class="ant-Mleft" [(ngModel)]="Dvalue.stock" [nzMin]="0" [nzStep]="1" [nzPrecision]="1"
+      <nz-input-number class="ant-Mleft" [(ngModel)]="Dvalue.stock" [nzMin]="0" [nzStep]="1" [nzPrecision]="1" [nzFormatter]="format_day"
         nzPlaceHolder="商品库存">
       </nz-input-number>
       <button class="ant-Mleft" nz-button (click)="change_allData()">确定</button>
@@ -57,12 +58,12 @@
               <ng-container *ngIf='t.n===0'>
                 <input [disabled]="!!Status" nz-input *ngIf="t.value==='name'" type="text" [(ngModel)]="d[t.value]">
                 <nz-input-number [nzDisabled]="!!Status" *ngIf="t.value==='price'" [(ngModel)]="d[t.value]" [nzMin]="0"
-                  nzStep="0.01">
+                  [nzFormatter]="format_money" nzStep="0.01">
                 </nz-input-number>
-                <nz-input-number [nzDisabled]="!!Status" *ngIf="t.value==='point'" [(ngModel)]="d[t.value]" [nzMin]="0"
+                <nz-input-number [nzDisabled]="!!Status" *ngIf="t.value==='point'" [(ngModel)]="d[t.value]" [nzMin]="0" [nzFormatter]="format_day"
                   [nzStep]="1" [nzPrecision]="1">
                 </nz-input-number>
-                <nz-input-number [nzDisabled]="!!Status" *ngIf="t.value==='stock'" [(ngModel)]="d[t.value]" [nzMin]="0"
+                <nz-input-number [nzDisabled]="!!Status" *ngIf="t.value==='stock'" [(ngModel)]="d[t.value]" [nzMin]="0" [nzFormatter]="format_day"
                   [nzStep]="1" [nzPrecision]="1">
                 </nz-input-number>
               </ng-container>

@@ -33,6 +33,7 @@ export interface DelSpec {
 export interface EditSpecvalue {
     spec_id: number;
     spec_value: string;
+    spec_value_id: number;
 }
 
 export interface DelSpecvalue {
@@ -156,10 +157,9 @@ export interface AdsList {
 }
 
 export interface EditAdPosition {
-    type: number;
+    terminal_id: any;
     name: string;
     category: number;
-    status: number;
     id?: number;
 }
 
@@ -283,7 +283,7 @@ export interface UserList {
 }
 
 export interface TemplateList {
-    template_name?: string;
+    name?: string;
     template_type?: string;
     page?: number;
     pagesize?: number;
@@ -309,6 +309,12 @@ export interface OrderGoodsList {
     status?: number;
     page?: number;
     pagesize?: number;
+    shop_id?: number;
+    order_no?: string;
+    receiver_name?: string;
+    phone?: string;
+    start_time?: string;
+    end_time?: string;
 }
 
 export interface OrderActivities {
@@ -432,4 +438,48 @@ export interface UserRoles {
 
 export interface CouponInfo {
     id: number;
+}
+
+export interface EditOnlineGalleryTypes {
+    id: number;
+    types: number[];
+}
+
+export interface ChangeOnlineGalleryShow {
+    id: number;
+    show: number;
+}
+
+export interface SpscValueList {
+    spec_id: number;
+}
+
+export interface AddSpecValue {
+    spec_id: number;
+    spec_value: string;
+}
+
+export interface ShopSearch {
+    name?: string;
+}
+
+export interface AdsEditAdvertiser {
+    name: string;
+    company: string;
+    phone: string;
+    qq?: string;
+    id?: number;
+}
+
+export interface AdsAdvertiserList {
+    name?: string;
+}
+
+export interface AdsDelAdPosition {
+    id: number;
+}
+
+export interface AdsChangeStatus {
+    id: number;
+    status: number;
 }

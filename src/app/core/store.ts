@@ -49,9 +49,11 @@ export const URLS = {
   ads_list_manage: "/console/ads/ads_list",
   ads_position_manage: '/console/ads/ads_position',
   ads_template_manage: '/console/ads/template',
+  advertiser_manage: '/console/ads/advertiser',
 
   // 产品管理
   goods_list_manage: "/console/main/main_list",
+  online_goods_manage: '/console/main/online',
   // 分类
   goods_category_manage: "/console/main/category",
   goods_spec_manage: '/console/main/spec',
@@ -108,9 +110,6 @@ export const ICON = {
 
 // 控制按钮
 export let FN = {
-  main: {},
-  market: {},
-  ads: {}
 }
 
 // option
@@ -147,5 +146,9 @@ export const Options = {
   ],
   "activity_type": [],
   'ActivityType': {},
-  'company_list': []
+  'company_list': [],
+  'terminal': [],
+  'Terminal': {},
+  'shop_list': [],
+  'ShopList': {}
 };

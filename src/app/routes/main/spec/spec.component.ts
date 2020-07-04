@@ -14,6 +14,7 @@ export class SpecComponent implements OnInit {
   detail: any = {};
   flag = false;
   spec_value = '';
+  spec_id: number;
   constructor(
     private nzMessageService: NzMessageService,
     private serverService: ServerService,
@@ -102,16 +103,53 @@ export class SpecComponent implements OnInit {
   }
 
   show_modal(data) {
-    this.visible = true;
-    this.detail = { ...data };
+    this.spec_id = data.id;
+    this.get_speclist();
+  }
+
+  edit_spec_value(data, spec_value_id, spec_value) {
+    this.serverService.goods__edit_spec_value({
+      spec_id: this.spec_id,
+      spec_value_id,
+      spec_value
+    }).subscribe(res => {
+      data['flag'] = false;
+      if (res.status === 200) {
+        this.nzMessageService.success('规格值修改成功！');
+        this.get_speclist();
+      }
+    }, err => {
+      data['flag'] = false;
+      this.get_speclist();
+    })
   }
 
   add_spec_value() {
-    this.serverService.goods__edit_spec_value({
+    this.serverService.goods__add_spec_value({
       spec_id: this.detail.id,
       spec_value: this.spec_value
     }).subscribe(res => {
       this.nzMessageService.success('规格值添加成功！');
+      this.get_speclist();
+    })
+  }
+
+  delete_specvalue(id) {
+    this.serverService.goods__del_spec_value({ id }).subscribe(res => {
+      if (res.status === 200) {
+        this.nzMessageService.success('规格值删除成功！');
+        this.get_speclist();
+      }
+    })
+  }
+
+  get_speclist() {
+    this.serverService.goods__spec_value_list({ spec_id: this.spec_id }).subscribe(res => {
+      if (res.status === 200) {
+        res = res['result'];
+        this.detail = { ...res };
+        this.visible = true;
+      }
     })
   }
 }

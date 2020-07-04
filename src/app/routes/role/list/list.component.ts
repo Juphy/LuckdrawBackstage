@@ -10,18 +10,20 @@ import { formatDate } from '@angular/common';
 })
 export class ListComponent implements OnInit, OnDestroy {
   searchItems = [
-    { name: '角色状态', value: 'status', type: 'text', class: "input", span: 6 }
+    { name: '角色名称', value: 'name', type: 'text', class: "input", span: 6 },
+    { name: '角色状态', value: 'status', type: 'text', class: "option", span: 6 }
   ];
   loading = false;
   searchData = {
-    status: ''
+    status: null,
+    name: ''
   };
   data = [];
   total = 0;
   pagesizeAry = [16, 32, 48];
   theads = [
     { name: '角色名称', value: 'name' },
-    { name: '状态', value: '_status' },
+    { name: '角色状态', value: '_status' },
     { name: '创建时间', value: 'created_at' },
   ];
   Obj = {};
@@ -29,6 +31,10 @@ export class ListComponent implements OnInit, OnDestroy {
     1: '正常',
     2: '禁用'
   };
+  statusOption = [
+    { name: '正常', value: 1 },
+    { name: '禁用', value: 2 }
+  ];
   constructor(
     private modelService: NzModalService,
     private nzMessageService: NzMessageService,
@@ -81,14 +87,15 @@ export class ListComponent implements OnInit, OnDestroy {
 
   clear_data() {
     this.searchData = {
-      status: ''
+      status: null,
+      name: ''
     }
     this.get_data();
   }
 
   show_modal(data?) {
     const modal = this.modelService.create({
-      nzTitle: data ? '角色详情' : '添加角色',
+      nzTitle: data ? '编辑角色' : '添加角色',
       nzContent: AddRoleComponent,
       nzFooter: null,
       nzComponentParams: {

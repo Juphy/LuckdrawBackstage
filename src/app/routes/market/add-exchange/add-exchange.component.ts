@@ -30,8 +30,8 @@ export class AddExchangeComponent implements OnInit {
     this.validateForm = this.fb.group({
       type: [null, [Validators.required]],
       total: [1, [Validators.required]],
-      point: [0],
-      money: [0]
+      point: [0, [Validators.required]],
+      money: [0, [Validators.required]]
     });
     if (this.data) {
       this.validateForm.get('type').setValue(this.data.type);
@@ -57,8 +57,12 @@ export class AddExchangeComponent implements OnInit {
     }
     if (flag) return;
     let point = this.validateForm.get('point').value, money = Number((this.validateForm.get('money').value * 100).toFixed(0));
-    if (!point && !money) {
-      this.nzMessageService.warning('奖励积分和奖励金额不能同时为空！');
+    if (!point) {
+      this.nzMessageService.warning('扣除积分不能为0！');
+      return;
+    }
+    if (!money) {
+      this.nzMessageService.warning('奖励金额不能为0！')
       return;
     }
     let params = {

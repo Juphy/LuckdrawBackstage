@@ -1,0 +1,93 @@
+<div class="container-box ant-Mbottom-large">
+  <div class="search">
+    <div class="query">
+      <b>查询条件</b>
+    </div>
+    <nz-row>
+      <ng-container *ngFor="let item of searchItems">
+        <nz-col [nzSpan]="item.span">
+          <label>{{item.name}}</label>
+          <ng-container [ngSwitch]="item.class">
+            <ng-template ngSwitchCase="input">
+              <input nz-input [type]="item.type" [(ngModel)]="searchData[item.value]" [placeholder]="'请输入'+item.name">
+            </ng-template>
+            <ng-template ngSwitchCase="date">
+              <nz-range-picker [(ngModel)]="searchData[item.value]" nzShowTime></nz-range-picker>
+            </ng-template>
+          </ng-container>
+        </nz-col>
+      </ng-container>
+    </nz-row>
+    <nz-row>
+      <nz-col [nzSpan]="24" style="justify-content:flex-end;display: flex;padding-right: 24px">
+        <button class="ant-Mleft" nz-button nzType="primary" (click)="get_data(true)" [nzLoading]="loading">搜索</button>
+        <button class="ant-Mleft" nz-button (click)="clear_data()">清空</button>
+      </nz-col>
+    </nz-row>
+  </div>
+</div>
+<div class="container-box overflow-box">
+  <button nz-button (click)="show_modal()">添加广告主</button>
+  <nz-table #basicTable nzShowSizeChanger [nzData]="data" [nzFrontPagination]="true" [nzTotal]="total"
+    [nzShowTotal]="totalTemplate" [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry" class="ant-Mtop-large">
+    <thead>
+      <tr>
+        <th *ngFor="let t of theads">{{t.name}}</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td *ngFor="let t of theads">
+          <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
+          </ng-container>
+        </td>
+        <td>
+          <button nz-button (click)="show_modal(data)">编辑</button>
+        </td>
+      </tr>
+    </tbody>
+    <ng-template #totalTemplate>
+      总计 {{total}} 条
+    </ng-template>
+  </nz-table>
+</div>
+<nz-modal [(nzVisible)]="visible" [nzTitle]="titleTemplate" [nzContent]="contentTemplate" [nzFooter]="footerTemplate"
+  [nzClosable]="true" (nzOnCancel)="visible = false;flag = false;" [nzMaskClosable]="false" nzWidth="640px">
+  <ng-template #titleTemplate>
+    <div style="text-align: center">{{flag?'编辑广告主':'添加广告主'}}</div>
+  </ng-template>
+  <ng-template #contentTemplate>
+    <form nz-form [formGroup]="validateForm">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>广告主</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="请输入广告主！">
+          <input type="text" nz-input formControlName="name" placeholder="请输入广告主">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>投放广告公司</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="请输入投放广告公司！">
+          <input type="text" nz-input formControlName="company" placeholder="请输入投放广告公司">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>联系电话</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="请输入联系电话！">
+          <input type="text" nz-input formControlName="phone" placeholder="请输入联系电话">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">qq</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="请输入qq！">
+          <input type="text" nz-input formControlName="qq" placeholder="请输入qq">
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+  <ng-template #footerTemplate>
+    <button nz-button (click)="visible=false" class="ant-Mright-large">取消</button>
+    <button nz-button (click)="make_sure()" nzType="primary">确定</button>
+  </ng-template>
+</nz-modal>

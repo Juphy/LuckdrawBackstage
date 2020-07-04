@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
 export class ExchangeComponent implements OnInit {
   searchItems = [
     { name: '用户昵称', value: 'nickname', type: 'text', class: "input", span: 6 },
-    { name: '时间', value: 'date', type: 'text', class: "date", span: 8 },
+    { name: '购买时间', value: 'date', type: 'text', class: "date", span: 8 },
   ];
   loading = false;
   searchData = {
@@ -23,10 +23,11 @@ export class ExchangeComponent implements OnInit {
   total = 0;
   pagesizeAry = [16, 32, 48];
   theads = [
-    { name: '用户', value: 'nickname' },
+    { name: '用户昵称', value: 'nickname' },
     { name: '活动类型', value: 'activity_type' },
     { name: '时长（天）', value: 'hours' },
     { name: '购买时间', value: 'updated_at' },
+    { name: '充值金额（元）', value: 'balance' }
   ];
   typObj = {};
   constructor(
@@ -54,8 +55,8 @@ export class ExchangeComponent implements OnInit {
       let value = item.value, param = this.searchData[value];
       switch (value) {
         case 'date':
-          if (param && param[0]) params['start_time'] = formatDate(param[0], 'yyyy-MM-dd HH:mm:ss', 'en-US');
-          if (param && param[1]) params['end_time'] = formatDate(param[1], 'yyyy-MM-dd HH:mm:ss', 'en-US')
+          if (param && param[0]) params['start_time'] = formatDate(param[0], 'yyyy-MM-dd HH:mm:ss', 'zh-Hans');
+          if (param && param[1]) params['end_time'] = formatDate(param[1], 'yyyy-MM-dd HH:mm:ss', 'zh-Hans')
           break;
         default:
           if (param) params[value] = param;
@@ -74,6 +75,8 @@ export class ExchangeComponent implements OnInit {
           let { activity_type, hours } = extra_args;
           item['activity_type'] = this.typObj[activity_type];
           item['hours'] = Number((hours / 24).toFixed(0));
+          item['updated_at'] = formatDate(item.updated_at, 'yyyy-MM-dd HH:mm:ss', 'zh-Hans');
+          item['balance'] = item.balance ? Number((item.balance / 100).toFixed(2)) : 0;
         })
       }
     }, err => {

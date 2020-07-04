@@ -12,12 +12,12 @@
               <input nz-input [type]="item.type" [(ngModel)]="searchData[item.value]" [placeholder]="'请输入'+item.name">
             </ng-template>
             <ng-template ngSwitchCase="option1">
-              <nz-select [(ngModel)]="searchData[item.value]" [nzPlaceHolder]="'请选择'+item.name" nzAllowClear="true">
+              <nz-select [(ngModel)]="searchData[item.value]" (ngModelChange)="get_data()" [nzPlaceHolder]="'请选择'+item.name" nzAllowClear="true">
                 <nz-option *ngFor="let o of typeOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
               </nz-select>
             </ng-template>
             <ng-template ngSwitchCase="option2">
-              <nz-select [(ngModel)]="searchData[item.value]" [nzPlaceHolder]="'请选择'+item.name" nzAllowClear="true">
+              <nz-select [(ngModel)]="searchData[item.value]" (ngModelChange)="get_data()" [nzPlaceHolder]="'请选择'+item.name" nzAllowClear="true">
                 <nz-option *ngFor="let o of showOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
               </nz-select>
             </ng-template>
@@ -37,7 +37,7 @@
   </div>
 </div>
 <div class="container-box overflow-box">
-  <button nz-button class="ant-Mbottom" (click)="show_modal()">活动时长</button>
+  <button nz-button class="ant-Mbottom" (click)="show_modal()">添加活动时长</button>
   <nz-table #table nzShowSizeChanger [nzData]="data" [nzFrontPagination]="true" [nzTotal]="total"
     [nzShowTotal]="totalTemplate" [nzLoading]="loading" [nzPageSizeOptions]="pagesizeAry">
     <thead>

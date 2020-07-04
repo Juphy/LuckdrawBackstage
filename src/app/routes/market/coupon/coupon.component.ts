@@ -23,6 +23,7 @@ export class CouponComponent implements OnInit, OnDestroy {
   pagesizeAry = [16, 32, 48];
   theads = [
     { name: '优惠券名称', value: 'name' },
+    { name: '所属店铺', value: 'shop_id' },
     { name: '优惠券类型', value: 'type' },
     { name: '最低金额限度（元）', value: 'minmum_consumption_price' },
     { name: '截止日期', value: 'deadline_date' },
@@ -46,6 +47,7 @@ export class CouponComponent implements OnInit, OnDestroy {
     0: '生效',
     1: '失效'
   };
+  shopObj: any = {};
   constructor(
     private modalService: NzModalService,
     private nzMessageService: NzMessageService,
@@ -54,6 +56,15 @@ export class CouponComponent implements OnInit, OnDestroy {
   ) {
     this.message.getCouponList().subscribe(res => {
       if (res) this.searchData = { ...res };
+    })
+    this.get_shop();
+  }
+
+  get_shop() {
+    this.serverService.get_shop_list().subscribe(res => {
+      res.forEach(item => {
+        this.shopObj[item.value] = item.name;
+      })
     })
   }
 
@@ -71,6 +82,10 @@ export class CouponComponent implements OnInit, OnDestroy {
       page: this.searchData.page,
       pagesize: this.searchData.pagesize
     };
+    this.searchItems.forEach(item => {
+      let value = item.value;
+      if (this.searchData[value]) params[value] = this.searchData[value];
+    })
     this.loading = true;
     this.serverService.goods__coupon_list(params).subscribe(res => {
       this.loading = false;
@@ -101,7 +116,7 @@ export class CouponComponent implements OnInit, OnDestroy {
 
   show_modal(data?) {
     const modal = this.modalService.create({
-      nzTitle: data ? '查看优惠券' : '添加优惠券',
+      nzTitle: data ? '编辑优惠券' : '添加优惠券',
       nzContent: AddCouponComponent,
       nzFooter: null,
       nzComponentParams: {
@@ -120,6 +135,7 @@ export class CouponComponent implements OnInit, OnDestroy {
     this.serverService.goods__change_coupon_status({ id, status }).subscribe(res => {
       if (res.status === 200) {
         this.nzMessageService.success(`优惠券状态已修改！`);
+        this.get_data();
       }
     })
   }

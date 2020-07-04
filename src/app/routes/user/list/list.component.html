@@ -14,30 +14,33 @@
             <ng-template ngSwitchCase="option">
               <ng-container [ngSwitch]="item.value">
                 <ng-template ngSwitchCase="sex">
-                  <nz-select [(ngModel)]="searchData.sex" nzAllowClear="true" [nzPlaceHolder]="'请选择'+item.name">
+                  <nz-select [(ngModel)]="searchData.sex" (ngModelChange)="get_data(true)" nzAllowClear="true"
+                    [nzPlaceHolder]="'请选择'+item.name">
                     <nz-option *ngFor="let s of sexOption" [nzLabel]="s.name" [nzValue]="s.value"></nz-option>
                   </nz-select>
                 </ng-template>
                 <ng-template ngSwitchCase="is_manager">
-                  <nz-select [(ngModel)]="searchData.is_manager" nzAllowClear="true" [nzPlaceHolder]="'请选择'+item.name">
+                  <nz-select [(ngModel)]="searchData.is_manager" (ngModelChange)="get_data(true)" nzAllowClear="true"
+                    [nzPlaceHolder]="'请选择'+item.name">
                     <nz-option *ngFor="let s of isManagerOption" [nzLabel]="s.name" [nzValue]="s.value"></nz-option>
                   </nz-select>
                 </ng-template>
                 <ng-template ngSwitchCase="is_special">
-                  <nz-select [(ngModel)]="searchData.is_special" nzAllowClear="true" [nzPlaceHolder]="'请选择'+item.name">
+                  <nz-select [(ngModel)]="searchData.is_special" (ngModelChange)="get_data(true)" nzAllowClear="true"
+                    [nzPlaceHolder]="'请选择'+item.name">
                     <nz-option *ngFor="let s of isSpecialOption" [nzLabel]="s.name" [nzValue]="s.value"></nz-option>
                   </nz-select>
                 </ng-template>
                 <ng-template ngSwitchCase="attention_service">
-                  <nz-select [(ngModel)]="searchData.attention_service" nzAllowClear="true"
-                    [nzPlaceHolder]="'请选择'+item.name">
+                  <nz-select [(ngModel)]="searchData.attention_service" (ngModelChange)="get_data(true)"
+                    nzAllowClear="true" [nzPlaceHolder]="'请选择'+item.name">
                     <nz-option *ngFor="let s of attentionServiceOption" [nzLabel]="s.name" [nzValue]="s.value">
                     </nz-option>
                   </nz-select>
                 </ng-template>
                 <ng-template ngSwitchCase="attention_applet">
-                  <nz-select [(ngModel)]="searchData.attention_applet" nzAllowClear="true"
-                    [nzPlaceHolder]="'请选择'+item.name">
+                  <nz-select [(ngModel)]="searchData.attention_applet" (ngModelChange)="get_data(true)"
+                    nzAllowClear="true" [nzPlaceHolder]="'请选择'+item.name">
                     <nz-option *ngFor="let s of attentionAppletOption" [nzLabel]="s.name" [nzValue]="s.value">
                     </nz-option>
                   </nz-select>
@@ -115,7 +118,7 @@
           </ng-container>
         </td>
         <td>
-          <button nz-button (click)="show_modal(data.id)">修改角色</button>
+          <button *ngIf="FN['user_bind_role_manage']" nz-button (click)="show_modal(data.id)">修改角色</button>
         </td>
       </tr>
     </tbody>

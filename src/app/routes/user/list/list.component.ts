@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
-import { ServerService, MessageService } from '@core';
+import { ServerService, MessageService, FN } from '@core';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -95,14 +95,15 @@ export class ListComponent implements OnInit, OnDestroy {
     0: '否'
   };
   isManagerOption = [
-    { name: '是', value: true },
-    { name: '否', value: false }
+    { name: '是', value: 1 },
+    { name: '否', value: 0 }
   ];
   visible = false;
   roleOption = [];
   roles = [];
   user_id: number;
   okLoading = false;
+  FN = { ...FN['user_list_manage'] };
   formatterBalance = (value: number) => value ? value.toFixed(2) : value;
   constructor(
     private modelService: NzModalService,
@@ -132,15 +133,15 @@ export class ListComponent implements OnInit, OnDestroy {
     this.searchItems.forEach(item => {
       let value = item.value, param = this.searchData[value];
       switch (value) {
-        case 'is_manager':
-          if (param === true || param === false) params[value] = param;
-          break;
+        // case 'is_manager':
+        //   if (param === true || param === false) params[value] = param;
+        //   break;
         case 'date':
-          if (param && param[0]) params['start_created_at'] = formatDate(param[0], 'yyyy-MM-dd HH:mm:ss', 'en-US');
-          if (param && param[1]) params['end_created_at'] = formatDate(param[1], 'yyyy-MM-dd HH:mm:ss', 'en-US');
+          if (param && param[0]) params['start_created_at'] = formatDate(param[0], 'yyyy-MM-dd HH:mm:ss', 'zh-Hans');
+          if (param && param[1]) params['end_created_at'] = formatDate(param[1], 'yyyy-MM-dd HH:mm:ss', 'zh-Hans');
           break;
         default:
-          if (['attention_service', 'attention_applet', 'is_special'].includes(value)) {
+          if (['attention_service', 'attention_applet', 'is_special', 'is_manager'].includes(value)) {
             if (param === 0 || param === 1) params[value] = param
           } else {
             if (param) params[value] = param;
@@ -157,7 +158,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.data.forEach(item => {
           item['sex'] = this.sexObj[item.sex];
           item['balance'] = item['balance'] ? item['balance'].toFixed(2) : item['balance'];
-          item['created_at'] = formatDate(new Date(item['created_at']), 'yyyy-MM-dd HH:mm:ss', 'en-US')
+          item['created_at'] = formatDate(new Date(item['created_at']), 'yyyy-MM-dd HH:mm:ss', 'zh-Hans')
         })
         this.total = res['pageinfo']['total'];
       }

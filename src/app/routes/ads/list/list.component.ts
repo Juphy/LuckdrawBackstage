@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ServerService, MessageService } from '@core';
 import { AddComponent } from '../add/add.component';
+import { UrlType } from '@routes/DATA';
 
 @Component({
   selector: 'app-list',
@@ -24,10 +25,28 @@ export class ListComponent implements OnInit, OnDestroy {
     { name: '广告名称', value: 'name' },
     { name: '广告图片', value: 'image' },
     { name: '广告位置', value: 'position_id' },
+    { name: '广告主', value: 'advertiser_id' },
+    { name: '计费方式', value: 'billing_method' },
     { name: '广告跳转网站名称', value: 'url_name' },
-    { name: '有效日期', value: 'date' }
+    { name: '广告跳转类型', value: 'url_type' },
+    { name: '广告跳转链接', value: 'url_path' },
+    { name: '有效日期', value: 'date' },
+    { name: '价格（元）', value: 'price' },
+    { name: '状态', value: 'status' },
   ];
   positionObj = {};
+  advertiserOption = [];
+  advertiserObj = {};
+  billingMethod = {
+    1: 'CPM',
+    2: 'CPC',
+    3: 'CPT'
+  };
+  statusObj = {
+    0: '无效',
+    1: '有效'
+  };
+  adUrlObj = { ...UrlType };
   constructor(
     private modelService: NzModalService,
     private nzMessageService: NzMessageService,
@@ -38,6 +57,18 @@ export class ListComponent implements OnInit, OnDestroy {
       if (res) this.searchData = { ...res };
     })
     this.get_adposition();
+    this.get_advertiser();
+  }
+
+  get_advertiser() {
+    this.serverService.ads__advertiser_list({}).subscribe(res => {
+      if (res.status === 200) {
+        this.advertiserOption = res['result'];
+        this.advertiserOption.forEach(item => {
+          this.advertiserObj[item.id] = item.name;
+        })
+      }
+    })
   }
 
   ngOnInit() {
@@ -107,7 +138,7 @@ export class ListComponent implements OnInit, OnDestroy {
     })
   }
 
-  delete(id) {
+  delete_ad(id) {
     this.serverService.ads__del_ads({ id }).subscribe(res => {
       if (res.status === 200) {
         this.nzMessageService.success('广告删除成功！');
@@ -116,4 +147,16 @@ export class ListComponent implements OnInit, OnDestroy {
     })
   }
 
+  cancel() {
+
+  }
+
+  change_status(id, status) {
+    this.serverService.ads__change_status({ id, status }).subscribe(res => {
+      if (res.status === 200) {
+        this.nzMessageService.success('广告状态修改成功！');
+        this.get_data();
+      }
+    })
+  }
 }

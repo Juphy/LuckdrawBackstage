@@ -83,6 +83,13 @@ export class StartupService {
             })
             Options.onlineGallery[item.value] = item.name;
             break;
+          case "terminal":
+            Options.terminal.push({
+              name: item.name,
+              value: item.value
+            })
+            Options.Terminal[item.value] = item.name;
+            break;
         }
       })
     }, err => {

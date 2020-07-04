@@ -9,17 +9,19 @@ import { formatDate } from '@angular/common';
 })
 export class ListComponent implements OnInit {
   searchItems = [
-    { name: '用户昵称', value: 'nickname', type: 'text', class: 'input', span: 6 },
-    { name: '用户电话', value: 'phone', type: 'text', class: 'input', span: 6 },
-    { name: '用户ID', value: 'belong_to', type: 'text', class: 'number', span: 6 }
+    { name: '活动名称', value: 'name', type: 'text', class: 'input', span: 6 },
+    { name: '开奖类型', value: 'draw_mode', type: 'text', class: 'option', span: 6 },
+    { name: '创建人昵称', value: 'nickname', type: 'text', class: 'input', span: 6 },
+    { name: '创建人ID', value: 'belong_to', type: 'text', class: 'number', span: 6 }
   ];
   loading = false;
   searchData = {
     page: 1,
     pagesize: 16,
     nickname: '',
-    phone: '',
-    belong_to: null
+    belong_to: null,
+    name: '',
+    draw_mode: null,
   };
   data = [];
   total = 0;
@@ -28,23 +30,33 @@ export class ListComponent implements OnInit {
     { name: '活动名称', value: 'name' },
     { name: '活动奖品', value: 'image' },
     { name: '开奖类型', value: 'draw_mode' },
+    { name: '参与条件', value: 'join' },
     { name: '最终开奖时间', value: 'end_time' },
     { name: '创建时间', value: 'created_at' },
     { name: '创建人ID', value: 'creator_id' },
-    { name: '创建人', value: 'creator' },
-    { name: '创建人电话', value: 'phone' },
+    { name: '创建人昵称', value: 'creator' }
   ];
   DrawMode = {
     1: '定时开奖',
     2: '手动开奖',
     3: '满人开奖' // constraint_max_num
   };
+  drawModeOption = [
+    { name: '定时开奖', value: 1 },
+    { name: '手动开奖', value: 2 },
+    { name: '满人开奖', value: 3 }
+  ];
   prizeIndex = {
     0: '一等奖',
     1: '二等奖',
     2: '三等奖',
     3: '四等奖',
     4: '五等奖'
+  };
+  constraintSex = {
+    0: '无限制',
+    1: '男性',
+    2: '女性'
   };
   constructor(
     private nzMessageService: NzMessageService,
@@ -74,7 +86,7 @@ export class ListComponent implements OnInit {
         this.data = res['data'];
         this.total = res['pageinfo']['total'];
         this.data.forEach(item => {
-          item['created_at'] = formatDate(item.created_at, 'yyyy-MM-dd HH:mm:ss', 'en-US');
+          item['created_at'] = formatDate(item.created_at, 'yyyy-MM-dd HH:mm:ss', 'zh-Hans');
           let draw_mode = item.draw_mode;
           switch (draw_mode) {
             case 1:
@@ -97,10 +109,11 @@ export class ListComponent implements OnInit {
   clear_data() {
     this.searchData = {
       page: 1,
-      pagesize: this.searchData.pagesize,
+      pagesize: 16,
       nickname: '',
-      phone: '',
-      belong_to: null
+      belong_to: null,
+      name: '',
+      draw_mode: null,
     };
     this.get_data();
   }

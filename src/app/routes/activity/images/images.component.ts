@@ -30,6 +30,10 @@ export class ImagesComponent implements OnInit {
   ];
   typesOption = [];
   typesObj = {};
+  visible = false;
+  types = null;
+  id: number;
+  okLoading = false;
   constructor(
     private modalService: NzModalService,
     private nzMessageService: NzMessageService,
@@ -91,4 +95,42 @@ export class ImagesComponent implements OnInit {
     })
   }
 
+  // 上下架
+  make_onoff(id, show) {
+    this.serverService.manager__change_online_gallery_show({ id, show }).subscribe(res => {
+      if (res.status === 200) {
+        let obj = {
+          0: '下架',
+          1: '上架'
+        };
+        this.nzMessageService.success(`该图片${obj[show]}`);
+        this.get_data();
+      }
+    })
+  }
+
+  show_visible(data) {
+    this.types = [...data.types];
+    this.id = data.id;
+    this.visible = true;
+  }
+
+  handle_cancel() {
+    this.visible = false;
+    this.types = null;
+  }
+
+  handle_ok() {
+    this.okLoading = true;
+    this.serverService.manager__dit_online_gallery_types({ id: this.id, types: this.types }).subscribe(res => {
+      this.okLoading = false;
+      if (res.status === 200) {
+        this.nzMessageService.success('图片分类修改成功！');
+        this.visible = false;
+        this.get_data();
+      }
+    }, err => {
+      this.okLoading = false;
+    })
+  }
 }

@@ -76,7 +76,7 @@ export class MoneyComponent implements OnInit {
 
   show_modal(data?) {
     const modal = this.modalService.create({
-      nzTitle: data ? '活动时长详情' : '添加活动时长',
+      nzTitle: data ? '编辑活动时长' : '添加活动时长',
       nzContent: AddMoneyComponent,
       nzFooter: null,
       nzComponentParams: {

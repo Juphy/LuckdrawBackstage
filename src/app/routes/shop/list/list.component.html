@@ -12,7 +12,8 @@
               <input nz-input [type]="item.type" [(ngModel)]="searchData[item.value]" [placeholder]="'请输入'+item.name">
             </ng-template>
             <ng-template ngSwitchCase="option">
-              <nz-select [(ngModel)]="searchData[item.value]" [nzPlaceHolder]="'请选择'+item.name">
+              <nz-select [(ngModel)]="searchData[item.value]" (ngModelChange)="get_data(true)"
+                [nzPlaceHolder]="'请选择'+item.name">
                 <nz-option *ngFor="let o of shopTypeOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
               </nz-select>
             </ng-template>
@@ -48,6 +49,7 @@
             <ng-template ngSwitchCase="logo">
               <img [src]="data.logo" style="width: 60px">
             </ng-template>
+            <ng-template ngSwitchCase="type">{{shopTypeObj[data.type]}}</ng-template>
             <ng-template ngSwitchDefault>{{data[t.value]}}</ng-template>
           </ng-container>
         </td>

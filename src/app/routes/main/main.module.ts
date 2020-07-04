@@ -7,11 +7,13 @@ import { CategoryComponent } from './category/category.component';
 import { DatePipe } from '@angular/common';
 import { SkuComponent } from './sku/sku.component';
 import { SpecComponent } from './spec/spec.component';
+import { OnlineComponent } from './online/online.component';
 
 const routes: Routes = [
   { path: 'main_list', component: MainComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'spec', component: SpecComponent },
+  { path: 'online', component: OnlineComponent }
 ];
 
 @NgModule({
@@ -19,7 +21,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MainComponent, BuildComponent, CategoryComponent, SkuComponent, SpecComponent],
+  declarations: [MainComponent, BuildComponent, CategoryComponent, SkuComponent, SpecComponent, OnlineComponent],
   providers: [DatePipe],
   entryComponents: [BuildComponent, SkuComponent]
 })

@@ -8,23 +8,24 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class TemplateComponent implements OnInit, OnDestroy {
   searchItems = [
-    { name: '模板名称', value: 'template_name', type: 'text', class: "input", span: 6 },
+    { name: '模板名称', value: 'name', type: 'text', class: "input", span: 6 },
     { name: '模板类型', value: 'template_type', type: 'text', class: "option", span: 6 }
   ];
   loading = false;
   searchData = {
     page: 1,
     pagesize: 16,
-    template_name: '',
+    name: '',
     template_type: null
   };
   data = [];
   total = 0;
   pagesizeAry = [16, 32, 48];
   theads = [
-    { name: '模板名称', value: 'template_name' },
+    { name: '模板名称', value: 'name' },
     { name: '模板类型', value: 'template_type' },
-    { name: '活动奖品', value: 'image' }
+    { name: '活动奖品', value: 'image' },
+    { name: '参与条件', value: 'join' }
   ];
   templateTypeOption = [];
   templateTypeObj = {};
@@ -34,6 +35,11 @@ export class TemplateComponent implements OnInit, OnDestroy {
     2: '三等奖',
     3: '四等奖',
     4: '五等奖'
+  };
+  constraintSex = {
+    0: '无限制',
+    1: '男性',
+    2: '女性'
   };
   constructor(
     private nzMessageService: NzMessageService,
@@ -90,7 +96,7 @@ export class TemplateComponent implements OnInit, OnDestroy {
     this.searchData = {
       page: 1,
       pagesize: this.searchData.pagesize,
-      template_name: '',
+      name: '',
       template_type: null
     };
     this.get_data();

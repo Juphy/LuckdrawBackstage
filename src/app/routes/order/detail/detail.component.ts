@@ -19,7 +19,10 @@ export class DetailComponent implements OnInit {
     track_number: ''
   };
   companyOption = [];
-  @Input() data: any = {};
+  address_info: any = {};
+  coupon_id: any;
+  couponObj: any = {};
+  @Input() data: any = { remark: '', images: [] };
   constructor(
     private serverService: ServerService,
     private nzMessageService: NzMessageService,
@@ -34,13 +37,24 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.address_info = this.data.address_info;
+    this.address_info = this.data.address_info;
+    this.coupon_id = this.data.coupon_id;
+    if (this.coupon_id) {
+      this.serverService.goods__coupon_info({ id: this.coupon_id }).subscribe(res => {
+        this.couponObj = res['result'];
+      })
+    }
     if (this.data.status >= 400) {
       this.steps = this.steps.concat([
         { name: '申请退款', value: 400 },
         { name: '已退款', value: 401 }
       ])
     }
+    this.steps.forEach((item, index) => {
+      if (this.data.status == item.value) {
+        this.current = index;
+      }
+    })
   }
 
   edit_ship() {

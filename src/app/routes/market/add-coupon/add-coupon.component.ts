@@ -20,7 +20,7 @@ export class AddCouponComponent implements OnInit {
   GroupOption = [];
   GroupObj = {};
   SpuOption = [];
-  goods_spus = []; // 已选择的商品
+  // goods_spus = []; // 已选择的商品
   validateForm: FormGroup;
   shopOption = [];
   option1 = [
@@ -87,7 +87,7 @@ export class AddCouponComponent implements OnInit {
     this.validateForm = this.fb.group({
       name: ['', [Validators.required]],
       type: [1, [Validators.required]],
-      minmum_consumption_price: [0, [Validators.required]],
+      minmum_consumption_price: [null, [Validators.required]],
       preferential_price: [null],
       deadline_date: [null, [Validators.required]]
     })
@@ -127,8 +127,11 @@ export class AddCouponComponent implements OnInit {
   }
 
   check_goods_spu(e) {
-    let spu = this.SpuOption.find(item => item.id == e);
-    this.goods_spus = [...this.goods_spus, spu];
+    if (!this.goods_spu) return;
+    if (!this.goods_spu_scopes.some(item => item.id === this.goods_spu)) {
+      let obj = this.SpuOption.find(item => item.id === this.goods_spu);
+      this.goods_spu_scopes = this.goods_spu_scopes.concat(obj);
+    }
   }
 
   search_spu(goods_name) {
@@ -161,7 +164,6 @@ export class AddCouponComponent implements OnInit {
   }
 
   make_sure() {
-    console.log(this.goods_group_scopes, this.goods_spus);
     let flag = false;
     for (const i in this.validateForm.controls) {
       let control = this.validateForm.controls[i];
@@ -175,7 +177,7 @@ export class AddCouponComponent implements OnInit {
     let goods_spu_scopes = this.goods_spu_scopes.map(item => item.id),
       minmum_consumption_price = Number((this.validateForm.get('minmum_consumption_price').value * 100).toFixed(0)),
       type = Number(this.validateForm.get('type').value),
-      deadline_date = formatDate(this.validateForm.get('deadline_date').value, 'yyyy-MM-dd', 'en-US'),
+      deadline_date = formatDate(this.validateForm.get('deadline_date').value, 'yyyy-MM-dd', 'zh-Hans'),
       preferential_price;
     switch (type) {
       case 1:

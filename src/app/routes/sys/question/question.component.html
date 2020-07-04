@@ -9,7 +9,7 @@
           <label>{{item.name}}</label>
           <ng-container [ngSwitch]="item.class">
             <ng-template ngSwitchCase="option">
-              <nz-select [(ngModel)]="searchData[item.value]" nzAllowClear="true">
+              <nz-select [(ngModel)]="searchData[item.value]" nzAllowClear="true" (ngModelChange)="get_data(true)">
                 <nz-option *ngFor="let o of typeOption" [nzLabel]="o.name" [nzValue]="o.value"></nz-option>
               </nz-select>
             </ng-template>

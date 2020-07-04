@@ -41,7 +41,7 @@
           </ng-container>
         </td>
         <td>
-          <button [disabled]="data.remark" nz-button class="ant-Mright" (click)="show_modal(data.id)">处理反馈</button>
+          <button [disabled]="!!data.status" nz-button class="ant-Mright" (click)="show_modal(data.id)">处理反馈</button>
         </td>
       </tr>
     </tbody>

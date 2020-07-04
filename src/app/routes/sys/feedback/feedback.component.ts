@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
-import { ServerService, MessageService } from '@core';
+import { ServerService, MessageService, Options } from '@core';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -18,17 +18,29 @@ export class FeedbackComponent implements OnInit {
   total = 0;
   pagesizeAry = [16, 32, 48];
   theads = [
+    { name: '反馈类型', value: '_type' },
     { name: '反馈问题', value: 'name' },
+    { name: '反馈人', value: 'contact' },
     { name: '反馈时间', value: 'created_at' },
+    { name: '处理人', value: 'handler_name' },
+    { name: '处理结果', value: 'remark' },
+    { name: '状态', value: '_status' }
   ];
   visible = false;
   okLoading = false;
   remark = '';
   id: number;
+  statusObj = {
+    1: '已处理',
+    0: '未处理'
+  };
+  feedbackObj = {};
   constructor(
     private nzMessageService: NzMessageService,
     private serverService: ServerService,
-  ) { }
+  ) {
+    this.feedbackObj = { ...Options.Feedback };
+  }
 
   ngOnInit() {
     this.get_data();
@@ -48,6 +60,8 @@ export class FeedbackComponent implements OnInit {
         this.data = res['data'];
         this.total = res['pageinfo']['total'];
         this.data.forEach(item => {
+          item['_type'] = this.feedbackObj[item.type];
+          item['_status'] = this.statusObj[item.status];
           item['name'] = JSON.parse(item.content)['ops'][0]['insert'];
           item['created_at'] = formatDate(item.created_at, 'yyyy-MM-dd HH:mm:ss', 'zh-Hans');
         })

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ServerService } from '@core';
 import { NzModalRef, isTemplateRef, NzMessageService } from 'ng-zorro-antd';
+import { isNumber } from 'util';
 declare const Number;
 @Component({
   selector: 'app-sku',
@@ -48,6 +49,8 @@ export class SkuComponent implements OnInit {
   Status = 0; // 0 下架 1上架
   spu_id;
   skus = [];
+  goodsName = '';
+  Skus = [];
   @Input() id: number = 0;
   constructor(
     private ServerService: ServerService,
@@ -55,13 +58,19 @@ export class SkuComponent implements OnInit {
     private nzMessageService: NzMessageService
   ) { }
 
+  format_money = (value: number) => value ? Number(value.toFixed(2)) : 0;
+  format_day = (value: number) => value ? Number(value.toFixed(0)) : 0;
+
   ngOnInit() {
     this.ServerService.goods__spu_skus({ id: this.id }).subscribe(res => {
       if (res['status'] === 200) {
         res = res['result'];
+        this.Dvalue['name'] = res.goods_name;
+        this.goodsName = res.goods_name;
         this.Status = res['status'];
         this.spu_id = res['id'];
-        this.skus = res.skus;
+        this.skus = [...res.skus];
+        this.Skus = [...res.skus];
         let specs = res['specs'];
         this.Specs = specs.map(item => item.spec_id);
         this.ServerService.goods__spec_list({}).subscribe(_res => {
@@ -82,7 +91,6 @@ export class SkuComponent implements OnInit {
                 flag: false
               }]
             })
-            console.log(this.specs);
             this.get_data();
           }
         })
@@ -90,7 +98,7 @@ export class SkuComponent implements OnInit {
     })
   }
 
-  get_data() {
+  get_data(flag?: boolean) {
     this.data = [];
     this.theads = [
       { name: '商品名称', value: 'name', n: 0 },
@@ -107,7 +115,7 @@ export class SkuComponent implements OnInit {
           item.option.forEach(id => {
             let d = this.skus.shift();
             let obj = {
-              name: d ? d.name : '',
+              name: d ? d.name : this.goodsName,
               price: d ? Number((d.price / 100).toFixed(2)) : null,
               point: d ? d.point : null,
               stock: d ? d.stock : null
@@ -141,6 +149,24 @@ export class SkuComponent implements OnInit {
         return s1 * s2
       }
     }, 1);
+    if (flag) {
+      this.data.forEach(item => {
+        let name = item.name;
+        for (let key in item) {
+          if (!['name', 'point', 'price', 'stock'].includes(key)) {
+            name = name + ' ' + this.SpecObj[item[key]].toString();
+          }
+        }
+        item.name = name;
+      })
+    }
+
+    this.Skus.forEach((item, index) => {
+      this.data[index]['name'] = item.name || this.goodsName;
+      this.data[index]['price'] = Number((item.price / 100).toFixed(2)) || 0;
+      this.data[index]['point'] = item.point || 0;
+      this.data[index]['stock'] = item.stock || 0;
+    })
   }
 
   change_allData() {
@@ -155,12 +181,21 @@ export class SkuComponent implements OnInit {
   save_data() {
     let flag = false, skus = [];
     this.data.forEach((item, index) => {
-      for (let key of ['name', 'price', 'point']) {
-        // if (item[key]) {
-        //   flag = true;
-        //   this.nzMessageService.error(`第${index + 1}行未填写完整！`);
-        // }
+      flag = false;
+      if (isNumber(item.stock)) {
+        for (let key of ['name', 'price', 'point']) {
+          if (!(item[key] || isNumber(item[key]))) {
+            flag = true;
+          }
+        }
+        if (flag) this.nzMessageService.error(`第${index + 1}行未填写完整！`);
+      } else {
+        item.stock = item.stock || 0;
+        item.price = item.price || 0;
+        item.point = item.point || 0;
+        item.name = item.name || '';
       }
+
       let obj = {
         name: item.name,
         price: Number((item.price * 100).toFixed(2)),
@@ -286,7 +321,7 @@ export class SkuComponent implements OnInit {
       s.flag = false;
       return;
     };
-    this.ServerService.goods__edit_spec_value({ spec_id: s['id'], spec_value: this.spec_value }).subscribe(res => {
+    this.ServerService.goods__add_spec_value({ spec_id: s['id'], spec_value: this.spec_value }).subscribe(res => {
       console.log(res);
       if (res['status'] === 200) {
         res = res['result'];

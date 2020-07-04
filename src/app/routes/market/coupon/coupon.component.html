@@ -42,14 +42,20 @@
       <tr *ngFor="let data of table.data">
         <td *ngFor="let t of theads">
           <ng-container [ngSwitch]="t.value">
+            <ng-template ngSwitchCase="shop_id">
+              {{shopObj[data.shop_id]}}
+            </ng-template>
             <ng-template ngSwitchCase="type">
               <ng-container *ngIf="data.type===1">
                 优惠额度：{{(data.preferential_price/100).toFixed(2)}}元
               </ng-container>
               <ng-container *ngIf="data.type===2">
-                优惠折扣：{{data.preferential_price[0]==0?'零':obj[data.preferential_price[0]]}}点
-                {{data.preferential_price[1]==0?'':obj[data.preferential_price[1]]}}折
+                优惠折扣：{{data.preferential_price[0]==0?'零':obj[data.preferential_price[0]]}}
+                {{data.preferential_price[1]==0?'':'点 '+obj[data.preferential_price[1]]}}折
               </ng-container>
+            </ng-template>
+            <ng-template ngSwitchCase="minmum_consumption_price">
+              {{(data.minmum_consumption_price/100).toFixed(2)}}
             </ng-template>
             <ng-template ngSwitchCase="status">
               {{status[data.status]}}
@@ -62,7 +68,7 @@
           <button nz-button class="ant-Mright" *ngIf="data.status===0" (click)="change_status(data.id, 1)"
             nzType="danger">失效</button>
           <button nz-button class="ant-Mright" *ngIf="data.status===1" (click)="change_status(data.id, 0)"
-            nzType="primary">失效</button>
+            nzType="primary">生效</button>
         </td>
       </tr>
     </tbody>

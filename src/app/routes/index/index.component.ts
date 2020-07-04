@@ -48,10 +48,12 @@ export class IndexComponent implements OnInit, AfterViewInit {
       let b = UserInfo['permission'].find(item => item.pid == a.id);
       this.path = b ? URLS[b['display_name']] : URL[a['display_name']];
     }
+    this
   }
 
   ngAfterViewInit() {
     this.swiper = new Swiper('.swiper-container', {
+      watchSlidesProgress: true,
       effect: 'slide',
       pagination: {
         el: '.swiper-pagination',
@@ -67,6 +69,8 @@ export class IndexComponent implements OnInit, AfterViewInit {
         delay: 2000,
         disableOnInteraction: false,
       },
+    })
+    this.swiper.on('slideChange', function () {
     })
   }
 
